@@ -14,7 +14,7 @@ import java.util.List;
         "FROM ContainerType ct WHERE ct.containerTypeCode = :typeId")
 })
 @Entity
-@Table(name = "containertype", uniqueConstraints = {
+@Table(name = "ContainerType", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "containerTypeCode")},
     indexes = {

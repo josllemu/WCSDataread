@@ -24,7 +24,7 @@ public class Movements extends AbstractEntity implements Serializable {
 
   private Long id;
   private String origSource;
-  private String source;
+  private String finalSource;
   private String destination;
   private String finalDest;
   private String mhe;
@@ -35,7 +35,7 @@ public class Movements extends AbstractEntity implements Serializable {
   private Integer reason;
   private Integer priority;
   private Integer txFlag;
-  private Integer group;
+  private Integer groupInfo;
   private Integer stage;
   private String containerId;
   private String category;
@@ -44,7 +44,7 @@ public class Movements extends AbstractEntity implements Serializable {
   private Integer origPriority;
   private Integer mission;
   private Integer wave;
-  private Integer load;
+  private Integer loadInfo;
   private Integer loadPart;
 
   public Movements() {
@@ -76,12 +76,12 @@ public class Movements extends AbstractEntity implements Serializable {
     this.origSource = origSource;
   }
 
-  public String getSource() {
-    return source;
+  public String getFinalSource() {
+    return finalSource;
   }
 
-  public void setSource(String source) {
-    this.source = source;
+  public void setFinalSource(String finalSource) {
+    this.finalSource = finalSource;
   }
 
   public String getDestination() {
@@ -164,12 +164,12 @@ public class Movements extends AbstractEntity implements Serializable {
     this.txFlag = txFlag;
   }
 
-  public Integer getGroup() {
-    return group;
+  public Integer getGroupInfo() {
+    return groupInfo;
   }
 
-  public void setGroup(Integer group) {
-    this.group = group;
+  public void setGroupInfo(Integer groupInfo) {
+    this.groupInfo = groupInfo;
   }
 
   public Integer getStage() {
@@ -236,12 +236,12 @@ public class Movements extends AbstractEntity implements Serializable {
     this.wave = wave;
   }
 
-  public Integer getLoad() {
-    return load;
+  public Integer getLoadInfo() {
+    return loadInfo;
   }
 
-  public void setLoad(Integer load) {
-    this.load = load;
+  public void setLoadInfo(Integer loadInfo) {
+    this.loadInfo = loadInfo;
   }
 
   public Integer getLoadPart() {
@@ -257,7 +257,7 @@ public class Movements extends AbstractEntity implements Serializable {
     return "Movements{" +
         "id=" + id +
         ", origSource='" + origSource + '\'' +
-        ", source='" + source + '\'' +
+        ", finalSource='" + finalSource + '\'' +
         ", destination='" + destination + '\'' +
         ", finalDest='" + finalDest + '\'' +
         ", mhe='" + mhe + '\'' +
@@ -268,7 +268,7 @@ public class Movements extends AbstractEntity implements Serializable {
         ", reason=" + reason +
         ", priority=" + priority +
         ", txFlag=" + txFlag +
-        ", group=" + group +
+        ", groupInfo=" + groupInfo +
         ", stage=" + stage +
         ", containerId='" + containerId + '\'' +
         ", category='" + category + '\'' +
@@ -277,7 +277,7 @@ public class Movements extends AbstractEntity implements Serializable {
         ", origPriority=" + origPriority +
         ", mission=" + mission +
         ", wave=" + wave +
-        ", load=" + load +
+        ", loadInfo=" + loadInfo +
         ", loadPart=" + loadPart +
         '}';
   }

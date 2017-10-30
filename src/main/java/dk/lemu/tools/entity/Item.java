@@ -12,7 +12,7 @@ import java.util.List;
     @NamedQuery(name = "Item.findbyItemCode", query = "SELECT object(i) FROM Item i WHERE i.item_code = :itemCode")
 })
 @Entity
-@Table(name = "item", uniqueConstraints = {
+@Table(name = "Item", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "item_code")},
     indexes = {

@@ -13,7 +13,7 @@ import java.util.List;
     @NamedQuery(name = "ItemConf.findbyItem", query = "SELECT object(ic) FROM ItemConf ic WHERE ic.item = :item_id")
 })
 @Entity
-@Table(name = "itemconf", uniqueConstraints = {
+@Table(name = "ItemConf", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "item")},
     indexes = {
