@@ -34,6 +34,8 @@ public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
     commit();
   }
 
+  //TVTVT
+
   public Movements findByItem(String unit) {
     Query query = currentSession().getNamedQuery("Movements.findByUnit");
     query.setParameter("unit", unit);
