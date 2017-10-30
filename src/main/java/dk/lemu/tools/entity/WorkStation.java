@@ -25,7 +25,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
   private String description; //2
   private String documentPrinter; //3
   private String labelPrinter; //4
-  private MHEInfo mhe; //5
+  private String mhe; //5
   private String guidePrinter; //6
   private String trotterPrinter; //7
 
@@ -92,11 +92,11 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.labelPrinter = labelPrinter;
   }
 
-  public MHEInfo getMhe() {
+  public String getMhe() {
     return mhe;
   }
 
-  public void setMhe(MHEInfo mhe) {
+  public void setMhe(String mhe) {
     this.mhe = mhe;
   }
 

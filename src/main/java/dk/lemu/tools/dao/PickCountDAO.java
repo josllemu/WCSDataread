@@ -1,7 +1,5 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.Item;
-import dk.lemu.tools.entity.ItemExt;
 import dk.lemu.tools.entity.PickCount;
 import org.hibernate.query.Query;
 
@@ -36,7 +34,7 @@ public class PickCountDAO extends GenericDAOImplementation <PickCount, Long>{
     commit();
   }
 
-  public PickCount findByItem(Item item) {
+  public PickCount findByItem(String item) {
     Query query = currentSession().getNamedQuery("PickCount.findbyItem");
     query.setParameter("item_id", item);
     return (PickCount) query.uniqueResult();

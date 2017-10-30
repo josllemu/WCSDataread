@@ -1,7 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ConfigurationCodeDAO;
-import dk.lemu.tools.dao.ItemDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -17,18 +15,18 @@ import java.util.List;
 @Entity
 @Table(name = "itemconf", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_id")},
+    @UniqueConstraint(columnNames = "item")},
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "id, item_id")})
+        @Index(columnList = "item"),
+        @Index(columnList = "id, item")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ItemConf extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Item item; //0
+  private String item; //0
   private String client_code; //1
-  private ConfigurationCode itemConf; //2
+  private String itemConf; //2
   private String description; //3
   private String subConf; //4
   private Integer subFactor = 0; //5
@@ -59,18 +57,11 @@ public class ItemConf extends AbstractEntity implements Serializable {
   }
 
   public ItemConf(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
-    ConfigurationCodeDAO configurationCodeDAO = new ConfigurationCodeDAO();
-    ConfigurationCode configurationCode = configurationCodeDAO.findByConfigurationCode(list.get(2));
-    if (configurationCode == null) {
-      configurationCode = new ConfigurationCode();
-      configurationCode.setCode(list.get(2));
-      configurationCodeDAO.saveOrUpdate(configurationCode);
-    }
 
-    this.setItem(itemDAO.findByItemCode(list.get(0)));
+
+    this.setItem(list.get(0));
     this.setClient_code(list.get(1));
-    this.setItemConf(configurationCode);
+    this.setItemConf(list.get(2));
     this.setDescription(list.get(3));
     this.setSubConf(list.get(4));
     this.setSubFactor((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
@@ -110,13 +101,12 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
-  public Item getItem() {
+  @Column(name = "item")
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
@@ -129,13 +119,46 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.client_code = client_code;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "configurationcode_id", nullable = false)
-  public ConfigurationCode getItemConf() {
+  @Override
+  public String toString() {
+    return "ItemConf{" +
+        "id=" + id +
+        ", item='" + item + '\'' +
+        ", client_code='" + client_code + '\'' +
+        ", itemConf='" + itemConf + '\'' +
+        ", description='" + description + '\'' +
+        ", subConf='" + subConf + '\'' +
+        ", subFactor=" + subFactor +
+        ", height=" + height +
+        ", length=" + length +
+        ", width=" + width +
+        ", barcode='" + barcode + '\'' +
+        ", grossWtTolPos=" + grossWtTolPos +
+        ", grossWtTolNeg=" + grossWtTolNeg +
+        ", gross_weight=" + gross_weight +
+        ", maxStackWt=" + maxStackWt +
+        ", minStackArea=" + minStackArea +
+        ", invCheckLev=" + invCheckLev +
+        ", itemVol=" + itemVol +
+        ", velocity_code='" + velocity_code + '\'' +
+        ", vacuumCode=" + vacuumCode +
+        ", serialNumReqd=" + serialNumReqd +
+        ", newItem=" + newItem +
+        ", stackability=" + stackability +
+        ", netWeight=" + netWeight +
+        ", measured_qty=" + measured_qty +
+        ", barcode2='" + barcode2 + '\'' +
+        ", barcode3='" + barcode3 + '\'' +
+        ", barcode4='" + barcode4 + '\'' +
+        '}';
+  }
+
+  @Column(name = "itemConf", nullable = false)
+  public String getItemConf() {
     return itemConf;
   }
 
-  public void setItemConf(ConfigurationCode itemConf) {
+  public void setItemConf(String itemConf) {
     this.itemConf = itemConf;
   }
 
@@ -353,40 +376,6 @@ public class ItemConf extends AbstractEntity implements Serializable {
 
   public void setNetWeight(Double netWeight) {
     this.netWeight = netWeight;
-  }
-
-  @Override
-  public String toString() {
-    return "ItemConf{" +
-        "id=" + id +
-        ", item=" + (item != null ? item.getItem_code() : null) +
-        ", client_code='" + client_code + '\'' +
-        ", itemConf=" + (itemConf != null ? itemConf.getCode() : null) +
-        ", description='" + description + '\'' +
-        ", subConf='" + subConf + '\'' +
-        ", subFactor=" + subFactor +
-        ", height=" + height +
-        ", length=" + length +
-        ", width=" + width +
-        ", barcode='" + barcode + '\'' +
-        ", grossWtTolPos=" + grossWtTolPos +
-        ", grossWtTolNeg=" + grossWtTolNeg +
-        ", gross_weight=" + gross_weight +
-        ", maxStackWt=" + maxStackWt +
-        ", minStackArea=" + minStackArea +
-        ", invCheckLev=" + invCheckLev +
-        ", itemVol=" + itemVol +
-        ", velocity_code='" + velocity_code + '\'' +
-        ", vacuumCode=" + vacuumCode +
-        ", serialNumReqd=" + serialNumReqd +
-        ", newItem=" + newItem +
-        ", stackability=" + stackability +
-        ", netWeight=" + netWeight +
-        ", measured_qty=" + measured_qty +
-        ", barcode2='" + barcode2 + '\'' +
-        ", barcode3='" + barcode3 + '\'' +
-        ", barcode4='" + barcode4 + '\'' +
-        '}';
   }
 
 }

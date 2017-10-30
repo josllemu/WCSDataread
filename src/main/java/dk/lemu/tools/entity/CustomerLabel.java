@@ -37,7 +37,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
   private String orderType;
   private String zipCodeArea;
   private String salesOrderNum;
-  private WMSOrder orderNumber;
+  private String orderNumber;
   private Date packDate;
   private String despatchRemarks;
   private String remarks;
@@ -186,11 +186,11 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "orderNumber")
-  public WMSOrder getOrderNumber() {
+  public String getOrderNumber() {
     return orderNumber;
   }
 
-  public void setOrderNumber(WMSOrder orderNumber) {
+  public void setOrderNumber(String orderNumber) {
     this.orderNumber = orderNumber;
   }
 
@@ -274,7 +274,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
         ", orderType='" + orderType + '\'' +
         ", zipCodeArea='" + zipCodeArea + '\'' +
         ", salesOrderNum='" + salesOrderNum + '\'' +
-        ", orderNumber='" + orderNumber.getOrderId() + '\'' +
+        ", orderNumber='" + orderNumber + '\'' +
         ", packDate=" + packDate +
         ", despatchRemarks='" + despatchRemarks + '\'' +
         ", remarks='" + remarks + '\'' +

@@ -10,16 +10,16 @@ import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "OperatorEvent.findByUnit", query = "SELECT object(o) FROM OperatorEvent o WHERE o.unit = :unit")
+    @NamedQuery(name = "OperatorEvent.findByHisID", query = "SELECT object(o) FROM OperatorEvent o WHERE o.hisID = :his_ID")
 })
 @Entity
 @Table(name = "OperatorEvent", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+    @UniqueConstraint(columnNames = "hisID")},
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "hisID"),
+        @Index(columnList = "id, hisID")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class OperatorEvent extends AbstractEntity implements Serializable {
 
@@ -28,19 +28,19 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
   private String jobType;
   private Date timestamp;
   private Long timeUsage;
-  private User user;
-  private Zone Zone;
+  private String user;
+  private String Zone;
   private Location FromLocation;
   private Location ViaLocation;
   private Location ToLocation;
-  private WMSOrder orderId;
-//  OrderNumber
+  private String orderId;
+  private String OrderNumber;
   private Integer AllocRef;
-  private WMSOrderLine lineId;
+  private String lineId;
   private Integer Priority;
-  private Item item;
-  private Container FromContainer;
-  private Container ToContainer;
+  private String item;
+  private String FromContainer;
+  private String ToContainer;
   private Double FromQtyBefore;
   private Double FromQtyAfter;
   private Double ToQtyBefore;
@@ -107,19 +107,19 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.timeUsage = timeUsage;
   }
 
-  public User getUser() {
+  public String getUser() {
     return user;
   }
 
-  public void setUser(User user) {
+  public void setUser(String user) {
     this.user = user;
   }
 
-  public dk.lemu.tools.entity.Zone getZone() {
+  public String getZone() {
     return Zone;
   }
 
-  public void setZone(dk.lemu.tools.entity.Zone zone) {
+  public void setZone(String zone) {
     Zone = zone;
   }
 
@@ -147,11 +147,11 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     ToLocation = toLocation;
   }
 
-  public WMSOrder getOrderId() {
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(WMSOrder orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 
@@ -163,11 +163,11 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     AllocRef = allocRef;
   }
 
-  public WMSOrderLine getLineId() {
+  public String getLineId() {
     return lineId;
   }
 
-  public void setLineId(WMSOrderLine lineId) {
+  public void setLineId(String lineId) {
     this.lineId = lineId;
   }
 
@@ -179,27 +179,27 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     Priority = priority;
   }
 
-  public Item getItem() {
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
-  public Container getFromContainer() {
+  public String getFromContainer() {
     return FromContainer;
   }
 
-  public void setFromContainer(Container fromContainer) {
+  public void setFromContainer(String fromContainer) {
     FromContainer = fromContainer;
   }
 
-  public Container getToContainer() {
+  public String getToContainer() {
     return ToContainer;
   }
 
-  public void setToContainer(Container toContainer) {
+  public void setToContainer(String toContainer) {
     ToContainer = toContainer;
   }
 
@@ -259,6 +259,14 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.dbDato = dbDato;
   }
 
+  public String getOrderNumber() {
+    return OrderNumber;
+  }
+
+  public void setOrderNumber(String orderNumber) {
+    OrderNumber = orderNumber;
+  }
+
   @Override
   public String toString() {
     return "OperatorEvent{" +
@@ -267,19 +275,19 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
         ", jobType='" + jobType + '\'' +
         ", timestamp=" + timestamp +
         ", timeUsage=" + timeUsage +
-        ", user=" + user +
-        ", Zone=" + Zone +
+        ", user='" + user + '\'' +
+        ", Zone='" + Zone + '\'' +
         ", FromLocation=" + FromLocation +
         ", ViaLocation=" + ViaLocation +
         ", ToLocation=" + ToLocation +
-        ", orderId=" + (orderId != null ? orderId.getOrderId() : null) +
-        ", orderId=" + (orderId != null ? orderId.getOrderNumber() : null) +
+        ", orderId='" + orderId + '\'' +
+        ", OrderNumber='" + OrderNumber + '\'' +
         ", AllocRef=" + AllocRef +
-        ", lineId=" + lineId +
+        ", lineId='" + lineId + '\'' +
         ", Priority=" + Priority +
-        ", item=" + item +
-        ", FromContainer=" + FromContainer +
-        ", ToContainer=" + ToContainer +
+        ", item='" + item + '\'' +
+        ", FromContainer='" + FromContainer + '\'' +
+        ", ToContainer='" + ToContainer + '\'' +
         ", FromQtyBefore=" + FromQtyBefore +
         ", FromQtyAfter=" + FromQtyAfter +
         ", ToQtyBefore=" + ToQtyBefore +

@@ -9,7 +9,7 @@ public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
 
   @Override
   public void saveOrUpdate(LMGSSCC entity) throws Exception {
-    LMGSSCC candidate = findByItem(entity.getUnit());
+    LMGSSCC candidate = findByItem(entity.getId());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
     commit();
   }
 
-  public LMGSSCC findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("LMGSSCC.findByUnit");
-    query.setParameter("unit", unit);
+  public LMGSSCC findByItem(Long id) {
+    Query query = currentSession().getNamedQuery("LMGSSCC.findById");
+    query.setParameter("id", id);
     return (LMGSSCC) query.uniqueResult();
   }
 }

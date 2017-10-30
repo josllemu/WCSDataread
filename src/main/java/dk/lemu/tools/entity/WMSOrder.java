@@ -47,7 +47,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   private Integer pallets; //13
   private Integer packageNo; //14
   private Integer stage; //15
-  private WorkStation workStation; //16
+  private String workStation; //16
   private Boolean printRequired; //17
   private Date dbDate = new Date();
 
@@ -201,11 +201,11 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  public WorkStation getWorkStation() {
+  public String getWorkStation() {
     return workStation;
   }
 
-  public void setWorkStation(WorkStation workStation) {
+  public void setWorkStation(String workStation) {
     this.workStation = workStation;
   }
 

@@ -9,16 +9,13 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "LMGSSCC.findByUnit", query = "SELECT object(o) FROM LMGSSCC o WHERE o.unit = :unit")
+    @NamedQuery(name = "LMGSSCC.findById", query = "SELECT object(o) FROM LMGSSCC o WHERE o.id = :id")
 })
 @Entity
 @Table(name = "LMGSSCC", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+    @UniqueConstraint(columnNames = "id")},
     indexes = {
-        @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "id")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class LMGSSCC extends AbstractEntity implements Serializable {
 

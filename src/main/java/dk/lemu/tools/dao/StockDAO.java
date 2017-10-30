@@ -1,7 +1,5 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.Container;
-import dk.lemu.tools.entity.Item;
 import dk.lemu.tools.entity.Stock;
 import org.hibernate.query.Query;
 
@@ -35,7 +33,7 @@ public class StockDAO extends GenericDAOImplementation <Stock, Long>{
     commit();
   }
 
-  public Stock findByItemCodeAndContainer(Item itemCode, Container containerId, Date timeReceived) {
+  public Stock findByItemCodeAndContainer(String itemCode, String containerId, Date timeReceived) {
     Query query = currentSession().getNamedQuery("Stock.findByItemCodeAndContainerAndTimeReceived");
     query.setParameter("itemCode", itemCode);
     query.setParameter("containerId", containerId);

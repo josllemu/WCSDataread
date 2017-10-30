@@ -1,7 +1,5 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.Item;
-import dk.lemu.tools.entity.ItemConf;
 import dk.lemu.tools.entity.ItemExt;
 import org.hibernate.query.Query;
 
@@ -36,7 +34,7 @@ public class ItemExtDAO extends GenericDAOImplementation <ItemExt, Long>{
     commit();
   }
 
-  public ItemExt findByItem(Item item) {
+  public ItemExt findByItem(String item) {
     Query query = currentSession().getNamedQuery("ItemExt.findbyItem");
     query.setParameter("item_id", item);
     return (ItemExt) query.uniqueResult();

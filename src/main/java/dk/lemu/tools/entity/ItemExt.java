@@ -1,7 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ConfigurationCodeDAO;
-import dk.lemu.tools.dao.ItemDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,8 +24,8 @@ import java.util.List;
 public class ItemExt extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Item item; //0
-  private ConfigurationCode itemConf; //1
+  private String item; //0
+  private String itemConf; //1
   private String clientCode; //2
   private Integer result; //3
   private Integer minRefill1; //4
@@ -63,12 +61,11 @@ public class ItemExt extends AbstractEntity implements Serializable {
   }
 
   public ItemExt(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
-    ConfigurationCodeDAO configurationCodeDAO = new ConfigurationCodeDAO();
 
-    this.setItem(itemDAO.findByItemCode(list.get(0)));
+
+    this.setItem(list.get(0));
     this.setClientCode(list.get(1));
-    this.setItemConf(configurationCodeDAO.findByConfigurationCode(list.get(2)));
+    this.setItemConf(list.get(2));
     this.setResult((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setMinRefill1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
     this.setMaxRefill1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
@@ -113,13 +110,12 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
-  public Item getItem() {
+  @Column(name = "item_id")
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
@@ -132,13 +128,12 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "configurationcode_id", nullable = false)
-  public ConfigurationCode getItemConf() {
+  @Column(name = "itemConf", nullable = false)
+  public String getItemConf() {
     return itemConf;
   }
 
-  public void setItemConf(ConfigurationCode itemConf) {
+  public void setItemConf(String itemConf) {
     this.itemConf = itemConf;
   }
 
@@ -398,8 +393,8 @@ public class ItemExt extends AbstractEntity implements Serializable {
   public String toString() {
     return "ItemExt{" +
         "id=" + id +
-        ", item=" + item.getItem_code() +
-        ", itemConf=" + itemConf.getCode() +
+        ", item='" + item + '\'' +
+        ", itemConf='" + itemConf + '\'' +
         ", clientCode='" + clientCode + '\'' +
         ", result=" + result +
         ", minRefill1=" + minRefill1 +

@@ -1,8 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ContainerDAO;
-import dk.lemu.tools.dao.ContainerTypeDAO;
-import dk.lemu.tools.dao.LocationDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -62,10 +59,42 @@ public class Container extends AbstractContainer implements Serializable {
 
   }
 
+  @Override
+  public String toString() {
+    return "Container{" +
+        "location='" + location + '\'' +
+        ", storageTime=" + storageTime +
+        ", audit_date=" + audit_date +
+        ", auditRef='" + auditRef + '\'' +
+        ", weight=" + weight +
+        ", height=" + height +
+        ", weightStatus='" + weightStatus + '\'' +
+        ", heightStatus='" + heightStatus + '\'' +
+        ", container='" + container + '\'' +
+        ", type='" + type + '\'' +
+        ", holdingContainer='" + holdingContainer + '\'' +
+        ", auditStatus=" + auditStatus +
+        ", wrapped=" + wrapped +
+        ", labelled=" + labelled +
+        ", lastUserMoved='" + lastUserMoved + '\'' +
+        ", picked=" + picked +
+        ", Temperature=" + Temperature +
+        ", profileStatus=" + profileStatus +
+        ", containerStatus=" + containerStatus +
+        ", lastAllokationTime=" + lastAllokationTime +
+        ", fullStatus='" + fullStatus + '\'' +
+        ", orientation='" + orientation + '\'' +
+        ", bitMap='" + bitMap + '\'' +
+        ", pickGroup='" + pickGroup + '\'' +
+        ", relocate=" + relocate +
+        ", width=" + width +
+        ", length=" + length +
+        ", dbDate=" + dbDate +
+        ", locType=" + locType +
+        '}';
+  }
+
   public Container(List<String> list) throws Exception {
-    ContainerDAO containerDAO = new ContainerDAO();
-    ContainerTypeDAO containerTypeDAO = new ContainerTypeDAO();
-    LocationDAO locationDAO = new LocationDAO();
 
     this.setLocation(list.get(0));
     this.setStorageTime((Date) TypeParser.fromCSVFile(Date.class, list.get(1)));
@@ -355,40 +384,6 @@ public class Container extends AbstractContainer implements Serializable {
 
   public void setDbDate(Date dbDate) {
     this.dbDate = dbDate;
-  }
-
-  @Override
-  public String toString() {
-    return "Container{" +
-        "location=" + location+ '\'' +
-        ", storageTime=" + storageTime +
-        ", audit_date=" + audit_date +
-        ", auditRef='" + auditRef + '\'' +
-        ", weight=" + weight +
-        ", height=" + height +
-        ", weightStatus='" + weightStatus + '\'' +
-        ", heightStatus='" + heightStatus + '\'' +
-        ", container='" + container + '\'' +
-        ", type=" + type  + '\'' +
-        ", holdingContainer=" +holdingContainer  + '\'' +
-        ", auditStatus=" + auditStatus +
-        ", wrapped=" + wrapped +
-        ", labelled=" + labelled +
-        ", lastUserMoved='" + lastUserMoved + '\'' +
-        ", picked=" + picked +
-        ", Temperature=" + Temperature +
-        ", profileStatus=" + profileStatus +
-        ", containerStatus=" + containerStatus +
-        ", lastAllokationTime=" + lastAllokationTime +
-        ", fullStatus='" + fullStatus + '\'' +
-        ", orientation='" + orientation + '\'' +
-        ", bitMap='" + bitMap + '\'' +
-        ", pickGroup='" + pickGroup + '\'' +
-        ", relocate=" + relocate +
-        ", width=" + width +
-        ", length=" + length +
-        ", locType=" + locType +
-        '}';
   }
 
 }

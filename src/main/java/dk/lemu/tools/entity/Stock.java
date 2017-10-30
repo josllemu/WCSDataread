@@ -1,8 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ConfigurationCodeDAO;
-import dk.lemu.tools.dao.ContainerDAO;
-import dk.lemu.tools.dao.ItemDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -24,18 +21,17 @@ import java.util.List;
 },
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "id, item_id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "container_id"),
-        @Index(columnList = "id, item_id, container_id, timeReceived"),
-
-        @Index(columnList = "id, item_id, container_id")})
+        @Index(columnList = "id, item"),
+        @Index(columnList = "item"),
+        @Index(columnList = "container"),
+        @Index(columnList = "id, item, container, timeReceived"),
+        @Index(columnList = "id, item, container")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Stock extends AbstractEntity implements Serializable {
 
 
   private Long id;
-  private Container container; //0
+  private String container; //0
   private Integer sequence; //1
   private Date rotation0;//2
   private Date rotation1;//3
@@ -43,8 +39,8 @@ public class Stock extends AbstractEntity implements Serializable {
   private Date rotation3;//5
   private String status; //6
   private String clientCode; //7
-  private Item item; //8
-  private ConfigurationCode itemConf; //9
+  private String item; //8
+  private String itemConf; //9
   private Double qty; //10
   private Integer allocRef; //11
   private String batchRef; //12
@@ -69,11 +65,9 @@ public class Stock extends AbstractEntity implements Serializable {
   }
 
   public Stock(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
-    ContainerDAO containerDAO = new ContainerDAO();
-    ConfigurationCodeDAO configurationCodeDAO = new ConfigurationCodeDAO();
 
-    this.setContainer(containerDAO.findByContainer(list.get(0)));
+
+    this.setContainer(list.get(0));
     this.setSequence((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
     this.setRotation0((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
     this.setRotation1((Date) TypeParser.fromCSVFile(Date.class, list.get(3)));
@@ -81,8 +75,8 @@ public class Stock extends AbstractEntity implements Serializable {
     this.setRotation3((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
     this.setStatus(list.get(6));
     this.setClientCode(list.get(7));
-    this.setItem(itemDAO.findByItemCode(list.get(8)));
-    this.setItemConf(configurationCodeDAO.findByConfigurationCode(list.get(9)));
+    this.setItem(list.get(8));
+    this.setItemConf(list.get(9));
     this.setQty((Double) TypeParser.fromCSVFile(Double.class, list.get(10)));
     this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
     this.setBatchRef(list.get(12));
@@ -117,23 +111,21 @@ public class Stock extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id", nullable = false)
-  public Item getItem() {
+  @Column(name = "item", nullable = false)
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "container_id", nullable = false)
-  public Container getContainer() {
+  @Column(name = "container", nullable = false)
+  public String getContainer() {
     return container;
   }
 
-  public void setContainer(Container container) {
+  public void setContainer(String container) {
     this.container = container;
   }
 
@@ -209,13 +201,12 @@ public class Stock extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "configurationcode_id", nullable = false)
-  public ConfigurationCode getItemConf() {
+  @Column(name = "configurationcode", nullable = false)
+  public String getItemConf() {
     return itemConf;
   }
 
-  public void setItemConf(ConfigurationCode itemConf) {
+  public void setItemConf(String itemConf) {
     this.itemConf = itemConf;
   }
 
@@ -376,7 +367,7 @@ public class Stock extends AbstractEntity implements Serializable {
   public String toString() {
     return "Stock{" +
         "id=" + id +
-        ", container=" + container.getContainer() +
+        ", container='" + container + '\'' +
         ", sequence=" + sequence +
         ", rotation0=" + rotation0 +
         ", rotation1=" + rotation1 +
@@ -384,7 +375,7 @@ public class Stock extends AbstractEntity implements Serializable {
         ", rotation3=" + rotation3 +
         ", status='" + status + '\'' +
         ", clientCode='" + clientCode + '\'' +
-        ", item=" + item.getItem_code() +
+        ", item='" + item + '\'' +
         ", itemConf='" + itemConf + '\'' +
         ", qty=" + qty +
         ", allocRef=" + allocRef +
