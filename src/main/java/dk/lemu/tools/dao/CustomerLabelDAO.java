@@ -19,9 +19,6 @@ public class CustomerLabelDAO extends GenericDAOImplementation <CustomerLabel, L
   }
 
 
-  //Test
-
-
   @Override
   public void multiSaveOrUpdate(Collection<CustomerLabel> entities) throws Exception {
     int count=0;
