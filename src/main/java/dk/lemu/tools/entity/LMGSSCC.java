@@ -23,7 +23,6 @@ import java.util.List;
 public class LMGSSCC extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String unit;
 
 
 
@@ -52,12 +51,5 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public String getUnit() {
-    return unit;
-  }
-
-  public void setUnit(String unit) {
-    this.unit = unit;
-  }
 }
 
