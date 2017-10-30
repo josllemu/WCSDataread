@@ -10,16 +10,16 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "EmptyContainer.findByUnit", query = "SELECT object(o) FROM EmptyContainer o WHERE o.unit = :unit")
+    @NamedQuery(name = "EmptyContainer.findByCategory", query = "SELECT object(o) FROM EmptyContainer o WHERE o.category = :category")
 })
 @Entity
 @Table(name = "EmptyContainer", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+    @UniqueConstraint(columnNames = "category")},
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "category"),
+        @Index(columnList = "id, category")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class EmptyContainer extends AbstractEntity implements Serializable {
 
