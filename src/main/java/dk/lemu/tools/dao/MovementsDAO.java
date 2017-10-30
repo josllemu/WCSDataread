@@ -4,12 +4,13 @@ import dk.lemu.tools.entity.Movements;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
+import java.util.Date;
 
 public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
 
   @Override
   public void saveOrUpdate(Movements entity) throws Exception {
-    Movements candidate = findByItem(entity.getUnit());
+    Movements candidate = findByOrigSourceAndCreateTime(entity.getOrigSource(), entity.getCreateTime());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +35,10 @@ public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
     commit();
   }
 
-  public Movements findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("Movements.findByUnit");
-    query.setParameter("unit", unit);
+  public Movements findByOrigSourceAndCreateTime(String origSource, Date createTime) {
+    Query query = currentSession().getNamedQuery("Movements.findByOrigSourceAndCreateTime");
+    query.setParameter("origSource", origSource);
+    query.setParameter("createTime", createTime);
     return (Movements) query.uniqueResult();
   }
 }

@@ -119,40 +119,6 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.client_code = client_code;
   }
 
-  @Override
-  public String toString() {
-    return "ItemConf{" +
-        "id=" + id +
-        ", item='" + item + '\'' +
-        ", client_code='" + client_code + '\'' +
-        ", itemConf='" + itemConf + '\'' +
-        ", description='" + description + '\'' +
-        ", subConf='" + subConf + '\'' +
-        ", subFactor=" + subFactor +
-        ", height=" + height +
-        ", length=" + length +
-        ", width=" + width +
-        ", barcode='" + barcode + '\'' +
-        ", grossWtTolPos=" + grossWtTolPos +
-        ", grossWtTolNeg=" + grossWtTolNeg +
-        ", gross_weight=" + gross_weight +
-        ", maxStackWt=" + maxStackWt +
-        ", minStackArea=" + minStackArea +
-        ", invCheckLev=" + invCheckLev +
-        ", itemVol=" + itemVol +
-        ", velocity_code='" + velocity_code + '\'' +
-        ", vacuumCode=" + vacuumCode +
-        ", serialNumReqd=" + serialNumReqd +
-        ", newItem=" + newItem +
-        ", stackability=" + stackability +
-        ", netWeight=" + netWeight +
-        ", measured_qty=" + measured_qty +
-        ", barcode2='" + barcode2 + '\'' +
-        ", barcode3='" + barcode3 + '\'' +
-        ", barcode4='" + barcode4 + '\'' +
-        '}';
-  }
-
   @Column(name = "itemConf", nullable = false)
   public String getItemConf() {
     return itemConf;
@@ -378,4 +344,37 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.netWeight = netWeight;
   }
 
+  @Override
+  public String toString() {
+    return "ItemConf{" +
+        "id=" + id +
+        ", item='" + item + '\'' +
+        ", client_code='" + client_code + '\'' +
+        ", itemConf='" + itemConf + '\'' +
+        ", description='" + description + '\'' +
+        ", subConf='" + subConf + '\'' +
+        ", subFactor=" + subFactor +
+        ", height=" + height +
+        ", length=" + length +
+        ", width=" + width +
+        ", barcode='" + barcode + '\'' +
+        ", grossWtTolPos=" + grossWtTolPos +
+        ", grossWtTolNeg=" + grossWtTolNeg +
+        ", gross_weight=" + gross_weight +
+        ", maxStackWt=" + maxStackWt +
+        ", minStackArea=" + minStackArea +
+        ", invCheckLev=" + invCheckLev +
+        ", itemVol=" + itemVol +
+        ", velocity_code='" + velocity_code + '\'' +
+        ", vacuumCode=" + vacuumCode +
+        ", serialNumReqd=" + serialNumReqd +
+        ", newItem=" + newItem +
+        ", stackability=" + stackability +
+        ", netWeight=" + netWeight +
+        ", measured_qty=" + measured_qty +
+        ", barcode2='" + barcode2 + '\'' +
+        ", barcode3='" + barcode3 + '\'' +
+        ", barcode4='" + barcode4 + '\'' +
+        '}';
+  }
 }

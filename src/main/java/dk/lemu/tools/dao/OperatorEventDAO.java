@@ -1,15 +1,15 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.MoveJobDesc;
+import dk.lemu.tools.entity.OperatorEvent;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class MoveJobDescDAO extends GenericDAOImplementation <MoveJobDesc, Long>{
+public class OperatorEventDAO extends GenericDAOImplementation <OperatorEvent, Long>{
 
   @Override
-  public void saveOrUpdate(MoveJobDesc entity) throws Exception {
-    MoveJobDesc candidate = findByMoveJob(entity.getMoveJob());
+  public void saveOrUpdate(OperatorEvent entity) throws Exception {
+    OperatorEvent candidate = findByHisID(entity.getHisID());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -19,9 +19,9 @@ public class MoveJobDescDAO extends GenericDAOImplementation <MoveJobDesc, Long>
   }
 
   @Override
-  public void multiSaveOrUpdate(Collection<MoveJobDesc> entities) throws Exception {
+  public void multiSaveOrUpdate(Collection<OperatorEvent> entities) throws Exception {
     int count=0;
-    for (MoveJobDesc l : entities) {
+    for (OperatorEvent l : entities) {
 
       saveOrUpdate(l);
       if ( ++count % 50 == 0 ) {
@@ -34,9 +34,9 @@ public class MoveJobDescDAO extends GenericDAOImplementation <MoveJobDesc, Long>
     commit();
   }
 
-  public MoveJobDesc findByMoveJob(String moveJob) {
-    Query query = currentSession().getNamedQuery("MoveJobDesc.findByMoveJob");
-    query.setParameter("moveJob", moveJob);
-    return (MoveJobDesc) query.uniqueResult();
+  public OperatorEvent findByHisID(Long hisID) {
+    Query query = currentSession().getNamedQuery("OperatorEvent.findByHisID");
+    query.setParameter("his_ID", hisID);
+    return (OperatorEvent) query.uniqueResult();
   }
 }

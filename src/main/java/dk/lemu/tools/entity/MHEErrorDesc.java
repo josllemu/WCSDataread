@@ -9,34 +9,30 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "MHEErrorDesc.findByUnit", query = "SELECT object(o) FROM MHEErrorDesc o WHERE o.unit = :unit")
+    @NamedQuery(name = "MHEErrorDesc.findByDescription", query = "SELECT object(o) FROM MHEErrorDesc o WHERE o.description = :description")
 })
 @Entity
 @Table(name = "MHEErrorDesc", uniqueConstraints = {
     @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+    @UniqueConstraint(columnNames = "description")},
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "description"),
+        @Index(columnList = "id, description")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MHEErrorDesc extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String unit;
-
-
-
-
-
-
+  private Integer type; //0
+  private Integer errorCode; //1
+  private Integer errorSubCode; //2
+  private String description; //3
 
   public MHEErrorDesc() {
 
   }
 
   public MHEErrorDesc(List<String> list) throws Exception {
-
 
   }
 
@@ -52,12 +48,52 @@ public class MHEErrorDesc extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public String getUnit() {
-    return unit;
+  @Column(name = "type")
+  public Integer getType() {
+    return type;
   }
 
-  public void setUnit(String unit) {
-    this.unit = unit;
+  public void setType(Integer type) {
+    this.type = type;
+  }
+
+  @Column(name = "errorCode")
+  public Integer getErrorCode() {
+    return errorCode;
+  }
+
+  public void setErrorCode(Integer errorCode) {
+    this.errorCode = errorCode;
+  }
+
+  @Column(name = "errorSubCode")
+  public Integer getErrorSubCode() {
+    return errorSubCode;
+  }
+
+  public void setErrorSubCode(Integer errorSubCode) {
+    this.errorSubCode = errorSubCode;
+  }
+
+  @Column(name = "description")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  @Override
+  public String toString() {
+    return "MHEErrorDesc{" +
+        "id=" + id +
+        ", type=" + type +
+        ", errorCode=" + errorCode +
+        ", errorSubCode=" + errorSubCode +
+        ", description='" + description + '\'' +
+        '}';
   }
 }
+
 

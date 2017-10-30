@@ -24,9 +24,9 @@ import java.util.List;
 public class EmptyContainer extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String category;
-  private Integer parm1;
-  private Integer parm2;
+  private String category; //0
+  private Integer parm1; //1
+  private Integer parm2; //2
 
   public EmptyContainer() {
 

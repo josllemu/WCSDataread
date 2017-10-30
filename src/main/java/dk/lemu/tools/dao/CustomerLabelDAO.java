@@ -9,7 +9,7 @@ public class CustomerLabelDAO extends GenericDAOImplementation <CustomerLabel, L
 
   @Override
   public void saveOrUpdate(CustomerLabel entity) throws Exception {
-    CustomerLabel candidate = findByItem(entity.getShippingCode());
+    CustomerLabel candidate = findByShippingCode(entity.getShippingCode());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -35,9 +35,9 @@ public class CustomerLabelDAO extends GenericDAOImplementation <CustomerLabel, L
     commit();
   }
 
-  public CustomerLabel findByItem(String unit) {
+  public CustomerLabel findByShippingCode(String shippingCode) {
     Query query = currentSession().getNamedQuery("CustomerLabel.findByShippingCode");
-    query.setParameter("shipping_Code", unit);
+    query.setParameter("shipping_Code", shippingCode);
     return (CustomerLabel) query.uniqueResult();
   }
 }

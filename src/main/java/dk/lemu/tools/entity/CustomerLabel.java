@@ -24,26 +24,26 @@ import java.util.List;
 public class CustomerLabel extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer seq;
-  private String carrier;
-  private String name1;
-  private String name2;
-  private String address;
-  private String zipTown;
-  private Integer packageNo;
-  private Double weight;
-  private String route;
-  private String salesCompanyID;
-  private String orderType;
-  private String zipCodeArea;
-  private String salesOrderNum;
-  private String orderNumber;
-  private Date packDate;
-  private String despatchRemarks;
-  private String remarks;
-  private String cODText;
-  private String shippingCode;
-  private String shippingCodeText;
+  private Integer seq; //0
+  private String carrier; //1
+  private String name1; //2
+  private String name2; //3
+  private String address; //4
+  private String zipTown; //5
+  private Integer packageNo; //6
+  private Double weight; //7
+  private String route; //8
+  private String salesCompanyID; //9
+  private String orderType; //10
+  private String zipCodeArea; //11
+  private String salesOrderNum; //12
+  private String orderNumber; //13
+  private Date packDate; //14
+  private String despatchRemarks; //15
+  private String remarks; //16
+  private String cODText; //17
+  private String shippingCode; //18
+  private String shippingCodeText; //19
 
   private Date dbDate = new Date();
 

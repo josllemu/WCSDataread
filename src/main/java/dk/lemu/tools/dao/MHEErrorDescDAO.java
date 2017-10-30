@@ -9,7 +9,7 @@ public class MHEErrorDescDAO extends GenericDAOImplementation <MHEErrorDesc, Lon
 
   @Override
   public void saveOrUpdate(MHEErrorDesc entity) throws Exception {
-    MHEErrorDesc candidate = findByItem(entity.getUnit());
+    MHEErrorDesc candidate = findByDescription(entity.getDescription());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class MHEErrorDescDAO extends GenericDAOImplementation <MHEErrorDesc, Lon
     commit();
   }
 
-  public MHEErrorDesc findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("MHEErrorDesc.findByUnit");
-    query.setParameter("unit", unit);
+  public MHEErrorDesc findByDescription(String description) {
+    Query query = currentSession().getNamedQuery("MHEErrorDesc.findByDescription");
+    query.setParameter("description", description);
     return (MHEErrorDesc) query.uniqueResult();
   }
 }

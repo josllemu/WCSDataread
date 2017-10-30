@@ -49,10 +49,6 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
   private String Category;
   private Date dbDato = new Date();
 
-
-
-
-
   public OperatorEvent() {
 
   }

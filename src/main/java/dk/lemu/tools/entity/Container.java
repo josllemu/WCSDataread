@@ -59,41 +59,6 @@ public class Container extends AbstractContainer implements Serializable {
 
   }
 
-  @Override
-  public String toString() {
-    return "Container{" +
-        "location='" + location + '\'' +
-        ", storageTime=" + storageTime +
-        ", audit_date=" + audit_date +
-        ", auditRef='" + auditRef + '\'' +
-        ", weight=" + weight +
-        ", height=" + height +
-        ", weightStatus='" + weightStatus + '\'' +
-        ", heightStatus='" + heightStatus + '\'' +
-        ", container='" + container + '\'' +
-        ", type='" + type + '\'' +
-        ", holdingContainer='" + holdingContainer + '\'' +
-        ", auditStatus=" + auditStatus +
-        ", wrapped=" + wrapped +
-        ", labelled=" + labelled +
-        ", lastUserMoved='" + lastUserMoved + '\'' +
-        ", picked=" + picked +
-        ", Temperature=" + Temperature +
-        ", profileStatus=" + profileStatus +
-        ", containerStatus=" + containerStatus +
-        ", lastAllokationTime=" + lastAllokationTime +
-        ", fullStatus='" + fullStatus + '\'' +
-        ", orientation='" + orientation + '\'' +
-        ", bitMap='" + bitMap + '\'' +
-        ", pickGroup='" + pickGroup + '\'' +
-        ", relocate=" + relocate +
-        ", width=" + width +
-        ", length=" + length +
-        ", dbDate=" + dbDate +
-        ", locType=" + locType +
-        '}';
-  }
-
   public Container(List<String> list) throws Exception {
 
     this.setLocation(list.get(0));
@@ -384,6 +349,41 @@ public class Container extends AbstractContainer implements Serializable {
 
   public void setDbDate(Date dbDate) {
     this.dbDate = dbDate;
+  }
+
+  @Override
+  public String toString() {
+    return "Container{" +
+        "location='" + location + '\'' +
+        ", storageTime=" + storageTime +
+        ", audit_date=" + audit_date +
+        ", auditRef='" + auditRef + '\'' +
+        ", weight=" + weight +
+        ", height=" + height +
+        ", weightStatus='" + weightStatus + '\'' +
+        ", heightStatus='" + heightStatus + '\'' +
+        ", container='" + container + '\'' +
+        ", type='" + type + '\'' +
+        ", holdingContainer='" + holdingContainer + '\'' +
+        ", auditStatus=" + auditStatus +
+        ", wrapped=" + wrapped +
+        ", labelled=" + labelled +
+        ", lastUserMoved='" + lastUserMoved + '\'' +
+        ", picked=" + picked +
+        ", Temperature=" + Temperature +
+        ", profileStatus=" + profileStatus +
+        ", containerStatus=" + containerStatus +
+        ", lastAllokationTime=" + lastAllokationTime +
+        ", fullStatus='" + fullStatus + '\'' +
+        ", orientation='" + orientation + '\'' +
+        ", bitMap='" + bitMap + '\'' +
+        ", pickGroup='" + pickGroup + '\'' +
+        ", relocate=" + relocate +
+        ", width=" + width +
+        ", length=" + length +
+        ", dbDate=" + dbDate +
+        ", locType=" + locType +
+        '}';
   }
 
 }

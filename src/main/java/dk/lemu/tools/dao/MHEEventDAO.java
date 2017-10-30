@@ -9,7 +9,7 @@ public class MHEEventDAO extends GenericDAOImplementation <MHEEvent, Long>{
 
   @Override
   public void saveOrUpdate(MHEEvent entity) throws Exception {
-    MHEEvent candidate = findByItem(entity.getUnit());
+    MHEEvent candidate = findByMHEId(entity.getMheId());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class MHEEventDAO extends GenericDAOImplementation <MHEEvent, Long>{
     commit();
   }
 
-  public MHEEvent findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("MHEEvent.findByUnit");
-    query.setParameter("unit", unit);
+  public MHEEvent findByMHEId(Integer mheId) {
+    Query query = currentSession().getNamedQuery("MHEEvent.findByMHEId");
+    query.setParameter("mheId", mheId);
     return (MHEEvent) query.uniqueResult();
   }
 }
