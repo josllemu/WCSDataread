@@ -27,7 +27,7 @@ import java.util.List;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Container extends AbstractContainer implements Serializable {
 
-  private Location location; //0
+  private String location; //0
   private Date storageTime; //1
   private Date audit_date; //2
   private String auditRef; //3
@@ -36,8 +36,8 @@ public class Container extends AbstractContainer implements Serializable {
   private String weightStatus; //6
   private String heightStatus; //7
   private String container; //8
-  private ContainerType type; //9
-  private Container holdingContainer; //10
+  private String type; //9
+  private String holdingContainer; //10
   private Boolean auditStatus; //11
   private Boolean wrapped; //12
   private Boolean labelled; //13
@@ -67,7 +67,7 @@ public class Container extends AbstractContainer implements Serializable {
     ContainerTypeDAO containerTypeDAO = new ContainerTypeDAO();
     LocationDAO locationDAO = new LocationDAO();
 
-    this.setLocation(list.get(0) != null ? locationDAO.findByLocation(list.get(0)) : null);
+    this.setLocation(list.get(0));
     this.setStorageTime((Date) TypeParser.fromCSVFile(Date.class, list.get(1)));
     this.setAudit_date((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
     this.setAuditRef(list.get(3));
@@ -76,8 +76,8 @@ public class Container extends AbstractContainer implements Serializable {
     this.setWeightStatus(list.get(6));
     this.setHeightStatus(list.get(7));
     this.setContainer(list.get(8));
-    this.setType(list.get(9) != null ? containerTypeDAO.findByType(list.get(9)) : null);
-    this.setHoldingContainer(list.get(10) != null ? containerDAO.findByContainer(list.get(10)) : null);
+    this.setType(list.get(9));
+    this.setHoldingContainer(list.get(10));
     this.setAuditStatus((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(11)));
     this.setWrapped((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(12)));
     this.setLabelled((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(13)));
@@ -132,13 +132,12 @@ public class Container extends AbstractContainer implements Serializable {
     this.height = height;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "location_id")
-  public Location getLocation() {
+  @Column(name = "location")
+  public String getLocation() {
     return location;
   }
 
-  public void setLocation(Location location) {
+  public void setLocation(String location) {
     this.location = location;
   }
 
@@ -187,13 +186,12 @@ public class Container extends AbstractContainer implements Serializable {
     this.heightStatus = heightStatus;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "holdingContainer_id")
-  public Container getHoldingContainer() {
+  @Column(name = "holdingContainer")
+  public String getHoldingContainer() {
     return holdingContainer;
   }
 
-  public void setHoldingContainer(Container holdingContainer) {
+  public void setHoldingContainer(String holdingContainer) {
     this.holdingContainer = holdingContainer;
   }
 
@@ -341,13 +339,12 @@ public class Container extends AbstractContainer implements Serializable {
     return length;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "containertype_id", nullable = false)
-  public ContainerType getType() {
+  @Column(name = "type", nullable = false)
+  public String getType() {
     return type;
   }
 
-  public void setType(ContainerType type) {
+  public void setType(String type) {
     this.type = type;
   }
 
@@ -363,7 +360,7 @@ public class Container extends AbstractContainer implements Serializable {
   @Override
   public String toString() {
     return "Container{" +
-        "location=" + location.getLocation() +
+        "location=" + location+ '\'' +
         ", storageTime=" + storageTime +
         ", audit_date=" + audit_date +
         ", auditRef='" + auditRef + '\'' +
@@ -372,8 +369,8 @@ public class Container extends AbstractContainer implements Serializable {
         ", weightStatus='" + weightStatus + '\'' +
         ", heightStatus='" + heightStatus + '\'' +
         ", container='" + container + '\'' +
-        ", type=" + type.getContainerTypeCode() +
-        ", holdingContainer=" + (holdingContainer != null ? holdingContainer.getContainer() : null) +
+        ", type=" + type  + '\'' +
+        ", holdingContainer=" +holdingContainer  + '\'' +
         ", auditStatus=" + auditStatus +
         ", wrapped=" + wrapped +
         ", labelled=" + labelled +
