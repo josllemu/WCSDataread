@@ -9,7 +9,7 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
 
   @Override
   public void saveOrUpdate(StockAssembly entity) throws Exception {
-    StockAssembly candidate = findByItem(entity.getUnit());
+    StockAssembly candidate = findByOrder(entity.getOrderNumber());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
     commit();
   }
 
-  public StockAssembly findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("StockAssembly.findByUnit");
-    query.setParameter("unit", unit);
+  public StockAssembly findByOrder(Integer orderNumber) {
+    Query query = currentSession().getNamedQuery("StockAssembly.findByOrder");
+    query.setParameter("orderNumber", orderNumber);
     return (StockAssembly) query.uniqueResult();
   }
 }

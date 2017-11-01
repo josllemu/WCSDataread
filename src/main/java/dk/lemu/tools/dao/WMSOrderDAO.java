@@ -45,4 +45,9 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
     query.setParameter("order_Id", orderId);
     return (WMSOrder) query.uniqueResult();
   }
+
+  public WMSOrder findByDelNoteId(String delNoteId) {
+    Query query = currentSession().getNamedQuery("WMSOrder.findByDelNoteId");
+    query.setParameter("delNoteId", delNoteId);
+    return (WMSOrder) query.uniqueResult();  }
 }

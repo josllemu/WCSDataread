@@ -9,11 +9,12 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "PartnerAddress.findByOrderAndOrderSub", query = "SELECT object(o) FROM PartnerAddress o WHERE o.orderID = :orderID AND o.orderSUB = :orderSUB")
+    @NamedQuery(name = "PartnerAddress.findByOrderAndOrderSub", query = "SELECT object(o) FROM PartnerAddress o " +
+        "WHERE o.orderID = :orderID AND o.orderSUB = :orderSUB")
 })
 @Entity
 @Table(name = "PartnerAddress", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id")},
+    @UniqueConstraint(columnNames = {"orderID", "orderSUB"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "orderID, orderSUB"),

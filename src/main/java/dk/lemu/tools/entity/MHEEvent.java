@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "MHEEvent.findByMHEId", query = "SELECT object(o) FROM MHEEvent o WHERE o.mheId = :mheId")
 })
 @Entity
-@Table(name = "MHEEvent", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "mheId")},
+@Table(name = "MHEEvent",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "mheId"),
@@ -52,7 +50,7 @@ public class MHEEvent extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "mheId")
+  @Column(name = "mheId", unique = true, nullable = false)
   public Integer getMheId() {
     return mheId;
   }

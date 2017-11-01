@@ -12,21 +12,23 @@ import java.util.List;
 
 @NamedQueries({
     @NamedQuery(name = "WMSOrder.findByOrderId", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderId = :order_Id"),
-    @NamedQuery(name = "WMSOrder.findByOrderNumber", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderNumber = :order_Number")
+    @NamedQuery(name = "WMSOrder.findByOrderNumber", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderNumber = :order_Number"),
+    @NamedQuery(name = "WMSOrder.findByDelNoteId", query = "SELECT object(o) FROM WMSOrder o WHERE o.delNoteId = :delNoteId")
 
 })
 @Entity
 @Table(name = "WMSOrder", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "orderId"),
-    @UniqueConstraint(columnNames = "orderNumber")},
+    @UniqueConstraint(columnNames = {"orderId","orderNumber","delNoteId"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "orderId"),
         @Index(columnList = "orderNumber"),
+        @Index(columnList = "delNoteId"),
         @Index(columnList = "id, orderId, orderNumber"),
         @Index(columnList = "id, orderId"),
-        @Index(columnList = "id, orderNumber")})
+        @Index(columnList = "id, orderNumber"),
+        @Index(columnList = "id, delNoteId"),
+        @Index(columnList = "id, orderId, orderNumber, delNoteId")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class WMSOrder extends AbstractEntity implements Serializable {
 
@@ -73,6 +75,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "orderId", unique = true,  nullable = false)
   public Integer getOrderId() {
     return orderId;
   }
@@ -81,6 +84,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.orderId = orderId;
   }
 
+  @Column(name = "typeId")
   public String getTypeId() {
     return typeId;
   }
@@ -89,6 +93,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.typeId = typeId;
   }
 
+  @Column(name = "status")
   public String getStatus() {
     return status;
   }
@@ -97,6 +102,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.status = status;
   }
 
+  @Column(name = "priority")
   public Integer getPriority() {
     return priority;
   }
@@ -105,6 +111,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.priority = priority;
   }
 
+  @Column(name = "noLines")
   public Integer getNoLines() {
     return noLines;
   }
@@ -113,6 +120,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.noLines = noLines;
   }
 
+  @Column(name = "createdDate")
   public Date getCreatedDate() {
     return createdDate;
   }
@@ -121,6 +129,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.createdDate = createdDate;
   }
 
+  @Column(name = "orderNumber", unique = true,  nullable = false)
   public Integer getOrderNumber() {
     return orderNumber;
   }
@@ -129,6 +138,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.orderNumber = orderNumber;
   }
 
+  @Column(name = "delNoteId", unique = true,  nullable = false)
   public String getDelNoteId() {
     return delNoteId;
   }
@@ -137,6 +147,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.delNoteId = delNoteId;
   }
 
+  @Column(name = "refText")
   public String getRefText() {
     return refText;
   }
@@ -145,6 +156,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.refText = refText;
   }
 
+  @Column(name = "contGroup")
   public Integer getContGroup() {
     return contGroup;
   }
@@ -153,6 +165,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.contGroup = contGroup;
   }
 
+  @Column(name = "statusToHost")
   public String getStatusToHost() {
     return statusToHost;
   }
@@ -161,6 +174,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.statusToHost = statusToHost;
   }
 
+  @Column(name = "hostName")
   public String getHostName() {
     return hostName;
   }
@@ -169,6 +183,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.hostName = hostName;
   }
 
+  @Column(name = "boxes")
   public Integer getBoxes() {
     return boxes;
   }
@@ -177,6 +192,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.boxes = boxes;
   }
 
+  @Column(name = "pallets")
   public Integer getPallets() {
     return pallets;
   }
@@ -185,6 +201,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.pallets = pallets;
   }
 
+  @Column(name = "packageNo")
   public Integer getPackageNo() {
     return packageNo;
   }
@@ -193,6 +210,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.packageNo = packageNo;
   }
 
+  @Column(name = "stage")
   public Integer getStage() {
     return stage;
   }
@@ -201,6 +219,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
+  @Column(name = "workStation")
   public String getWorkStation() {
     return workStation;
   }
@@ -209,6 +228,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.workStation = workStation;
   }
 
+  @Column(name = "printRequired")
   public Boolean getPrintRequired() {
     return printRequired;
   }
@@ -217,12 +237,39 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.printRequired = printRequired;
   }
 
+  @Column(name = "dbDate")
   public Date getDbDate() {
     return dbDate;
   }
 
   public void setDbDate(Date dbDate) {
     this.dbDate = dbDate;
+  }
+
+  @Override
+  public String toString() {
+    return "WMSOrder{" +
+        "id=" + id +
+        ", orderId=" + orderId +
+        ", typeId='" + typeId + '\'' +
+        ", status='" + status + '\'' +
+        ", priority=" + priority +
+        ", noLines=" + noLines +
+        ", createdDate=" + createdDate +
+        ", orderNumber=" + orderNumber +
+        ", delNoteId='" + delNoteId + '\'' +
+        ", refText='" + refText + '\'' +
+        ", contGroup=" + contGroup +
+        ", statusToHost='" + statusToHost + '\'' +
+        ", hostName='" + hostName + '\'' +
+        ", boxes=" + boxes +
+        ", pallets=" + pallets +
+        ", packageNo=" + packageNo +
+        ", stage=" + stage +
+        ", workStation='" + workStation + '\'' +
+        ", printRequired=" + printRequired +
+        ", dbDate=" + dbDate +
+        '}';
   }
 }
 

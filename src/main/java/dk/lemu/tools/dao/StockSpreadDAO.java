@@ -1,7 +1,6 @@
 package dk.lemu.tools.dao;
 
 import dk.lemu.tools.entity.StockSpread;
-import org.hibernate.query.Query;
 
 import java.util.Collection;
 
@@ -9,13 +8,9 @@ public class StockSpreadDAO extends GenericDAOImplementation<StockSpread, Long> 
 
   @Override
   public void saveOrUpdate(StockSpread entity) throws Exception {
-    StockSpread candidate = findByItem(entity.getUnit());
-    if (candidate != null) {
-      entity.setId(candidate.getId());
-      currentSession().merge(entity);
-    } else {
-      currentSession().save(entity);
-    }
+    //cannot update a post make a new one
+    currentSession().save(entity);
+
   }
 
   @Override
@@ -34,9 +29,4 @@ public class StockSpreadDAO extends GenericDAOImplementation<StockSpread, Long> 
     commit();
   }
 
-  public StockSpread findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("StockSpread.findByUnit");
-    query.setParameter("unit", unit);
-    return (StockSpread) query.uniqueResult();
-  }
 }

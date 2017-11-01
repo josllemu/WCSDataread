@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "ItemConf.findbyItem", query = "SELECT object(ic) FROM ItemConf ic WHERE ic.item = :item_id")
 })
 @Entity
-@Table(name = "ItemConf", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item")},
+@Table(name = "ItemConf",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "item"),
@@ -101,7 +99,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item")
+  @Column(name = "item", unique = true, nullable = false)
   public String getItem() {
     return item;
   }

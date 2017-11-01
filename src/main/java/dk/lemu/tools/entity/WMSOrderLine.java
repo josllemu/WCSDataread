@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "WMSOrderLine.findByUnit", query = "SELECT object(o) FROM WMSOrderLine o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "WMSOrderLine", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "WMSOrderLine",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),

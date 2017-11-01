@@ -15,9 +15,7 @@ import java.util.List;
             "WHERE lc.location = :locationId")
 })
 @Entity
-@Table(name = "Location", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "location")},
+@Table(name = "Location",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, location"),

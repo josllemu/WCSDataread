@@ -15,9 +15,7 @@ import java.util.List;
     @NamedQuery(name = "PickCount.findbyItem", query = "SELECT object(pc) FROM PickCount pc WHERE pc.item = :item_id")
 })
 @Entity
-@Table(name = "PickCount", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item")},
+@Table(name = "PickCount",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "item"),
@@ -62,7 +60,7 @@ public class PickCount extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item")
+  @Column(name = "item", unique = true, nullable = false)
   public String getItem() {
     return item;
   }

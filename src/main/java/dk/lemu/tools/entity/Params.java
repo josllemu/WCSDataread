@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "Params.findByParms", query = "SELECT object(o) FROM Params o WHERE o.parms = :parms")
 })
 @Entity
-@Table(name = "Params", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "parms")},
+@Table(name = "Params",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "parms"),

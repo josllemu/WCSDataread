@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "EmptyContainer.findByCategory", query = "SELECT object(o) FROM EmptyContainer o WHERE o.category = :category")
 })
 @Entity
-@Table(name = "EmptyContainer", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "category")},
+@Table(name = "EmptyContainer",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "category"),
@@ -52,7 +50,7 @@ public class EmptyContainer extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", unique = true, nullable = false)
   public String getCategory() {
     return category;
   }

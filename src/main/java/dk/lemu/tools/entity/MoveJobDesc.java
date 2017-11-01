@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "MoveJobDesc.findByMoveJob", query = "SELECT object(o) FROM MoveJobDesc o WHERE o.moveJob = :moveJob")
 })
 @Entity
-@Table(name = "MoveJobDesc", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "moveJob")},
+@Table(name = "MoveJobDesc",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "moveJob"),
@@ -49,7 +47,7 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "moveJob")
+  @Column(name = "moveJob", unique = true, nullable = false)
   public String getMoveJob() {
     return moveJob;
   }

@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "CustomerLabel.findByShippingCode", query = "SELECT object(o) FROM CustomerLabel o WHERE o.shippingCode = :shipping_Code")
 })
 @Entity
-@Table(name = "CustomerLabel", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "shippingCode")},
+@Table(name = "CustomerLabel",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "shippingCode"),

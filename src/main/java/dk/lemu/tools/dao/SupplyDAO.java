@@ -9,7 +9,7 @@ public class SupplyDAO extends GenericDAOImplementation<Supply, Long> {
 
   @Override
   public void saveOrUpdate(Supply entity) throws Exception {
-    Supply candidate = findByItem(entity.getUnit());
+    Supply candidate = findByOrder(entity.getOrderId());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class SupplyDAO extends GenericDAOImplementation<Supply, Long> {
     commit();
   }
 
-  public Supply findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("Supply.findByUnit");
-    query.setParameter("unit", unit);
+  public Supply findByOrder(String orderId) {
+    Query query = currentSession().getNamedQuery("Supply.findByOrder");
+    query.setParameter("orderId", orderId);
     return (Supply) query.uniqueResult();
   }
 }

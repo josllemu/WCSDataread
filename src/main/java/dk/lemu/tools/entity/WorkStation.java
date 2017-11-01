@@ -12,10 +12,11 @@ import java.util.List;
     @NamedQuery(name = "WorkStation.findByHostName", query = "SELECT object(o) FROM WorkStation o WHERE o.hostName = :hostName")
 })
 @Entity
-@Table(name = "WorkStation", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id")},
+@Table(name = "WorkStation",
     indexes = {
-        @Index(columnList = "id")})
+        @Index(columnList = "id"),
+        @Index(columnList = "hostName"),
+        @Index(columnList = "id, hostName")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class WorkStation extends AbstractEntity implements Serializable {
 

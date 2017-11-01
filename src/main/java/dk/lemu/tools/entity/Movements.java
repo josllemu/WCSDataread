@@ -15,7 +15,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "Movements", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id")},
+    @UniqueConstraint(columnNames = {"containerId", "createTime"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, containerId, createTime")})

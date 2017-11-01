@@ -9,7 +9,7 @@ public class ReplenQtyDAO extends GenericDAOImplementation<ReplenQty, Long> {
 
   @Override
   public void saveOrUpdate(ReplenQty entity) throws Exception {
-    ReplenQty candidate = findByItem(entity.getUnit());
+    ReplenQty candidate = findByAllocRef(entity.getAllocRef());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class ReplenQtyDAO extends GenericDAOImplementation<ReplenQty, Long> {
     commit();
   }
 
-  public ReplenQty findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("ReplenQty.findByUnit");
-    query.setParameter("unit", unit);
+  public ReplenQty findByAllocRef(Integer allocRef) {
+    Query query = currentSession().getNamedQuery("ReplenQty.findByAllocRef");
+    query.setParameter("allocRef", allocRef);
     return (ReplenQty) query.uniqueResult();
   }
 }

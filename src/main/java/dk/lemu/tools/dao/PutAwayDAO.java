@@ -9,7 +9,7 @@ public class PutAwayDAO extends GenericDAOImplementation<PutAway, Long> {
 
   @Override
   public void saveOrUpdate(PutAway entity) throws Exception {
-    PutAway candidate = findByItem(entity.getUnit());
+    PutAway candidate = findByContainerId(entity.getContainerId());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class PutAwayDAO extends GenericDAOImplementation<PutAway, Long> {
     commit();
   }
 
-  public PutAway findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("PutAway.findByUnit");
-    query.setParameter("unit", unit);
+  public PutAway findByContainerId(String containerId) {
+    Query query = currentSession().getNamedQuery("PutAway.findByContainerId");
+    query.setParameter("containerId", containerId);
     return (PutAway) query.uniqueResult();
   }
 }

@@ -9,7 +9,7 @@ public class StockReqDAO extends GenericDAOImplementation<StockReq, Long> {
 
   @Override
   public void saveOrUpdate(StockReq entity) throws Exception {
-    StockReq candidate = findByItem(entity.getUnit());
+    StockReq candidate = findByAllocRef(entity.getAllocRef());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class StockReqDAO extends GenericDAOImplementation<StockReq, Long> {
     commit();
   }
 
-  public StockReq findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("StockReq.findByUnit");
-    query.setParameter("unit", unit);
+  public StockReq findByAllocRef(Integer allocRef) {
+    Query query = currentSession().getNamedQuery("StockReq.findByAllocRef");
+    query.setParameter("allocRef", allocRef);
     return (StockReq) query.uniqueResult();
   }
 }

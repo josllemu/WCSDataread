@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "PickCategory.findByFunc", query = "SELECT object(o) FROM PickCategory o WHERE o.func = :func")
 })
 @Entity
-@Table(name = "PickCategory", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "func")},
+@Table(name = "PickCategory",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "func"),
@@ -52,7 +50,7 @@ public class PickCategory extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "func")
+  @Column(name = "func", unique = true, nullable = false)
   public Integer getFunc() {
     return func;
   }

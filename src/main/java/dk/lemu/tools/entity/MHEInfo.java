@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "MHEInfo.findByUnit", query = "SELECT object(o) FROM MHEInfo o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "MHEInfo", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "MHEInfo",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),
@@ -70,7 +68,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "unit")
+  @Column(name = "unit", unique = true, nullable = false)
   public String getUnit() {
     return unit;
   }

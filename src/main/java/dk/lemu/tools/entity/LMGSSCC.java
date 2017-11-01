@@ -13,9 +13,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "LMGSSCC", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "container"),
-    @UniqueConstraint(columnNames = "sscc")},
+    @UniqueConstraint(columnNames = {"container","sscc" })},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "container"),
@@ -54,7 +52,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
   }
 
 
-  @Column(name = "container", unique = true)
+  @Column(name = "container")
   public String getContainer() {
     return container;
   }

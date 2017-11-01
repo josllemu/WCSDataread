@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "OperatorEvent.findByHisID", query = "SELECT object(o) FROM OperatorEvent o WHERE o.hisID = :his_ID")
 })
 @Entity
-@Table(name = "OperatorEvent", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "hisID")},
+@Table(name = "OperatorEvent",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "hisID"),

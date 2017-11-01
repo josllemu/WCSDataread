@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "ContainerSize.findByUnit", query = "SELECT object(o) FROM ContainerSize o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "ContainerSize", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "ContainerSize",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),

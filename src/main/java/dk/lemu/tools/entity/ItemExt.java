@@ -13,13 +13,11 @@ import java.util.List;
     @NamedQuery(name = "ItemExt.findbyItem", query = "SELECT object(ie) FROM ItemExt ie WHERE ie.item = :item_id")
 })
 @Entity
-@Table(name = "ItemExt", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_id")},
+@Table(name = "ItemExt",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "id, item_id")})
+        @Index(columnList = "item"),
+        @Index(columnList = "id, item")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ItemExt extends AbstractEntity implements Serializable {
 
@@ -110,7 +108,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item_id")
+  @Column(name = "item", unique = true, nullable = false)
   public String getItem() {
     return item;
   }

@@ -9,7 +9,7 @@ public class WorkStationDAO extends GenericDAOImplementation<WorkStation, Long> 
 
   @Override
   public void saveOrUpdate(WorkStation entity) throws Exception {
-    WorkStation candidate = findByItem(entity.getHostName());
+    WorkStation candidate = findByHostName(entity.getHostName());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class WorkStationDAO extends GenericDAOImplementation<WorkStation, Long> 
     commit();
   }
 
-  public WorkStation findByItem(String orderId) {
+  public WorkStation findByHostName(String hostName) {
     Query query = currentSession().getNamedQuery("WorkStation.findByHostName");
-    query.setParameter("order_Id", orderId);
+    query.setParameter("hostName", hostName);
     return (WorkStation) query.uniqueResult();
   }
 }

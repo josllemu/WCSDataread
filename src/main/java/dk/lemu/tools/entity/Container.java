@@ -15,9 +15,7 @@ import java.util.List;
             "WHERE c.container = :containerId")
 })
 @Entity
-@Table(name = "Container", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "container")},
+@Table(name = "Container",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, container")})

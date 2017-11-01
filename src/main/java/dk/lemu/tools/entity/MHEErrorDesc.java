@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "MHEErrorDesc.findByDescription", query = "SELECT object(o) FROM MHEErrorDesc o WHERE o.description = :description")
 })
 @Entity
-@Table(name = "MHEErrorDesc", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "description")},
+@Table(name = "MHEErrorDesc",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "description"),
@@ -75,7 +73,7 @@ public class MHEErrorDesc extends AbstractEntity implements Serializable {
     this.errorSubCode = errorSubCode;
   }
 
-  @Column(name = "description")
+  @Column(name = "description", unique = true)
   public String getDescription() {
     return description;
   }

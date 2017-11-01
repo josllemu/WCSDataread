@@ -14,9 +14,7 @@ import java.util.List;
         "FROM ContainerType ct WHERE ct.containerTypeCode = :typeId")
 })
 @Entity
-@Table(name = "ContainerType", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "containerTypeCode")},
+@Table(name = "ContainerType",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, containerTypeCode")})
@@ -84,7 +82,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "containerTypeCode", nullable = false)
+  @Column(name = "containerTypeCode", unique = true, nullable = false)
   public String getContainerTypeCode() {
     return containerTypeCode;
   }

@@ -9,7 +9,7 @@ public class PickReqDAO extends GenericDAOImplementation<PickReq, Long> {
 
   @Override
   public void saveOrUpdate(PickReq entity) throws Exception {
-    PickReq candidate = findByItem(entity.getUnit());
+    PickReq candidate = findByAllocRef(entity.getAllocRef());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class PickReqDAO extends GenericDAOImplementation<PickReq, Long> {
     commit();
   }
 
-  public PickReq findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("PickReq.findByUnit");
-    query.setParameter("unit", unit);
+  public PickReq findByAllocRef(Integer allocRef) {
+    Query query = currentSession().getNamedQuery("PickReq.findByAllocRef");
+    query.setParameter("allocRef", allocRef);
     return (PickReq) query.uniqueResult();
   }
 }

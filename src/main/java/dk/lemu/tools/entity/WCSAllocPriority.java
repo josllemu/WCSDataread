@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "WCSAllocPriority.findByUnit", query = "SELECT object(o) FROM WCSAllocPriority o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "WCSAllocPriority", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "WCSAllocPriority",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),
