@@ -26,11 +26,6 @@ public class Zone extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public Zone() {
 
   }

@@ -19,8 +19,8 @@ import java.util.List;
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "container")},
     indexes = {
-    @Index(columnList = "id") ,
-    @Index(columnList = "id, container")})
+        @Index(columnList = "id"),
+        @Index(columnList = "id, container")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Container extends AbstractContainer implements Serializable {
 
@@ -41,8 +41,8 @@ public class Container extends AbstractContainer implements Serializable {
   private String lastUserMoved; //14
   private Boolean picked; //15
   private Integer Temperature; //16
-  private Integer profileStatus =0; //17
-  private Integer containerStatus =0; //18
+  private Integer profileStatus = 0; //17
+  private Integer containerStatus = 0; //18
   private Date lastAllokationTime; //19
   private String fullStatus; //20
   private String orientation; //21

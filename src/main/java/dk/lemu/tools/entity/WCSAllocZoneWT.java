@@ -26,11 +26,6 @@ public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public WCSAllocZoneWT() {
 
   }

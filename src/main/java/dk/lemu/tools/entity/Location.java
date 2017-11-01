@@ -19,7 +19,7 @@ import java.util.List;
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "location")},
     indexes = {
-        @Index(columnList = "id") ,
+        @Index(columnList = "id"),
         @Index(columnList = "id, location"),
         @Index(columnList = "id, location, type")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -50,7 +50,7 @@ public class Location extends AbstractContainer implements Serializable {
   private Integer locType = AbstractContainer.TYPE_LOCATION;
 
   public Location() {
-      }
+  }
 
   public Location(List<String> list) {
     this.setLocation(list.get(0));

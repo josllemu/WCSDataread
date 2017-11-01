@@ -26,11 +26,6 @@ public class StockReq extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public StockReq() {
 
   }

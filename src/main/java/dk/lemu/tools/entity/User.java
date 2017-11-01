@@ -26,11 +26,6 @@ public class User extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public User() {
 
   }

@@ -26,11 +26,6 @@ public class StockAssembly extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public StockAssembly() {
 
   }

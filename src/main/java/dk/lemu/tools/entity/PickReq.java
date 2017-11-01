@@ -26,11 +26,6 @@ public class PickReq extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public PickReq() {
 
   }

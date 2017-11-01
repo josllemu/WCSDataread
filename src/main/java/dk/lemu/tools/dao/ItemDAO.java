@@ -5,7 +5,7 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class ItemDAO extends GenericDAOImplementation <Item, Long>{
+public class ItemDAO extends GenericDAOImplementation<Item, Long> {
 
   @Override
   public void saveOrUpdate(Item entity) throws Exception {
@@ -20,10 +20,10 @@ public class ItemDAO extends GenericDAOImplementation <Item, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<Item> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (Item l : entities) {
       saveOrUpdate(l);
-      if ( ++count % 20 == 0 ) {
+      if (++count % 20 == 0) {
         //flush a batch of updates and release memory:
         currentSession().flush();
         currentSession().clear();

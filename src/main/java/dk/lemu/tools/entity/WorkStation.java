@@ -30,7 +30,6 @@ public class WorkStation extends AbstractEntity implements Serializable {
   private String trotterPrinter; //7
 
 
-
   public WorkStation() {
 
   }

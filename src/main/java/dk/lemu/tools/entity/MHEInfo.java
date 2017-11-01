@@ -70,6 +70,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "unit")
   public String getUnit() {
     return unit;
   }
@@ -78,6 +79,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.unit = unit;
   }
 
+  @Column(name = "parm1")
   public Integer getParm1() {
     return parm1;
   }
@@ -86,6 +88,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm1 = parm1;
   }
 
+  @Column(name = "parm2")
   public Integer getParm2() {
     return parm2;
   }
@@ -94,6 +97,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm2 = parm2;
   }
 
+  @Column(name = "parm3")
   public Integer getParm3() {
     return parm3;
   }
@@ -102,6 +106,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm3 = parm3;
   }
 
+  @Column(name = "parm4")
   public Integer getParm4() {
     return parm4;
   }
@@ -110,6 +115,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm4 = parm4;
   }
 
+  @Column(name = "parm5")
   public Integer getParm5() {
     return parm5;
   }
@@ -118,6 +124,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm5 = parm5;
   }
 
+  @Column(name = "parm6")
   public Integer getParm6() {
     return parm6;
   }
@@ -126,6 +133,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm6 = parm6;
   }
 
+  @Column(name = "parm7")
   public Integer getParm7() {
     return parm7;
   }
@@ -134,6 +142,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm7 = parm7;
   }
 
+  @Column(name = "parm8")
   public Integer getParm8() {
     return parm8;
   }
@@ -142,6 +151,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm8 = parm8;
   }
 
+  @Column(name = "parm9")
   public Integer getParm9() {
     return parm9;
   }
@@ -150,6 +160,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.parm9 = parm9;
   }
 
+  @Column(name = "area1")
   public String getArea1() {
     return area1;
   }
@@ -158,6 +169,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.area1 = area1;
   }
 
+  @Column(name = "area2")
   public String getArea2() {
     return area2;
   }
@@ -166,6 +178,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.area2 = area2;
   }
 
+  @Column(name = "area3")
   public String getArea3() {
     return area3;
   }
@@ -174,6 +187,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.area3 = area3;
   }
 
+  @Column(name = "area4")
   public String getArea4() {
     return area4;
   }
@@ -182,6 +196,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.area4 = area4;
   }
 
+  @Column(name = "empty")
   public String getEmpty() {
     return empty;
   }
@@ -190,6 +205,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.empty = empty;
   }
 
+  @Column(name = "type1")
   public String getType1() {
     return type1;
   }
@@ -198,6 +214,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.type1 = type1;
   }
 
+  @Column(name = "type2")
   public String getType2() {
     return type2;
   }
@@ -206,6 +223,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.type2 = type2;
   }
 
+  @Column(name = "type3")
   public String getType3() {
     return type3;
   }
@@ -214,6 +232,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.type3 = type3;
   }
 
+  @Column(name = "name")
   public String getName() {
     return name;
   }
@@ -222,6 +241,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.name = name;
   }
 
+  @Column(name = "dualOnly")
   public String getDualOnly() {
     return dualOnly;
   }
@@ -230,6 +250,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.dualOnly = dualOnly;
   }
 
+  @Column(name = "nullable")
   public String getNullable() {
     return nullable;
   }
@@ -238,6 +259,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.nullable = nullable;
   }
 
+  @Column(name = "handling")
   public String getHandling() {
     return handling;
   }
@@ -246,6 +268,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.handling = handling;
   }
 
+  @Column(name = "dec1")
   public Integer getDec1() {
     return dec1;
   }
@@ -254,6 +277,7 @@ public class MHEInfo extends AbstractEntity implements Serializable {
     this.dec1 = dec1;
   }
 
+  @Column(name = "dec2")
   public Integer getDec2() {
     return dec2;
   }

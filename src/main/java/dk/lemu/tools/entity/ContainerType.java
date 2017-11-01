@@ -18,7 +18,7 @@ import java.util.List;
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "containerTypeCode")},
     indexes = {
-        @Index(columnList = "id") ,
+        @Index(columnList = "id"),
         @Index(columnList = "id, containerTypeCode")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ContainerType extends AbstractEntity implements Serializable {
@@ -73,8 +73,8 @@ public class ContainerType extends AbstractEntity implements Serializable {
   }
 
   @Id
-  @GenericGenerator(name="josl" , strategy="increment")
-  @GeneratedValue(generator="josl")
+  @GenericGenerator(name = "josl", strategy = "increment")
+  @GeneratedValue(generator = "josl")
   @Column(name = "Id", unique = true, nullable = false)
   public Long getId() {
     return id;

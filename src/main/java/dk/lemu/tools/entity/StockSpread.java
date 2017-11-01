@@ -26,11 +26,6 @@ public class StockSpread extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public StockSpread() {
 
   }

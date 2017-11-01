@@ -6,7 +6,7 @@ import org.hibernate.query.Query;
 import java.util.Collection;
 import java.util.Date;
 
-public class StockDAO extends GenericDAOImplementation <Stock, Long>{
+public class StockDAO extends GenericDAOImplementation<Stock, Long> {
 
   @Override
   public void saveOrUpdate(Stock entity) throws Exception {
@@ -21,10 +21,10 @@ public class StockDAO extends GenericDAOImplementation <Stock, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<Stock> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (Stock l : entities) {
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //flush a batch of updates and release memory:
         currentSession().flush();
         currentSession().clear();

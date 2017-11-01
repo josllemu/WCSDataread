@@ -24,29 +24,29 @@ import java.util.List;
 public class OperatorEvent extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Long hisID;
-  private String jobType;
-  private Date timestamp;
-  private Long timeUsage;
-  private String user;
-  private String Zone;
-  private Location FromLocation;
-  private Location ViaLocation;
-  private Location ToLocation;
-  private String orderId;
-  private String OrderNumber;
-  private Integer AllocRef;
-  private String lineId;
-  private Integer Priority;
-  private String item;
-  private String FromContainer;
-  private String ToContainer;
-  private Double FromQtyBefore;
-  private Double FromQtyAfter;
-  private Double ToQtyBefore;
-  private Double ToQtyAfter;
-  private String Barcode;
-  private String Category;
+  private Long hisID; //0
+  private String jobType; //1
+  private Date timestamp; //2
+  private Long timeUsage; //3
+  private String user; //4
+  private String zone; //5
+  private Location fromLocation; //6
+  private Location viaLocation; //7
+  private Location toLocation; //8
+  private String orderId; //9
+  private String orderNumber; //10
+  private Integer allocRef; //11
+  private String lineId; //12
+  private Integer priority; //13
+  private String item; //14
+  private String fromContainer; //15
+  private String toContainer; //16
+  private Double fromQtyBefore; //17
+  private Double fromQtyAfter; //18
+  private Double toQtyBefore; //19
+  private Double toQtyAfter; //20
+  private String barcode; //21
+  private String category; //22
   private Date dbDato = new Date();
 
   public OperatorEvent() {
@@ -79,6 +79,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.hisID = hisID;
   }
 
+  @Column(name = "jobType")
   public String getJobType() {
     return jobType;
   }
@@ -87,6 +88,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.jobType = jobType;
   }
 
+  @Column(name = "timestamp")
   public Date getTimestamp() {
     return timestamp;
   }
@@ -95,6 +97,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.timestamp = timestamp;
   }
 
+  @Column(name = "timeUsage")
   public Long getTimeUsage() {
     return timeUsage;
   }
@@ -103,6 +106,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.timeUsage = timeUsage;
   }
 
+  @Column(name = "user")
   public String getUser() {
     return user;
   }
@@ -111,38 +115,43 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.user = user;
   }
 
+  @Column(name = "zone")
   public String getZone() {
-    return Zone;
+    return zone;
   }
 
   public void setZone(String zone) {
-    Zone = zone;
+    this.zone = zone;
   }
 
+  @Column(name = "fromLocation")
   public Location getFromLocation() {
-    return FromLocation;
+    return fromLocation;
   }
 
   public void setFromLocation(Location fromLocation) {
-    FromLocation = fromLocation;
+    this.fromLocation = fromLocation;
   }
 
+  @Column(name = "viaLocation")
   public Location getViaLocation() {
-    return ViaLocation;
+    return viaLocation;
   }
 
   public void setViaLocation(Location viaLocation) {
-    ViaLocation = viaLocation;
+    this.viaLocation = viaLocation;
   }
 
+  @Column(name = "toLocation")
   public Location getToLocation() {
-    return ToLocation;
+    return toLocation;
   }
 
   public void setToLocation(Location toLocation) {
-    ToLocation = toLocation;
+    this.toLocation = toLocation;
   }
 
+  @Column(name = "orderId")
   public String getOrderId() {
     return orderId;
   }
@@ -151,14 +160,16 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.orderId = orderId;
   }
 
+  @Column(name = "allocRef")
   public Integer getAllocRef() {
-    return AllocRef;
+    return allocRef;
   }
 
   public void setAllocRef(Integer allocRef) {
-    AllocRef = allocRef;
+    this.allocRef = allocRef;
   }
 
+  @Column(name = "lineId")
   public String getLineId() {
     return lineId;
   }
@@ -167,14 +178,16 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.lineId = lineId;
   }
 
+  @Column(name = "priority")
   public Integer getPriority() {
-    return Priority;
+    return priority;
   }
 
   public void setPriority(Integer priority) {
-    Priority = priority;
+    this.priority = priority;
   }
 
+  @Column(name = "item")
   public String getItem() {
     return item;
   }
@@ -183,70 +196,79 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.item = item;
   }
 
+  @Column(name = "fromContainer")
   public String getFromContainer() {
-    return FromContainer;
+    return fromContainer;
   }
 
   public void setFromContainer(String fromContainer) {
-    FromContainer = fromContainer;
+    this.fromContainer = fromContainer;
   }
 
+  @Column(name = "toContainer")
   public String getToContainer() {
-    return ToContainer;
+    return toContainer;
   }
 
   public void setToContainer(String toContainer) {
-    ToContainer = toContainer;
+    this.toContainer = toContainer;
   }
 
+  @Column(name = "fromQtyBefore")
   public Double getFromQtyBefore() {
-    return FromQtyBefore;
+    return fromQtyBefore;
   }
 
   public void setFromQtyBefore(Double fromQtyBefore) {
-    FromQtyBefore = fromQtyBefore;
+    this.fromQtyBefore = fromQtyBefore;
   }
 
+  @Column(name = "fromQtyAfter")
   public Double getFromQtyAfter() {
-    return FromQtyAfter;
+    return fromQtyAfter;
   }
 
   public void setFromQtyAfter(Double fromQtyAfter) {
-    FromQtyAfter = fromQtyAfter;
+    this.fromQtyAfter = fromQtyAfter;
   }
 
+  @Column(name = "toQtyBefore")
   public Double getToQtyBefore() {
-    return ToQtyBefore;
+    return toQtyBefore;
   }
 
   public void setToQtyBefore(Double toQtyBefore) {
-    ToQtyBefore = toQtyBefore;
+    this.toQtyBefore = toQtyBefore;
   }
 
+  @Column(name = "toQtyAfter")
   public Double getToQtyAfter() {
-    return ToQtyAfter;
+    return toQtyAfter;
   }
 
   public void setToQtyAfter(Double toQtyAfter) {
-    ToQtyAfter = toQtyAfter;
+    this.toQtyAfter = toQtyAfter;
   }
 
+  @Column(name = "barcode")
   public String getBarcode() {
-    return Barcode;
+    return barcode;
   }
 
   public void setBarcode(String barcode) {
-    Barcode = barcode;
+    this.barcode = barcode;
   }
 
+  @Column(name = "category")
   public String getCategory() {
-    return Category;
+    return category;
   }
 
   public void setCategory(String category) {
-    Category = category;
+    this.category = category;
   }
 
+  @Column(name = "dbDato")
   public Date getDbDato() {
     return dbDato;
   }
@@ -255,12 +277,13 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.dbDato = dbDato;
   }
 
+  @Column(name = "orderNumber")
   public String getOrderNumber() {
-    return OrderNumber;
+    return orderNumber;
   }
 
   public void setOrderNumber(String orderNumber) {
-    OrderNumber = orderNumber;
+    this.orderNumber = orderNumber;
   }
 
   @Override
@@ -272,24 +295,24 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
         ", timestamp=" + timestamp +
         ", timeUsage=" + timeUsage +
         ", user='" + user + '\'' +
-        ", Zone='" + Zone + '\'' +
-        ", FromLocation=" + FromLocation +
-        ", ViaLocation=" + ViaLocation +
-        ", ToLocation=" + ToLocation +
+        ", zone='" + zone + '\'' +
+        ", fromLocation=" + fromLocation +
+        ", viaLocation=" + viaLocation +
+        ", toLocation=" + toLocation +
         ", orderId='" + orderId + '\'' +
-        ", OrderNumber='" + OrderNumber + '\'' +
-        ", AllocRef=" + AllocRef +
+        ", orderNumber='" + orderNumber + '\'' +
+        ", allocRef=" + allocRef +
         ", lineId='" + lineId + '\'' +
-        ", Priority=" + Priority +
+        ", priority=" + priority +
         ", item='" + item + '\'' +
-        ", FromContainer='" + FromContainer + '\'' +
-        ", ToContainer='" + ToContainer + '\'' +
-        ", FromQtyBefore=" + FromQtyBefore +
-        ", FromQtyAfter=" + FromQtyAfter +
-        ", ToQtyBefore=" + ToQtyBefore +
-        ", ToQtyAfter=" + ToQtyAfter +
-        ", Barcode='" + Barcode + '\'' +
-        ", Category='" + Category + '\'' +
+        ", fromContainer='" + fromContainer + '\'' +
+        ", toContainer='" + toContainer + '\'' +
+        ", fromQtyBefore=" + fromQtyBefore +
+        ", fromQtyAfter=" + fromQtyAfter +
+        ", toQtyBefore=" + toQtyBefore +
+        ", toQtyAfter=" + toQtyAfter +
+        ", barcode='" + barcode + '\'' +
+        ", category='" + category + '\'' +
         ", dbDato=" + dbDato +
         '}';
   }

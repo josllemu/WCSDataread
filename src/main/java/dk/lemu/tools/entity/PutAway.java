@@ -26,11 +26,6 @@ public class PutAway extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public PutAway() {
 
   }

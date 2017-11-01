@@ -26,11 +26,6 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public WMSOrderLine() {
 
   }

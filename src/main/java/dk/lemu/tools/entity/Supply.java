@@ -26,11 +26,6 @@ public class Supply extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public Supply() {
 
   }

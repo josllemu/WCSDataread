@@ -5,7 +5,7 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
+public class LMGSSCCDAO extends GenericDAOImplementation<LMGSSCC, Long> {
 
   @Override
   public void saveOrUpdate(LMGSSCC entity) throws Exception {
@@ -20,11 +20,11 @@ public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<LMGSSCC> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (LMGSSCC l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();

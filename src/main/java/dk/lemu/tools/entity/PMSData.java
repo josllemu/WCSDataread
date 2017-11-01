@@ -26,11 +26,6 @@ public class PMSData extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public PMSData() {
 
   }

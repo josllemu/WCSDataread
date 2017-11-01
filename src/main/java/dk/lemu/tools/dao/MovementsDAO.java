@@ -6,11 +6,11 @@ import org.hibernate.query.Query;
 import java.util.Collection;
 import java.util.Date;
 
-public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
+public class MovementsDAO extends GenericDAOImplementation<Movements, Long> {
 
   @Override
   public void saveOrUpdate(Movements entity) throws Exception {
-    Movements candidate = findByOrigSourceAndCreateTime(entity.getOrigSource(), entity.getCreateTime());
+    Movements candidate = findByContainerAndCreateTime(entity.getContainerId(), entity.getCreateTime());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -21,11 +21,11 @@ public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<Movements> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (Movements l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -35,9 +35,9 @@ public class MovementsDAO extends GenericDAOImplementation <Movements, Long>{
     commit();
   }
 
-  public Movements findByOrigSourceAndCreateTime(String origSource, Date createTime) {
-    Query query = currentSession().getNamedQuery("Movements.findByOrigSourceAndCreateTime");
-    query.setParameter("origSource", origSource);
+  public Movements findByContainerAndCreateTime(String origSource, Date createTime) {
+    Query query = currentSession().getNamedQuery("Movements.findByContainerAndCreateTime");
+    query.setParameter("containerId", origSource);
     query.setParameter("createTime", createTime);
     return (Movements) query.uniqueResult();
   }

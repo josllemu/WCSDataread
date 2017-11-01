@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 @NamedQueries({
     @NamedQuery(name = "Item.findbyItemCode", query = "SELECT object(i) FROM Item i WHERE i.item_code = :itemCode")
 })
@@ -16,11 +17,10 @@ import java.util.List;
     @UniqueConstraint(columnNames = "id"),
     @UniqueConstraint(columnNames = "item_code")},
     indexes = {
-    @Index(columnList = "id") ,
-    @Index(columnList = "id, item_code")})
+        @Index(columnList = "id"),
+        @Index(columnList = "id, item_code")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Item extends AbstractEntity  implements Serializable {
-
+public class Item extends AbstractEntity implements Serializable {
 
 
   private Long id;
@@ -49,8 +49,8 @@ public class Item extends AbstractEntity  implements Serializable {
   }
 
   @Id
-  @GenericGenerator(name="josl" , strategy="increment")
-  @GeneratedValue(generator="josl")
+  @GenericGenerator(name = "josl", strategy = "increment")
+  @GeneratedValue(generator = "josl")
   @Column(name = "Id", unique = true, nullable = false)
   public Long getId() {
     return id;

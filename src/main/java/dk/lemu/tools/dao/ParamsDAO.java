@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class ParamsDAO extends GenericDAOImplementation <Params, Long>{
+public class ParamsDAO extends GenericDAOImplementation<Params, Long> {
 
   @Override
   public void saveOrUpdate(Params entity) throws Exception {
-    Params candidate = findByItem(entity.getUnit());
+    Params candidate = findByParms(entity.getParms());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class ParamsDAO extends GenericDAOImplementation <Params, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<Params> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (Params l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class ParamsDAO extends GenericDAOImplementation <Params, Long>{
     commit();
   }
 
-  public Params findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("Params.findByUnit");
-    query.setParameter("unit", unit);
+  public Params findByParms(String parms) {
+    Query query = currentSession().getNamedQuery("Params.findByParms");
+    query.setParameter("parms", parms);
     return (Params) query.uniqueResult();
   }
 }

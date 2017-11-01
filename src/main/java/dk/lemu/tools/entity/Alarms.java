@@ -26,11 +26,6 @@ public class Alarms extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public Alarms() {
 
   }
