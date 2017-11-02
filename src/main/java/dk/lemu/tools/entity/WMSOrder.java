@@ -1,6 +1,6 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ItemDAO;
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -33,7 +33,7 @@ import java.util.List;
 public class WMSOrder extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer orderId; //0
+  private String orderId; //0
   private String typeId; //1
   private String status; //2
   private Integer priority; //3
@@ -58,7 +58,26 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   }
 
   public WMSOrder(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
+    this.setOrderId((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setTypeId((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setStatus((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setNoLines((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setCreatedDate((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
+    this.setOrderNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setDelNoteId((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setRefText((String) TypeParser.fromCSVFile(String.class, list.get(8)));
+    this.setContGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setStatusToHost((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setHostName((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setBoxes((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setPallets((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(15)));
+    this.setWorkStation((String) TypeParser.fromCSVFile(String.class, list.get(16)));
+    this.setPrintRequired((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(17)));
+    this.setDbDate(new Date());
+
 
 
   }
@@ -76,11 +95,11 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "orderId", unique = true,  nullable = false)
-  public Integer getOrderId() {
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(Integer orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 

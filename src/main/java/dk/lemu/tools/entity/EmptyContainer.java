@@ -31,9 +31,9 @@ public class EmptyContainer extends AbstractEntity implements Serializable {
   }
 
   public EmptyContainer(List<String> list) throws Exception {
-    this.setCategory(list.get(14));
-    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
-    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setCategory(list.get(0));
+    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
 
 
   }

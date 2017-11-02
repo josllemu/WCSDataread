@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -27,10 +28,10 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
   private Date timestamp; //2
   private Long timeUsage; //3
   private String user; //4
-  private String zone; //5
-  private Location fromLocation; //6
-  private Location viaLocation; //7
-  private Location toLocation; //8
+  private Integer zone; //5
+  private String fromLocation; //6
+  private String viaLocation; //7
+  private String toLocation; //8
   private String orderId; //9
   private String orderNumber; //10
   private Integer allocRef; //11
@@ -52,8 +53,30 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
   }
 
   public OperatorEvent(List<String> list) throws Exception {
-
-
+    this.setHisID((Long) TypeParser.fromCSVFile(Long.class, list.get(0)));
+    this.setJobType(list.get(1));
+    this.setTimestamp((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
+    this.setTimeUsage((Long) TypeParser.fromCSVFile(Long.class, list.get(3)));
+    this.setUser(list.get(4));
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setFromLocation(list.get(6));
+    this.setViaLocation(list.get(7));
+    this.setToLocation(list.get(8));
+    this.setOrderId(list.get(9));
+    this.setOrderNumber(list.get(10));
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
+    this.setLineId(list.get(12));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setItem(list.get(14));
+    this.setFromContainer(list.get(15));
+    this.setToLocation(list.get(16));
+    this.setFromQtyBefore((Double) TypeParser.fromCSVFile(Double.class, list.get(17)));
+    this.setFromQtyAfter((Double) TypeParser.fromCSVFile(Double.class, list.get(18)));
+    this.setToQtyBefore((Double) TypeParser.fromCSVFile(Double.class, list.get(19)));
+    this.setToQtyAfter((Double) TypeParser.fromCSVFile(Double.class, list.get(20)));
+    this.setBarcode(list.get(21));
+    this.setCategory(list.get(22));
+    this.setDbDato(new Date());
   }
 
   @Id
@@ -114,38 +137,38 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "zone")
-  public String getZone() {
+  public Integer getZone() {
     return zone;
   }
 
-  public void setZone(String zone) {
+  public void setZone(Integer zone) {
     this.zone = zone;
   }
 
   @Column(name = "fromLocation")
-  public Location getFromLocation() {
+  public String getFromLocation() {
     return fromLocation;
   }
 
-  public void setFromLocation(Location fromLocation) {
+  public void setFromLocation(String fromLocation) {
     this.fromLocation = fromLocation;
   }
 
   @Column(name = "viaLocation")
-  public Location getViaLocation() {
+  public String getViaLocation() {
     return viaLocation;
   }
 
-  public void setViaLocation(Location viaLocation) {
+  public void setViaLocation(String viaLocation) {
     this.viaLocation = viaLocation;
   }
 
   @Column(name = "toLocation")
-  public Location getToLocation() {
+  public String getToLocation() {
     return toLocation;
   }
 
-  public void setToLocation(Location toLocation) {
+  public void setToLocation(String toLocation) {
     this.toLocation = toLocation;
   }
 

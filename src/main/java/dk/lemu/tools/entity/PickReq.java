@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -48,7 +49,24 @@ public class PickReq extends AbstractEntity implements Serializable {
   }
 
   public PickReq(List<String> list) throws Exception {
-
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setPickGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setSubGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setMhe(list.get(4));
+    this.setSequenceNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setContainerId(list.get(6));
+    this.setBuildOrder((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setCreationTime((Date) TypeParser.fromCSVFile(Date.class, list.get(8)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setDestContainer(list.get(10));
+    this.setOrigSourceZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
+    this.setPickZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setPickType(list.get(13));
+    this.setPickCategory(list.get(14));
+    this.setPickZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(15)));
+    this.setStageTime((Date) TypeParser.fromCSVFile(Date.class, list.get(16)));
+    this.setDbDate(new Date());
 
   }
 

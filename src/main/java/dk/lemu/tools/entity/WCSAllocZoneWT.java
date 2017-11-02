@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,6 +36,12 @@ public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
   }
 
   public WCSAllocZoneWT(List<String> list) throws Exception {
+    this.setOrderType((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setWeight((Double) TypeParser.fromCSVFile(Double.class, list.get(3)));
+    this.setValue((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setHeigestAmount((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(5)));
 
 
   }

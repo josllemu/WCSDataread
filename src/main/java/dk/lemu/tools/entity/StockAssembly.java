@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -36,7 +37,14 @@ public class StockAssembly extends AbstractEntity implements Serializable {
   }
 
   public StockAssembly(List<String> list) throws Exception {
-
+    this.setStd((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setOrderNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setNullable((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(2)));
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setPlace((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setLocation((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setParmC((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setParm0((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
 
   }
 

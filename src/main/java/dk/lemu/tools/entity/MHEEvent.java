@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -34,7 +35,12 @@ public class MHEEvent extends AbstractEntity implements Serializable {
   }
 
   public MHEEvent(List<String> list) throws Exception {
-
+    this.setMheId((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setEventTime((Date) TypeParser.fromCSVFile(Date.class, list.get(1)));
+    this.setValue1(list.get(2));
+    this.setValue2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setValue3(list.get(4));
+    this.setValue4(list.get(5));
 
   }
 

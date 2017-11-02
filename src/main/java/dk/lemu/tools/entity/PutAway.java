@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -42,7 +43,18 @@ public class PutAway extends AbstractEntity implements Serializable {
   }
 
   public PutAway(List<String> list) throws Exception {
-
+    this.setContainerId(list.get(0));
+    this.setSeqno((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setDestLocn(list.get(2));
+    this.setDestContainer((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setQuantity((Double) TypeParser.fromCSVFile(Double.class, list.get(4)));
+    this.setMhe((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setCategory((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setCreationTime((Date) TypeParser.fromCSVFile(Date.class, list.get(8)));
+    this.setDestContainer((String) TypeParser.fromCSVFile(String.class, list.get(9)));
+    this.setVelocityCode((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setxCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
 
   }
 

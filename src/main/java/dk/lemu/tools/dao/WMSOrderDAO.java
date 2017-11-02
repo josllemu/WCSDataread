@@ -34,15 +34,15 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
     commit();
   }
 
-  public WMSOrder findByOrderId(Integer orderId) {
+  public WMSOrder findByOrderId(String orderId) {
     Query query = currentSession().getNamedQuery("WMSOrder.findByOrderId");
     query.setParameter("order_Id", orderId);
     return (WMSOrder) query.uniqueResult();
   }
 
-  public WMSOrder findByOrderNumber(String orderId) {
+  public WMSOrder findByOrderNumber(String orderNumber) {
     Query query = currentSession().getNamedQuery("WMSOrder.findByOrderNumber");
-    query.setParameter("order_Id", orderId);
+    query.setParameter("order_Number", orderNumber);
     return (WMSOrder) query.uniqueResult();
   }
 

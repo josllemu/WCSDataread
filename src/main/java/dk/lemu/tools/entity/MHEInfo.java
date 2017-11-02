@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -52,7 +53,30 @@ public class MHEInfo extends AbstractEntity implements Serializable {
   }
 
   public MHEInfo(List<String> list) throws Exception {
-
+    this.setUnit(list.get(0));
+    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setParm3((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setParm4((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setParm5((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setParm6((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setParm7((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setParm8((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setParm9((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setArea1(list.get(10));
+    this.setArea2(list.get(11));
+    this.setArea3(list.get(12));
+    this.setArea4(list.get(13));
+    this.setEmpty(list.get(14));
+    this.setType1(list.get(15));
+    this.setType2(list.get(16));
+    this.setType3(list.get(17));
+    this.setName(list.get(18));
+    this.setDualOnly(list.get(19));
+    this.setNullable(list.get(20));
+    this.setHandling(list.get(21));
+    this.setDec1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(22)));
+    this.setDec2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(23)));
 
   }
 

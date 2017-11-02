@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,23 +23,34 @@ import java.util.List;
 public class PMSData extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer zone;
-  private String jobType;
-  private String area;
-  private Integer parm1;
-  private Integer parm2;
-  private Integer parm3;
-  private Integer parm4;
-  private Integer parm5;
-  private Integer parm6;
-  private Integer parm7;
-  private Integer parm8;
+  private Integer zone; //0
+  private String jobType; //1
+  private String area; //2
+  private Integer parm1; //3
+  private Integer parm2; //4
+  private Integer parm3; //5
+  private Integer parm4; //6
+  private Integer parm5; //7
+  private Integer parm6; //8
+  private Integer parm7; //9
+  private Integer parm8; //10
 
   public PMSData() {
 
   }
 
   public PMSData(List<String> list) throws Exception {
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setJobType(list.get(1));
+    this.setArea(list.get(2));
+    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setParm3((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setParm4((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setParm5((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setParm6((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setParm7((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setParm8((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
 
 
   }

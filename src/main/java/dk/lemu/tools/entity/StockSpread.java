@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,6 +32,14 @@ public class StockSpread extends AbstractEntity implements Serializable {
   }
 
   public StockSpread(List<String> list) throws Exception {
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setAisle((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setQuantity((Double) TypeParser.fromCSVFile(Double.class, list.get(2)));
+    this.setRotationDate((Date) TypeParser.fromCSVFile(Date.class, list.get(3)));
+    this.setClientCode((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setItemCode((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+
+    this.setDbDate(new Date());
 
 
   }

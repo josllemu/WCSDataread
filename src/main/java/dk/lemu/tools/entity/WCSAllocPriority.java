@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -40,6 +41,22 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
   }
 
   public WCSAllocPriority(List<String> list) throws Exception {
+    this.setColumn1((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setColumn2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setColumn3((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setColumn4((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setColumn5((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setColumn6((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setColumn7((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setColumn8((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setColumn9((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setColumn10((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setColumn11((Double) TypeParser.fromCSVFile(Double.class, list.get(10)));
+    this.setColumn12((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
+    this.setColumn13((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setColumn14((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+
+    this.setDbDate(new Date());
 
 
   }

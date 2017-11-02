@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -43,7 +44,21 @@ public class ReplenQty extends AbstractEntity implements Serializable {
   }
 
   public ReplenQty(List<String> list) throws Exception {
-
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setCurrentQty((Double) TypeParser.fromCSVFile(Double.class, list.get(3)));
+    this.setRequiredQty((Double) TypeParser.fromCSVFile(Double.class, list.get(4)));
+    this.setMinimumQty((Double) TypeParser.fromCSVFile(Double.class, list.get(5)));
+    this.setMaximumQty((Double) TypeParser.fromCSVFile(Double.class, list.get(6)));
+    this.setBelowMinimum((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(7)));
+    this.setQtyProcent((Double) TypeParser.fromCSVFile(Double.class, list.get(8)));
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setStartLocation((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setEndLocation((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setClientCode((String) TypeParser.fromCSVFile(String.class, list.get(12)));
+    this.setItemCode((String) TypeParser.fromCSVFile(String.class, list.get(13)));
+    this.setItemConf((String) TypeParser.fromCSVFile(String.class, list.get(14)));
 
   }
 

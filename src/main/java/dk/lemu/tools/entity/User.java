@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -42,6 +43,19 @@ public class User extends AbstractEntity implements Serializable {
   }
 
   public User(List<String> list) throws Exception {
+    this.setUsername((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setType((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setSequence((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setPassword((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setProfile((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setExpiryDate((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
+    this.setTimeout((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setAction((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setPwdlife((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setStatus((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setOptions((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setShortcut((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setLocale((String) TypeParser.fromCSVFile(String.class, list.get(12)));
 
 
   }

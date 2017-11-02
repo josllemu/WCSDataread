@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -44,7 +45,21 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
   }
 
   public PartnerAddress(List<String> list) throws Exception {
-
+    this.setOrderID((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setOrderSUB(list.get(1));
+    this.setCvr(list.get(2));
+    this.setPhone(list.get(3));
+    this.setFax(list.get(4));
+    this.setEmail(list.get(5));
+    this.setName1(list.get(6));
+    this.setName2(list.get(7));
+    this.setName3(list.get(8));
+    this.setAddress1(list.get(9));
+    this.setAddress2(list.get(10));
+    this.setZip(list.get(11));
+    this.setTown(list.get(12));
+    this.setCountry(list.get(13));
+    this.setTown(list.get(14));
 
   }
 

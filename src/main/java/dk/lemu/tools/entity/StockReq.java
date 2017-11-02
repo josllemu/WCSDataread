@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -59,7 +60,36 @@ public class StockReq extends AbstractEntity implements Serializable {
   }
 
   public StockReq(List<String> list) throws Exception {
-
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setRequestDate((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
+    this.setAllocQty((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setReqdQty((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setMinRotationDate((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
+    this.setMaxRotationDate((Date) TypeParser.fromCSVFile(Date.class, list.get(6)));
+    this.setDateNum((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setLoadRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setLoadPart((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setPickGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
+    this.setWave((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setRotatePriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setZonePriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setStatusPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(15)));
+    this.setPreferZone1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(16)));
+    this.setPreferZone2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(17)));
+    this.setPreferZone3((Integer) TypeParser.fromCSVFile(Integer.class, list.get(18)));
+    this.setPreferZone4((Integer) TypeParser.fromCSVFile(Integer.class, list.get(19)));
+    this.setPreferZone5((Integer) TypeParser.fromCSVFile(Integer.class, list.get(20)));
+    this.setMaxBatches((Integer) TypeParser.fromCSVFile(Integer.class, list.get(21)));
+    this.setHeightRestrict((Double) TypeParser.fromCSVFile(Double.class, list.get(22)));
+    this.setWeightRestrict((Double) TypeParser.fromCSVFile(Double.class, list.get(23)));
+    this.setType((String) TypeParser.fromCSVFile(String.class, list.get(24)));
+    this.setRequiredStatus((String) TypeParser.fromCSVFile(String.class, list.get(25)));
+    this.setAllowedStatus((String) TypeParser.fromCSVFile(String.class, list.get(26)));
+    this.setPreferStatus((String) TypeParser.fromCSVFile(String.class, list.get(27)));
+    this.setLessPreferStatus((String) TypeParser.fromCSVFile(String.class, list.get(28)));
+    this.setDbDate(new Date());
 
   }
 

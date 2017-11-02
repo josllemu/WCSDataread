@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -38,7 +39,7 @@ public class Zone extends AbstractEntity implements Serializable {
   private Integer pickupBitmap; //13
   private Integer putdownBitmap; //14
   private String mvFinModule; //15
-  private Integer usageBitmap; //16an
+  private Integer usageBitmap; //16
 
 
   public Zone() {
@@ -46,7 +47,23 @@ public class Zone extends AbstractEntity implements Serializable {
   }
 
   public Zone(List<String> list) throws Exception {
-
+    this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setCreationDate((Date) TypeParser.fromCSVFile(Date.class, list.get(1)));
+    this.setDescription((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setTypeModule((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setSelectModule((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setGenericText((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setTemplateText((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setFixedText((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setNumCoords((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setStockSpread((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setX((Double) TypeParser.fromCSVFile(Double.class, list.get(10)));
+    this.setY((Double) TypeParser.fromCSVFile(Double.class, list.get(11)));
+    this.setZ((Double) TypeParser.fromCSVFile(Double.class, list.get(12)));
+    this.setPickupBitmap((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setPutdownBitmap((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setMvFinModule((String) TypeParser.fromCSVFile(String.class, list.get(15)));
+    this.setUsageBitmap((Integer) TypeParser.fromCSVFile(Integer.class, list.get(16)));
 
   }
 

@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,7 +36,10 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
   }
 
   public LMGSSCC(List<String> list) throws Exception {
-
+    this.setContainer(list.get(0));
+    this.setSequenceNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setSscc(list.get(2));
+    this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
 
   }
 

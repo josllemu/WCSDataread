@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -36,6 +37,14 @@ public class WorkStation extends AbstractEntity implements Serializable {
   }
 
   public WorkStation(List<String> list) throws Exception {
+    this.setHostName((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setLocation((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setDescription((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setDocumentPrinter((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setLabelPrinter((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setMhe((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setGuidePrinter((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setTrotterPrinter((String) TypeParser.fromCSVFile(String.class, list.get(7)));
 
 
   }

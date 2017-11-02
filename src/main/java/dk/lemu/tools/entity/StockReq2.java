@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -50,7 +51,27 @@ public class StockReq2 extends AbstractEntity implements Serializable {
   }
 
   public StockReq2(List<String> list) throws Exception {
-
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setClientCode((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setItemCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setItemConf((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setParm1((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setParm2((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setParm3((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setParmN((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setType((String) TypeParser.fromCSVFile(String.class, list.get(8)));
+    this.setCategory((String) TypeParser.fromCSVFile(String.class, list.get(9)));
+    this.setConstant((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
+    this.setNullable((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setDescribtion((String) TypeParser.fromCSVFile(String.class, list.get(12)));
+    this.setSelect1((String) TypeParser.fromCSVFile(String.class, list.get(13)));
+    this.setSelect2((String) TypeParser.fromCSVFile(String.class, list.get(14)));
+    this.setSelect3((String) TypeParser.fromCSVFile(String.class, list.get(15)));
+    this.setSelect4((String) TypeParser.fromCSVFile(String.class, list.get(16)));
+    this.setSelect5((String) TypeParser.fromCSVFile(String.class, list.get(17)));
+    this.setForm((String) TypeParser.fromCSVFile(String.class, list.get(18)));
+    this.setEmpty((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(19)));
+    this.setDbDate(new Date());
 
   }
 

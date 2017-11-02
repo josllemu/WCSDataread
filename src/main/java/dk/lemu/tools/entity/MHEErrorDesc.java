@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,7 +32,10 @@ public class MHEErrorDesc extends AbstractEntity implements Serializable {
   }
 
   public MHEErrorDesc(List<String> list) throws Exception {
-
+    this.setType((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setErrorCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setErrorSubCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setDescription(list.get(3));
   }
 
   @Id

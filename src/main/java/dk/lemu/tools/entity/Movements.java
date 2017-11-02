@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -53,7 +54,29 @@ public class Movements extends AbstractEntity implements Serializable {
 
   public Movements(List<String> list) throws Exception {
 
-
+    this.setOrigSource(list.get(0));
+    this.setFinalSource(list.get(1));
+    this.setDestination(list.get(2));
+    this.setFinalDest(list.get(3));
+    this.setMhe(list.get(4));
+    this.setCreateTime((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
+    this.setActiveTime((Date) TypeParser.fromCSVFile(Date.class, list.get(6)));
+    this.setStageTime((Date) TypeParser.fromCSVFile(Date.class, list.get(7)));
+    this.setType((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setReason((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
+    this.setTxFlag((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
+    this.setGroupInfo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setContainerId(list.get(14));
+    this.setCategory(list.get(15));
+    this.setAisle((Integer) TypeParser.fromCSVFile(Integer.class, list.get(16)));
+    this.setHandler((Integer) TypeParser.fromCSVFile(Integer.class, list.get(17)));
+    this.setOrigPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(18)));
+    this.setMission((Integer) TypeParser.fromCSVFile(Integer.class, list.get(19)));
+    this.setWave((Integer) TypeParser.fromCSVFile(Integer.class, list.get(20)));
+    this.setLoadInfo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(21)));
+    this.setLoadPart((Integer) TypeParser.fromCSVFile(Integer.class, list.get(22)));
   }
 
   @Id

@@ -30,7 +30,8 @@ public class Params extends AbstractEntity implements Serializable {
   }
 
   public Params(List<String> list) throws Exception {
-
+    this.setParms(list.get(0));
+    this.setValues(list.get(1));
 
   }
 

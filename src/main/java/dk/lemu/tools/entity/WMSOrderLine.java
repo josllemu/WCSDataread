@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -55,6 +56,28 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
   }
 
   public WMSOrderLine(List<String> list) throws Exception {
+    this.setOrderId((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setLine((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setStatus((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setExpected((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setActual((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
+    this.setReceipt((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setSpecial((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
+    this.setOlrpSent((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
+    this.setContGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setItemCode((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setCodeNumber((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setText((String) TypeParser.fromCSVFile(String.class, list.get(12)));
+    this.setPurchaseOrder((String) TypeParser.fromCSVFile(String.class, list.get(13)));
+    this.setBlocked((String) TypeParser.fromCSVFile(String.class, list.get(14)));
+    this.setStatusToHost((String) TypeParser.fromCSVFile(String.class, list.get(15)));
+    this.setHostname((String) TypeParser.fromCSVFile(String.class, list.get(16)));
+    this.setAllowForce((Integer) TypeParser.fromCSVFile(Integer.class, list.get(17)));
+    this.setCertificate((Integer) TypeParser.fromCSVFile(Integer.class, list.get(18)));
+    this.setEachAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(19)));
+    this.setAltUnit((String) TypeParser.fromCSVFile(String.class, list.get(20)));
+    this.setAltCount((Integer) TypeParser.fromCSVFile(Integer.class, list.get(21)));
 
 
   }

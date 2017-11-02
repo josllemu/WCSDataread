@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -51,7 +52,27 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
 
   public CustomerLabel(List<String> list) throws Exception {
 
-
+    this.setSeq((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setCarrier(list.get(1));
+    this.setName1(list.get(2));
+    this.setName2(list.get(3));
+    this.setAddress(list.get(4));
+    this.setZipTown(list.get(5));
+    this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setWeight((Double) TypeParser.fromCSVFile(Double.class, list.get(7)));
+    this.setRoute(list.get(8));
+    this.setSalesCompanyID(list.get(9));
+    this.setOrderType(list.get(10));
+    this.setZipCodeArea(list.get(11));
+    this.setSalesOrderNum(list.get(12));
+    this.setOrderNumber(list.get(13));
+    this.setPackDate((Date) TypeParser.fromCSVFile(Date.class, list.get(14)));
+    this.setDespatchRemarks(list.get(15));
+    this.setRemarks(list.get(16));
+    this.setcODText(list.get(17));
+    this.setShippingCode(list.get(18));
+    this.setShippingCodeText(list.get(19));
+    this.setDbDate(new Date());
   }
 
   @Id

@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -34,8 +35,11 @@ public class PickCategory extends AbstractEntity implements Serializable {
   }
 
   public PickCategory(List<String> list) throws Exception {
-
-
+    this.setFunc((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setType(list.get(1));
+    this.setHandling(list.get(2));
+    this.setParmX(list.get(3));
+    this.setValue((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
   }
 
   @Id

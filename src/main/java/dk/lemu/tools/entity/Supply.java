@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -48,6 +49,26 @@ public class Supply extends AbstractEntity implements Serializable {
   }
 
   public Supply(List<String> list) throws Exception {
+    this.setOrderId((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setSupplyType((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setSalesOrderNumber((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setShippingType((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setPickType((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setCarrier((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setSalesCompanyID((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setDeliveryInTotal((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setSalesCompanyAddress((String) TypeParser.fromCSVFile(String.class, list.get(8)));
+    this.setExternalPartnerAddress((String) TypeParser.fromCSVFile(String.class, list.get(9)));
+    this.setRemark1((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setRemark2((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setReceiverName((String) TypeParser.fromCSVFile(String.class, list.get(12)));
+    this.setReceiverPhone((String) TypeParser.fromCSVFile(String.class, list.get(13)));
+    this.setPickText((String) TypeParser.fromCSVFile(String.class, list.get(14)));
+    this.setRoute((String) TypeParser.fromCSVFile(String.class, list.get(15)));
+    this.setCodText((String) TypeParser.fromCSVFile(String.class, list.get(16)));
+    this.setDistInfo1((String) TypeParser.fromCSVFile(String.class, list.get(17)));
+    this.setDistInfo2((String) TypeParser.fromCSVFile(String.class, list.get(18)));
+    this.setZipCodeArea((String) TypeParser.fromCSVFile(String.class, list.get(19)));
 
 
   }

@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,7 +32,9 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
   }
 
   public MoveJobDesc(List<String> list) throws Exception {
-
+    this.setMoveJob(list.get(0));
+    this.setJobNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setDescription(list.get(2));
 
   }
 
