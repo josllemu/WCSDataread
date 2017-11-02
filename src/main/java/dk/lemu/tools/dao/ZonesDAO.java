@@ -9,7 +9,7 @@ public class ZonesDAO extends GenericDAOImplementation<Zone, Long> {
 
   @Override
   public void saveOrUpdate(Zone entity) throws Exception {
-    Zone candidate = findByItem(entity.getUnit());
+    Zone candidate = findByZone(entity.getZone());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,9 @@ public class ZonesDAO extends GenericDAOImplementation<Zone, Long> {
     commit();
   }
 
-  public Zone findByItem(String orderId) {
-    Query query = currentSession().getNamedQuery("Zone.findByOrderId");
-    query.setParameter("order_Id", orderId);
+  public Zone findByZone(Integer zone) {
+    Query query = currentSession().getNamedQuery("Zone.findByZone");
+    query.setParameter("zone", zone);
     return (Zone) query.uniqueResult();
   }
 }

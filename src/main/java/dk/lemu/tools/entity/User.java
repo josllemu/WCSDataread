@@ -22,19 +22,19 @@ import java.util.List;
 public class User extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String username;
-  private Integer type;
-  private Integer sequence;
-  private String password;
-  private String profile;
-  private Date expiryDate;
-  private Integer timeout;
-  private String action;
-  private Integer pwdlife;
-  private Integer status;
-  private String options;
-  private String shortcut;
-  private String locale;
+  private String username; //0
+  private Integer type; //1
+  private Integer sequence; //2
+  private String password; //3
+  private String profile; //4
+  private Date expiryDate; //5
+  private Integer timeout; //6
+  private String action; //7
+  private Integer pwdlife; //8
+  private Integer status; //9
+  private String options; //10
+  private String shortcut; //11
+  private String locale; //12
 
 
   public User() {

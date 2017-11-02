@@ -9,19 +9,25 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "WCSAllocZoneWT.findByUnit", query = "SELECT object(o) FROM WCSAllocZoneWT o WHERE o.unit = :unit")
+    @NamedQuery(name = "WCSAllocZoneWT.findByZonePriorityAndWeight", query = "SELECT object(o) FROM WCSAllocZoneWT o " +
+        "WHERE o.zone = :zone AND o.priority = :priority AND o.weight = :weight")
 })
 @Entity
-@Table(name = "WCSAllocZoneWT",
+@Table(name = "WCSAllocZoneWT", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"zone","priority","weight"})},
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "id, zone, priority, weight")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String unit;
+  private String orderType; //0
+  private Integer zone; //1
+  private Integer priority; //2
+  private Double weight; //3
+  private String value; //4
+  private Boolean heigestAmount; //5
 
 
   public WCSAllocZoneWT() {
@@ -45,12 +51,71 @@ public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public String getUnit() {
-    return unit;
+  @Column(name = "orderType")
+  public String getOrderType() {
+    return orderType;
   }
 
-  public void setUnit(String unit) {
-    this.unit = unit;
+  public void setOrderType(String orderType) {
+    this.orderType = orderType;
+  }
+
+  @Column(name = "zone")
+  public Integer getZone() {
+    return zone;
+  }
+
+  public void setZone(Integer zone) {
+    this.zone = zone;
+  }
+
+  @Column(name = "priority")
+  public Integer getPriority() {
+    return priority;
+  }
+
+  public void setPriority(Integer priority) {
+    this.priority = priority;
+  }
+
+  @Column(name = "weight")
+  public Double getWeight() {
+    return weight;
+  }
+
+  public void setWeight(Double weight) {
+    this.weight = weight;
+  }
+
+  @Column(name = "value")
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  @Column(name = "heigestAmount")
+  public Boolean getHeigestAmount() {
+    return heigestAmount;
+  }
+
+  public void setHeigestAmount(Boolean heigestAmount) {
+    this.heigestAmount = heigestAmount;
+  }
+
+  @Override
+  public String toString() {
+    return "WCSAllocZoneWT{" +
+        "id=" + id +
+        ", orderType='" + orderType + '\'' +
+        ", zone=" + zone +
+        ", priority=" + priority +
+        ", weight=" + weight +
+        ", value='" + value + '\'' +
+        ", heigestAmount=" + heigestAmount +
+        '}';
   }
 }
 

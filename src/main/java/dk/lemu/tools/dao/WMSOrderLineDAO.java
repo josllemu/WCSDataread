@@ -9,7 +9,7 @@ public class WMSOrderLineDAO extends GenericDAOImplementation<WMSOrderLine, Long
 
   @Override
   public void saveOrUpdate(WMSOrderLine entity) throws Exception {
-    WMSOrderLine candidate = findByItem(entity.getUnit());
+    WMSOrderLine candidate = findByOrderAndLine(entity.getOrderId(), entity.getLine());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,10 @@ public class WMSOrderLineDAO extends GenericDAOImplementation<WMSOrderLine, Long
     commit();
   }
 
-  public WMSOrderLine findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("WMSOrderLine.findByUnit");
-    query.setParameter("unit", unit);
+  public WMSOrderLine findByOrderAndLine(Integer orderId, Integer line) {
+    Query query = currentSession().getNamedQuery("WMSOrderLine.findByOrderAndLine");
+    query.setParameter("orderId", orderId);
+    query.setParameter("line", line);
     return (WMSOrderLine) query.uniqueResult();
   }
 }

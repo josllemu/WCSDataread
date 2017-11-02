@@ -1,7 +1,6 @@
 package dk.lemu.tools.dao;
 
 import dk.lemu.tools.entity.WCSAllocPriority;
-import org.hibernate.query.Query;
 
 import java.util.Collection;
 
@@ -9,13 +8,8 @@ public class WCSAllocPriorityDAO extends GenericDAOImplementation<WCSAllocPriori
 
   @Override
   public void saveOrUpdate(WCSAllocPriority entity) throws Exception {
-    WCSAllocPriority candidate = findByItem(entity.getUnit());
-    if (candidate != null) {
-      entity.setId(candidate.getId());
-      currentSession().merge(entity);
-    } else {
-      currentSession().save(entity);
-    }
+    //save new entity each day
+    currentSession().save(entity);
   }
 
   @Override
@@ -34,9 +28,4 @@ public class WCSAllocPriorityDAO extends GenericDAOImplementation<WCSAllocPriori
     commit();
   }
 
-  public WCSAllocPriority findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("WCSAllocPriority.findByUnit");
-    query.setParameter("unit", unit);
-    return (WCSAllocPriority) query.uniqueResult();
-  }
 }

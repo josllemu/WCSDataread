@@ -9,7 +9,7 @@ public class WCSAllocZoneWTDAO extends GenericDAOImplementation<WCSAllocZoneWT, 
 
   @Override
   public void saveOrUpdate(WCSAllocZoneWT entity) throws Exception {
-    WCSAllocZoneWT candidate = findByItem(entity.getUnit());
+    WCSAllocZoneWT candidate = findByZonePriorityAndWeight(entity.getZone(), entity.getPriority(), entity.getWeight());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -17,6 +17,7 @@ public class WCSAllocZoneWTDAO extends GenericDAOImplementation<WCSAllocZoneWT, 
       currentSession().save(entity);
     }
   }
+
 
   @Override
   public void multiSaveOrUpdate(Collection<WCSAllocZoneWT> entities) throws Exception {
@@ -34,9 +35,11 @@ public class WCSAllocZoneWTDAO extends GenericDAOImplementation<WCSAllocZoneWT, 
     commit();
   }
 
-  public WCSAllocZoneWT findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("WCSAllocZoneWT.findByUnit");
-    query.setParameter("unit", unit);
+  private WCSAllocZoneWT findByZonePriorityAndWeight(Integer zone, Integer priority, Double weight) {
+    Query query = currentSession().getNamedQuery("WCSAllocZoneWT.findByZonePriorityAndWeight");
+    query.setParameter("zone", zone);
+    query.setParameter("priority", priority);
+    query.setParameter("weight", weight);
     return (WCSAllocZoneWT) query.uniqueResult();
   }
 }
