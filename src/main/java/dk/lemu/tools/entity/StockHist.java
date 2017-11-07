@@ -10,24 +10,17 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-@NamedQueries({
-    @NamedQuery(name = "Stock.findByItemCodeAndContainerAndTimeReceived",
-        query = "SELECT object(s) FROM Stock s " +
-            "WHERE s.item = :itemCode AND s.container = :containerId and s.timeReceived = :receiveDate")
-})
 @Entity
-@Table(name = "Stock", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"item", "container", "timeReceived", "allocRef" })
-},
+@Table(name = "StockHist",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, item"),
         @Index(columnList = "item"),
         @Index(columnList = "container"),
-        @Index(columnList = "id, item, container, timeReceived"),
+        @Index(columnList = "id, item, container, timeReceived, dbDate"),
         @Index(columnList = "id, item, container")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Stock extends AbstractEntity implements Serializable {
+public class StockHist extends AbstractEntity implements Serializable {
 
 
   private Long id;
@@ -60,11 +53,11 @@ public class Stock extends AbstractEntity implements Serializable {
   private String countryOfManfactr; //26
   private Date dbDate = new Date();
 
-  public Stock() {
+  public StockHist() {
 
   }
 
-  public Stock(List<String> list) throws Exception {
+  public StockHist(List<String> list) throws Exception {
 
 
     this.setContainer(list.get(0));

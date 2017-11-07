@@ -76,7 +76,7 @@ public class PMSData extends AbstractEntity implements Serializable {
     this.zone = zone;
   }
 
-  @Column(name = "jobType")
+  @Column(name = "jobType", length = 15)
   public String getJobType() {
     return jobType;
   }
@@ -85,7 +85,7 @@ public class PMSData extends AbstractEntity implements Serializable {
     this.jobType = jobType;
   }
 
-  @Column(name = "area")
+  @Column(name = "area", length = 15)
   public String getArea() {
     return area;
   }

@@ -92,7 +92,7 @@ public class StockSpread extends AbstractEntity implements Serializable {
     this.rotationDate = rotationDate;
   }
 
-  @Column(name = "clientCode")
+  @Column(name = "clientCode", length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -101,7 +101,7 @@ public class StockSpread extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @Column(name = "itemCode")
+  @Column(name = "itemCode", length = 50)
   public String getItemCode() {
     return itemCode;
   }

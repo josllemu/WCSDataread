@@ -72,7 +72,7 @@ public class User extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "username", unique = true, nullable = false)
+  @Column(name = "username", unique = true, nullable = false, length = 50)
   public String getUsername() {
     return username;
   }
@@ -99,7 +99,7 @@ public class User extends AbstractEntity implements Serializable {
     this.sequence = sequence;
   }
 
-  @Column(name = "password")
+  @Column(name = "password", length = 50)
   public String getPassword() {
     return password;
   }
@@ -108,7 +108,7 @@ public class User extends AbstractEntity implements Serializable {
     this.password = password;
   }
 
-  @Column(name = "profile")
+  @Column(name = "profile", length = 50)
   public String getProfile() {
     return profile;
   }
@@ -135,7 +135,7 @@ public class User extends AbstractEntity implements Serializable {
     this.timeout = timeout;
   }
 
-  @Column(name = "action")
+  @Column(name = "action", length = 50)
   public String getAction() {
     return action;
   }
@@ -162,7 +162,7 @@ public class User extends AbstractEntity implements Serializable {
     this.status = status;
   }
 
-  @Column(name = "options")
+  @Column(name = "options", length = 5)
   public String getOptions() {
     return options;
   }
@@ -171,7 +171,7 @@ public class User extends AbstractEntity implements Serializable {
     this.options = options;
   }
 
-  @Column(name = "shortcut")
+  @Column(name = "shortcut", length = 5)
   public String getShortcut() {
     return shortcut;
   }
@@ -180,7 +180,7 @@ public class User extends AbstractEntity implements Serializable {
     this.shortcut = shortcut;
   }
 
-  @Column(name = "locale")
+  @Column(name = "locale", length = 15)
   public String getLocale() {
     return locale;
   }

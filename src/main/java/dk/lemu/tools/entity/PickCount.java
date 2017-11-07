@@ -39,8 +39,8 @@ public class PickCount extends AbstractEntity implements Serializable {
   public PickCount(List<String> list) throws Exception {
     ItemDAO itemDAO = new ItemDAO();
 
-    this.setItem(list.get(0));
-    this.setClientCode(list.get(1));
+    this.setItem(list.get(1));
+    this.setClientCode(list.get(0));
     this.setLastUpdateTime((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
     this.setMonth1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setMonth2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
@@ -60,7 +60,7 @@ public class PickCount extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item", unique = true, nullable = false)
+  @Column(name = "item", unique = true, nullable = false, length = 50)
   public String getItem() {
     return item;
   }
@@ -69,7 +69,7 @@ public class PickCount extends AbstractEntity implements Serializable {
     this.item = item;
   }
 
-  @Column(name = "clientcode", nullable = false)
+  @Column(name = "clientcode", nullable = false, length = 50)
   public String getClientCode() {
     return clientCode;
   }

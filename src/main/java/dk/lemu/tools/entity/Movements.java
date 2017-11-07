@@ -91,7 +91,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "origSource")
+  @Column(name = "origSource", length = 50)
   public String getOrigSource() {
     return origSource;
   }
@@ -100,7 +100,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.origSource = origSource;
   }
 
-  @Column(name = "finalSource")
+  @Column(name = "finalSource", length = 50)
   public String getFinalSource() {
     return finalSource;
   }
@@ -109,7 +109,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.finalSource = finalSource;
   }
 
-  @Column(name = "destination")
+  @Column(name = "destination", length = 50)
   public String getDestination() {
     return destination;
   }
@@ -118,7 +118,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.destination = destination;
   }
 
-  @Column(name = "finalDest")
+  @Column(name = "finalDest", length = 50)
   public String getFinalDest() {
     return finalDest;
   }
@@ -127,7 +127,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.finalDest = finalDest;
   }
 
-  @Column(name = "mhe")
+  @Column(name = "mhe", length = 50)
   public String getMhe() {
     return mhe;
   }
@@ -217,7 +217,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  @Column(name = "containerId")
+  @Column(name = "containerId", length = 50)
   public String getContainerId() {
     return containerId;
   }
@@ -226,7 +226,7 @@ public class Movements extends AbstractEntity implements Serializable {
     this.containerId = containerId;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", length = 50)
   public String getCategory() {
     return category;
   }

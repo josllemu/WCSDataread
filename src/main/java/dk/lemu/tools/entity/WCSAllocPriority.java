@@ -27,10 +27,10 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
   private Integer column7; //6
   private Integer column8; //7
   private Integer column9; //8
-  private Integer column10; //9
+  private Double column10; //9
   private Double column11; //10
-  private Integer column12; //11
-  private Integer column13; //12
+  private Double column12; //11
+  private Double column13; //12
   private Integer column14; //13
   private Date dbDate = new Date();
 
@@ -50,10 +50,10 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
     this.setColumn7((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
     this.setColumn8((Integer) TypeParser.fromCSVFile(Integer.class, list.get(7)));
     this.setColumn9((Integer) TypeParser.fromCSVFile(Integer.class, list.get(8)));
-    this.setColumn10((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setColumn10((Double) TypeParser.fromCSVFile(Double.class, list.get(9)));
     this.setColumn11((Double) TypeParser.fromCSVFile(Double.class, list.get(10)));
-    this.setColumn12((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
-    this.setColumn13((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setColumn12((Double) TypeParser.fromCSVFile(Double.class, list.get(11)));
+    this.setColumn13((Double) TypeParser.fromCSVFile(Double.class, list.get(12)));
     this.setColumn14((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
 
     this.setDbDate(new Date());
@@ -73,7 +73,7 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "column1")
+  @Column(name = "column1", length = 50)
   public String getColumn1() {
     return column1;
   }
@@ -155,11 +155,11 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "column10")
-  public Integer getColumn10() {
+  public Double getColumn10() {
     return column10;
   }
 
-  public void setColumn10(Integer column10) {
+  public void setColumn10(Double column10) {
     this.column10 = column10;
  }
 
@@ -173,20 +173,20 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "column12")
-  public Integer getColumn12() {
+  public Double getColumn12() {
     return column12;
   }
 
-  public void setColumn12(Integer column12) {
+  public void setColumn12(Double column12) {
     this.column12 = column12;
   }
 
-  public Integer getColumn13() {
+  public Double getColumn13() {
     return column13;
   }
 
   @Column(name = "column13")
-  public void setColumn13(Integer column13) {
+  public void setColumn13(Double column13) {
     this.column13 = column13;
   }
 

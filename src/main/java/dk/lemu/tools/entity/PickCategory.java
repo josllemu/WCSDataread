@@ -63,7 +63,7 @@ public class PickCategory extends AbstractEntity implements Serializable {
     this.func = func;
   }
 
-  @Column(name = "type")
+  @Column(name = "type", length = 10)
   public String getType() {
     return type;
   }
@@ -72,7 +72,7 @@ public class PickCategory extends AbstractEntity implements Serializable {
     this.type = type;
   }
 
-  @Column(name = "handling")
+  @Column(name = "handling", length = 50)
   public String getHandling() {
     return handling;
   }
@@ -81,7 +81,7 @@ public class PickCategory extends AbstractEntity implements Serializable {
     this.handling = handling;
   }
 
-  @Column(name = "parmX")
+  @Column(name = "parmX", length = 50)
   public String getParmX() {
     return parmX;
   }

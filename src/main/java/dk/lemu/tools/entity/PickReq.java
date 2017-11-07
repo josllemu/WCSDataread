@@ -118,7 +118,7 @@ public class PickReq extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  @Column(name = "mhe")
+  @Column(name = "mhe", length = 50)
   public String getMhe() {
     return mhe;
   }
@@ -136,7 +136,7 @@ public class PickReq extends AbstractEntity implements Serializable {
     this.sequenceNo = sequenceNo;
   }
 
-  @Column(name = "containerId")
+  @Column(name = "containerId", length = 50)
   public String getContainerId() {
     return containerId;
   }
@@ -172,7 +172,7 @@ public class PickReq extends AbstractEntity implements Serializable {
     this.priority = priority;
   }
 
-  @Column(name = "destContainer")
+  @Column(name = "destContainer", length = 50)
   public String getDestContainer() {
     return destContainer;
   }
@@ -199,7 +199,7 @@ public class PickReq extends AbstractEntity implements Serializable {
     this.pickZone = pickZone;
   }
 
-  @Column(name = "pickType")
+  @Column(name = "pickType", length = 5)
   public String getPickType() {
     return pickType;
   }
@@ -208,7 +208,7 @@ public class PickReq extends AbstractEntity implements Serializable {
     this.pickType = pickType;
   }
 
-  @Column(name = "pickCategory")
+  @Column(name = "pickCategory", length = 15)
   public String getPickCategory() {
     return pickCategory;
   }

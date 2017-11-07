@@ -1,15 +1,15 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.StockAssembly;
+import dk.lemu.tools.entity.Log;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Long> {
+public class LogDAO extends GenericDAOImplementation<Log, Long> {
 
   @Override
-  public void saveOrUpdate(StockAssembly entity) throws Exception {
-    StockAssembly candidate = findByOrder(entity.getOrderNumber());
+  public void saveOrUpdate(Log entity) throws Exception {
+    Log candidate = findByPath(entity.getPath());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -19,9 +19,9 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
   }
 
   @Override
-  public void multiSaveOrUpdate(Collection<StockAssembly> entities) throws Exception {
+  public void multiSaveOrUpdate(Collection<Log> entities) throws Exception {
     int count = 0;
-    for (StockAssembly l : entities) {
+    for (Log l : entities) {
 
       saveOrUpdate(l);
       if (++count % 50 == 0) {
@@ -34,9 +34,10 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
     commit();
   }
 
-  public StockAssembly findByOrder(String orderNumber) {
-    Query query = currentSession().getNamedQuery("StockAssembly.findByOrder");
-    query.setParameter("orderNumber", orderNumber);
-    return (StockAssembly) query.uniqueResult();
+  public Log findByPath(String path) {
+    Query query = currentSession().getNamedQuery("Log.findByPath");
+    query.setParameter("path", path);
+    return (Log) query.uniqueResult();
   }
+
 }

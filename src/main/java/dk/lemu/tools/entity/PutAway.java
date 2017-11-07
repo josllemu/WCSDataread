@@ -54,7 +54,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.setCreationTime((Date) TypeParser.fromCSVFile(Date.class, list.get(8)));
     this.setDestContainer((String) TypeParser.fromCSVFile(String.class, list.get(9)));
     this.setVelocityCode((String) TypeParser.fromCSVFile(String.class, list.get(10)));
-    this.setxCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(10)));
+    this.setxCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(11)));
 
   }
 
@@ -70,7 +70,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "containerId", unique = true, nullable = false)
+  @Column(name = "containerId", unique = true, nullable = false, length = 50)
   public String getContainerId() {
     return containerId;
   }
@@ -88,7 +88,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.seqno = seqno;
   }
 
-  @Column(name = "destLocn")
+  @Column(name = "destLocn", length = 15)
   public String getDestLocn() {
     return destLocn;
   }
@@ -97,7 +97,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.destLocn = destLocn;
   }
 
-  @Column(name = "destContainer")
+  @Column(name = "destContainer", length = 50)
   public String getDestContainer() {
     return destContainer;
   }
@@ -115,7 +115,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.quantity = quantity;
   }
 
-  @Column(name = "mhe")
+  @Column(name = "mhe", length = 20)
   public String getMhe() {
     return mhe;
   }
@@ -133,7 +133,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", length = 10)
   public String getCategory() {
     return category;
   }
@@ -151,7 +151,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.creationTime = creationTime;
   }
 
-  @Column(name = "destContType")
+  @Column(name = "destContType", length = 10)
   public String getDestContType() {
     return destContType;
   }
@@ -160,7 +160,7 @@ public class PutAway extends AbstractEntity implements Serializable {
     this.destContType = destContType;
   }
 
-  @Column(name = "velocityCode")
+  @Column(name = "velocityCode", length = 10)
   public String getVelocityCode() {
     return velocityCode;
   }

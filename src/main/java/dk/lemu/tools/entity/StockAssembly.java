@@ -23,7 +23,7 @@ public class StockAssembly extends AbstractEntity implements Serializable {
 
   private Long id;
   private Integer std; //0
-  private Integer orderNumber; //1
+  private String orderNumber; //1
   private Boolean nullable; //2
   private Integer zone; //3
   private String place; //4
@@ -38,7 +38,7 @@ public class StockAssembly extends AbstractEntity implements Serializable {
 
   public StockAssembly(List<String> list) throws Exception {
     this.setStd((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
-    this.setOrderNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setOrderNumber((String) TypeParser.fromCSVFile(String.class, list.get(1)));
     this.setNullable((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(2)));
     this.setZone((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setPlace((String) TypeParser.fromCSVFile(String.class, list.get(4)));
@@ -70,11 +70,11 @@ public class StockAssembly extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "orderNumber", unique = true, nullable = false)
-  public Integer getOrderNumber() {
+  public String getOrderNumber() {
     return orderNumber;
   }
 
-  public void setOrderNumber(Integer orderNumber) {
+  public void setOrderNumber(String orderNumber) {
     this.orderNumber = orderNumber;
   }
 
@@ -96,7 +96,7 @@ public class StockAssembly extends AbstractEntity implements Serializable {
     this.zone = zone;
   }
 
-  @Column(name = "place")
+  @Column(name = "place", length = 20)
   public String getPlace() {
     return place;
   }
@@ -105,7 +105,7 @@ public class StockAssembly extends AbstractEntity implements Serializable {
     this.place = place;
   }
 
-  @Column(name = "location")
+  @Column(name = "location", length = 15)
   public String getLocation() {
     return location;
   }
@@ -114,7 +114,7 @@ public class StockAssembly extends AbstractEntity implements Serializable {
     this.location = location;
   }
 
-  @Column(name = "parmC")
+  @Column(name = "parmC", length = 5)
   public String getParmC() {
     return parmC;
   }

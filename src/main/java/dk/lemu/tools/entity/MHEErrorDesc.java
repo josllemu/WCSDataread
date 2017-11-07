@@ -77,7 +77,7 @@ public class MHEErrorDesc extends AbstractEntity implements Serializable {
     this.errorSubCode = errorSubCode;
   }
 
-  @Column(name = "description", unique = true)
+  @Column(name = "description", unique = true, length = 255)
   public String getDescription() {
     return description;
   }

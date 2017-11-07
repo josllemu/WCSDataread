@@ -164,7 +164,7 @@ public class ReplenQty extends AbstractEntity implements Serializable {
     this.allocRef = allocRef;
   }
 
-  @Column(name = "startLocation")
+  @Column(name = "startLocation", length = 15)
   public String getStartLocation() {
     return startLocation;
   }
@@ -173,7 +173,7 @@ public class ReplenQty extends AbstractEntity implements Serializable {
     this.startLocation = startLocation;
   }
 
-  @Column(name = "endLocation")
+  @Column(name = "endLocation", length = 15)
   public String getEndLocation() {
     return endLocation;
   }
@@ -182,7 +182,7 @@ public class ReplenQty extends AbstractEntity implements Serializable {
     this.endLocation = endLocation;
   }
 
-  @Column(name = "clientCode")
+  @Column(name = "clientCode", length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -191,7 +191,7 @@ public class ReplenQty extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @Column(name = "itemCode")
+  @Column(name = "itemCode", length = 15)
   public String getItemCode() {
     return itemCode;
   }
@@ -200,7 +200,7 @@ public class ReplenQty extends AbstractEntity implements Serializable {
     this.itemCode = itemCode;
   }
 
-  @Column(name = "itemConf")
+  @Column(name = "itemConf", length = 15)
   public String getItemConf() {
     return itemConf;
   }

@@ -9,7 +9,7 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
 
   @Override
   public void saveOrUpdate(WMSOrder entity) throws Exception {
-    WMSOrder candidate = findByOrderId(entity.getOrderId());
+    WMSOrder candidate = findByOrderIdOrderNumberAndDelNotId(entity.getOrderId(), entity.getOrderNumber(), entity.getDelNoteId());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -37,6 +37,14 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
   public WMSOrder findByOrderId(String orderId) {
     Query query = currentSession().getNamedQuery("WMSOrder.findByOrderId");
     query.setParameter("order_Id", orderId);
+    return (WMSOrder) query.uniqueResult();
+  }
+
+  public WMSOrder findByOrderIdOrderNumberAndDelNotId(String orderId, String orderNumber, String delNoteId) {
+    Query query = currentSession().getNamedQuery("WMSOrder.findByOrderIdOrderNumberAndDelNotId");
+    query.setParameter("order_Id", orderId);
+    query.setParameter("order_Number", orderNumber);
+    query.setParameter("delNoteId", delNoteId);
     return (WMSOrder) query.uniqueResult();
   }
 

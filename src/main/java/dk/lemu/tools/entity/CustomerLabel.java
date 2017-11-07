@@ -96,7 +96,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.seq = seq;
   }
 
-  @Column(name = "carrier")
+  @Column(name = "carrier", length = 50)
   public String getCarrier() {
     return carrier;
   }
@@ -105,7 +105,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.carrier = carrier;
   }
 
-  @Column(name = "name1")
+  @Column(name = "name1", length = 50)
   public String getName1() {
     return name1;
   }
@@ -114,7 +114,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.name1 = name1;
   }
 
-  @Column(name = "name2")
+  @Column(name = "name2", length = 50)
   public String getName2() {
     return name2;
   }
@@ -123,7 +123,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.name2 = name2;
   }
 
-  @Column(name = "address")
+  @Column(name = "address", length = 50)
   public String getAddress() {
     return address;
   }
@@ -132,7 +132,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.address = address;
   }
 
-  @Column(name = "zipTown")
+  @Column(name = "zipTown", length = 50)
   public String getZipTown() {
     return zipTown;
   }
@@ -159,7 +159,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.weight = weight;
   }
 
-  @Column(name = "route")
+  @Column(name = "route", length = 5)
   public String getRoute() {
     return route;
   }
@@ -168,7 +168,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.route = route;
   }
 
-  @Column(name = "salesCompanyID")
+  @Column(name = "salesCompanyID", length = 50)
   public String getSalesCompanyID() {
     return salesCompanyID;
   }
@@ -177,7 +177,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.salesCompanyID = salesCompanyID;
   }
 
-  @Column(name = "orderType")
+  @Column(name = "orderType", length = 50)
   public String getOrderType() {
     return orderType;
   }
@@ -186,7 +186,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.orderType = orderType;
   }
 
-  @Column(name = "zipCodeArea")
+  @Column(name = "zipCodeArea", length = 10)
   public String getZipCodeArea() {
     return zipCodeArea;
   }
@@ -195,7 +195,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.zipCodeArea = zipCodeArea;
   }
 
-  @Column(name = "salesOrderNum")
+  @Column(name = "salesOrderNum", length = 50)
   public String getSalesOrderNum() {
     return salesOrderNum;
   }
@@ -204,7 +204,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.salesOrderNum = salesOrderNum;
   }
 
-  @Column(name = "orderNumber")
+  @Column(name = "orderNumber", length = 50)
   public String getOrderNumber() {
     return orderNumber;
   }
@@ -222,7 +222,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.packDate = packDate;
   }
 
-  @Column(name = "despatchRemarks")
+  @Column(name = "despatchRemarks", length = 50)
   public String getDespatchRemarks() {
     return despatchRemarks;
   }
@@ -231,7 +231,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.despatchRemarks = despatchRemarks;
   }
 
-  @Column(name = "remarks")
+  @Column(name = "remarks", length = 50)
   public String getRemarks() {
     return remarks;
   }
@@ -240,7 +240,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.remarks = remarks;
   }
 
-  @Column(name = "cODText")
+  @Column(name = "cODText", length = 50)
   public String getcODText() {
     return cODText;
   }
@@ -249,7 +249,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.cODText = cODText;
   }
 
-  @Column(name = "shippingCode", unique = true, nullable = false)
+  @Column(name = "shippingCode", unique = true, nullable = false, length = 50)
   public String getShippingCode() {
     return shippingCode;
   }
@@ -258,7 +258,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.shippingCode = shippingCode;
   }
 
-  @Column(name = "shippingCodeText")
+  @Column(name = "shippingCodeText", length = 50)
   public String getShippingCodeText() {
     return shippingCodeText;
   }

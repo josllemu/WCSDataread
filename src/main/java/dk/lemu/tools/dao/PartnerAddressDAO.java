@@ -34,8 +34,8 @@ public class PartnerAddressDAO extends GenericDAOImplementation<PartnerAddress, 
     commit();
   }
 
-  public PartnerAddress findByOrderAndOrderSub(Integer orderID, String orderSUB) {
-    Query query = currentSession().getNamedQuery("PartnerAddress.findByUnit");
+  public PartnerAddress findByOrderAndOrderSub(String orderID, String orderSUB) {
+    Query query = currentSession().getNamedQuery("PartnerAddress.findByOrderAndOrderSub");
     query.setParameter("orderID", orderID);
     query.setParameter("orderSUB", orderSUB);
     return (PartnerAddress) query.uniqueResult();

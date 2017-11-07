@@ -108,7 +108,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item", unique = true, nullable = false)
+  @Column(name = "item", unique = true, nullable = false, length = 50)
   public String getItem() {
     return item;
   }
@@ -117,7 +117,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.item = item;
   }
 
-  @Column(name = "clientCode", nullable = false)
+  @Column(name = "clientCode", nullable = false, length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -126,7 +126,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @Column(name = "itemConf", nullable = false)
+  @Column(name = "itemConf", nullable = false, length = 50)
   public String getItemConf() {
     return itemConf;
   }
@@ -261,7 +261,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.palletHeight = palletHeight;
   }
 
-  @Column(name = "storageArea")
+  @Column(name = "storageArea", length = 50)
   public String getStorageArea() {
     return storageArea;
   }
@@ -270,7 +270,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageArea = storageArea;
   }
 
-  @Column(name = "handlingText")
+  @Column(name = "handlingText", length = 10)
   public String getHandlingText() {
     return handlingText;
   }
@@ -279,7 +279,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.handlingText = handlingText;
   }
 
-  @Column(name = "storageType1")
+  @Column(name = "storageType1", length = 10)
   public String getStorageType1() {
     return storageType1;
   }
@@ -288,7 +288,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageType1 = storageType1;
   }
 
-  @Column(name = "storageType2")
+  @Column(name = "storageType2", length = 10)
   public String getStorageType2() {
     return storageType2;
   }
@@ -297,7 +297,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageType2 = storageType2;
   }
 
-  @Column(name = "baseUnitVol")
+  @Column(name = "baseUnitVol", length = 10)
   public String getBaseUnitVol() {
     return baseUnitVol;
   }
@@ -306,7 +306,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseUnitVol = baseUnitVol;
   }
 
-  @Column(name = "qaText")
+  @Column(name = "qaText", length = 100)
   public String getQaText() {
     return qaText;
   }
@@ -315,7 +315,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.qaText = qaText;
   }
 
-  @Column(name = "textDiff")
+  @Column(name = "textDiff", length = 50)
   public String getTextDiff() {
     return textDiff;
   }
@@ -324,7 +324,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.textDiff = textDiff;
   }
 
-  @Column(name = "baseWeightUnit")
+  @Column(name = "baseWeightUnit", length = 10)
   public String getBaseWeightUnit() {
     return baseWeightUnit;
   }
@@ -333,7 +333,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseWeightUnit = baseWeightUnit;
   }
 
-  @Column(name = "baseLenghtUnit")
+  @Column(name = "baseLenghtUnit", length = 10)
   public String getBaseLenghtUnit() {
     return baseLenghtUnit;
   }
@@ -342,7 +342,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseLenghtUnit = baseLenghtUnit;
   }
 
-  @Column(name = "operator")
+  @Column(name = "operator", length = 50)
   public String getOperator() {
     return operator;
   }

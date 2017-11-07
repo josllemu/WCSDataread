@@ -1,15 +1,15 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.Zone;
+import dk.lemu.tools.entity.Config;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class ZonesDAO extends GenericDAOImplementation<Zone, Long> {
+public class ConfigDAO extends GenericDAOImplementation<Config, Long> {
 
   @Override
-  public void saveOrUpdate(Zone entity) throws Exception {
-    Zone candidate = findByZone(entity.getZone());
+  public void saveOrUpdate(Config entity) throws Exception {
+    Config candidate = findByConfiguration(entity.getConfiguration());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -19,9 +19,9 @@ public class ZonesDAO extends GenericDAOImplementation<Zone, Long> {
   }
 
   @Override
-  public void multiSaveOrUpdate(Collection<Zone> entities) throws Exception {
+  public void multiSaveOrUpdate(Collection<Config> entities) throws Exception {
     int count = 0;
-    for (Zone l : entities) {
+    for (Config l : entities) {
 
       saveOrUpdate(l);
       if (++count % 50 == 0) {
@@ -34,9 +34,9 @@ public class ZonesDAO extends GenericDAOImplementation<Zone, Long> {
     commit();
   }
 
-  public Zone findByZone(Integer zone) {
-    Query query = currentSession().getNamedQuery("Zone.findByZone");
-    query.setParameter("zone", zone);
-    return (Zone) query.uniqueResult();
+  public Config findByConfiguration(String configuration) {
+    Query query = currentSession().getNamedQuery("Config.findByConfiguration");
+    query.setParameter("configuration", configuration);
+    return (Config) query.uniqueResult();
   }
 }

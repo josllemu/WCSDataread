@@ -85,7 +85,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderId", unique = true, nullable = false)
+  @Column(name = "orderId", unique = true, nullable = false, length = 50)
   public String getOrderId() {
     return orderId;
   }
@@ -94,7 +94,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.orderId = orderId;
   }
 
-  @Column(name = "supplyType")
+  @Column(name = "supplyType", length = 50)
   public String getSupplyType() {
     return supplyType;
   }
@@ -103,7 +103,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.supplyType = supplyType;
   }
 
-  @Column(name = "salesOrderNumber")
+  @Column(name = "salesOrderNumber", length = 50)
   public String getSalesOrderNumber() {
     return salesOrderNumber;
   }
@@ -112,7 +112,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.salesOrderNumber = salesOrderNumber;
   }
 
-  @Column(name = "shippingType")
+  @Column(name = "shippingType", length = 50)
   public String getShippingType() {
     return shippingType;
   }
@@ -121,7 +121,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.shippingType = shippingType;
   }
 
-  @Column(name = "pickType")
+  @Column(name = "pickType", length = 15)
   public String getPickType() {
     return pickType;
   }
@@ -130,7 +130,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.pickType = pickType;
   }
 
-  @Column(name = "carrier")
+  @Column(name = "carrier", length = 50)
   public String getCarrier() {
     return carrier;
   }
@@ -139,7 +139,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.carrier = carrier;
   }
 
-  @Column(name = "salesCompanyID")
+  @Column(name = "salesCompanyID", length = 50)
   public String getSalesCompanyID() {
     return salesCompanyID;
   }
@@ -148,7 +148,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.salesCompanyID = salesCompanyID;
   }
 
-  @Column(name = "deliveryInTotal")
+  @Column(name = "deliveryInTotal", length = 50)
   public String getDeliveryInTotal() {
     return deliveryInTotal;
   }
@@ -157,7 +157,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.deliveryInTotal = deliveryInTotal;
   }
 
-  @Column(name = "salesCompanyAddress")
+  @Column(name = "salesCompanyAddress", length = 50)
   public String getSalesCompanyAddress() {
     return salesCompanyAddress;
   }
@@ -166,7 +166,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.salesCompanyAddress = salesCompanyAddress;
   }
 
-  @Column(name = "externalPartnerAddress")
+  @Column(name = "externalPartnerAddress", length = 50)
   public String getExternalPartnerAddress() {
     return externalPartnerAddress;
   }
@@ -175,7 +175,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.externalPartnerAddress = externalPartnerAddress;
   }
 
-  @Column(name = "remark1")
+  @Column(name = "remark1", length = 50)
   public String getRemark1() {
     return remark1;
   }
@@ -184,7 +184,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.remark1 = remark1;
   }
 
-  @Column(name = "remark2")
+  @Column(name = "remark2", length = 50)
   public String getRemark2() {
     return remark2;
   }
@@ -193,7 +193,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.remark2 = remark2;
   }
 
-  @Column(name = "receiverName")
+  @Column(name = "receiverName", length = 50)
   public String getReceiverName() {
     return receiverName;
   }
@@ -202,7 +202,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.receiverName = receiverName;
   }
 
-  @Column(name = "receiverPhone")
+  @Column(name = "receiverPhone", length = 50)
   public String getReceiverPhone() {
     return receiverPhone;
   }
@@ -211,7 +211,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.receiverPhone = receiverPhone;
   }
 
-  @Column(name = "pickText")
+  @Column(name = "pickText", length = 50)
   public String getPickText() {
     return pickText;
   }
@@ -220,7 +220,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.pickText = pickText;
   }
 
-  @Column(name = "route")
+  @Column(name = "route", length = 50)
   public String getRoute() {
     return route;
   }
@@ -229,7 +229,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.route = route;
   }
 
-  @Column(name = "codText")
+  @Column(name = "codText", length = 50)
   public String getCodText() {
     return codText;
   }
@@ -238,7 +238,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.codText = codText;
   }
 
-  @Column(name = "distInfo1")
+  @Column(name = "distInfo1", length = 50)
   public String getDistInfo1() {
     return distInfo1;
   }
@@ -247,7 +247,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.distInfo1 = distInfo1;
   }
 
-  @Column(name = "distInfo2")
+  @Column(name = "distInfo2", length = 50)
   public String getDistInfo2() {
     return distInfo2;
   }
@@ -256,7 +256,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.distInfo2 = distInfo2;
   }
 
-  @Column(name = "zipCodeArea")
+  @Column(name = "zipCodeArea", length = 15)
   public String getZipCodeArea() {
     return zipCodeArea;
   }

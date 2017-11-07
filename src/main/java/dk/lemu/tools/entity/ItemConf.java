@@ -99,7 +99,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item", unique = true, nullable = false)
+  @Column(name = "item", unique = true, nullable = false, length = 50)
   public String getItem() {
     return item;
   }
@@ -108,7 +108,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.item = item;
   }
 
-  @Column(name = "client_code", nullable = false)
+  @Column(name = "client_code", nullable = false, length = 50)
   public String getClient_code() {
     return client_code;
   }
@@ -117,7 +117,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.client_code = client_code;
   }
 
-  @Column(name = "itemConf", nullable = false)
+  @Column(name = "itemConf", nullable = false, length = 50)
   public String getItemConf() {
     return itemConf;
   }
@@ -135,7 +135,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.serialNumReqd = serialNumReqd;
   }
 
-  @Column(name = "velocity_code")
+  @Column(name = "velocity_code", length = 50)
   public String getVelocity_code() {
     return velocity_code;
   }
@@ -144,7 +144,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.velocity_code = velocity_code;
   }
 
-  @Column(name = "barcode", nullable = false)
+  @Column(name = "barcode", nullable = false, length = 50)
   public String getBarcode() {
     return barcode;
   }
@@ -198,7 +198,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.measured_qty = measured_qty;
   }
 
-  @Column(name = "barcode2")
+  @Column(name = "barcode2", length = 50)
   public String getBarcode2() {
     return barcode2;
   }
@@ -207,7 +207,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode2 = barcode2;
   }
 
-  @Column(name = "barcode3")
+  @Column(name = "barcode3", length = 50)
   public String getBarcode3() {
     return barcode3;
   }
@@ -216,7 +216,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode3 = barcode3;
   }
 
-  @Column(name = "barcode4")
+  @Column(name = "barcode4", length = 50)
   public String getBarcode4() {
     return barcode4;
   }
@@ -225,7 +225,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode4 = barcode4;
   }
 
-  @Column(name = "description")
+  @Column(name = "description", length = 100)
   public String getDescription() {
     return description;
   }
@@ -234,7 +234,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "subConf")
+  @Column(name = "subConf", length = 10)
   public String getSubConf() {
     return subConf;
   }

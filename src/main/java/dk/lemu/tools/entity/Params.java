@@ -47,7 +47,7 @@ public class Params extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "parms", unique = true)
+  @Column(name = "parms", unique = true, length = 50)
   public String getParms() {
     return parms;
   }
@@ -56,7 +56,7 @@ public class Params extends AbstractEntity implements Serializable {
     this.parms = parms;
   }
 
-  @Column(name = "value")
+  @Column(name = "value", length = 50)
   public String getValues() {
     return value;
   }

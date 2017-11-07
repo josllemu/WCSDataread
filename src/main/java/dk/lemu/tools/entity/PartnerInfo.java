@@ -24,32 +24,31 @@ import java.util.List;
 public class PartnerInfo extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer orderID; //0
+  private String orderID; //0
   private String orderSUB; //1
   private String orderNumber; //2
   private String requistion; //3
   private String contactName; //4
   private String contactNumber; //5
   private String orderName; //6
-  private String orderName1; //7
-  private String orderName2; //8
-  private String orderName3; //9
 
   public PartnerInfo() {
 
   }
 
   public PartnerInfo(List<String> list) throws Exception {
-    this.setOrderID((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setOrderID((String) TypeParser.fromCSVFile(String.class, list.get(0)));
     this.setOrderSUB(list.get(1));
     this.setOrderNumber(list.get(2));
     this.setRequistion(list.get(3));
     this.setContactName(list.get(4));
     this.setContactNumber(list.get(5));
-    this.setOrderName(list.get(6));
-    this.setOrderName1(list.get(7));
-    this.setOrderName2(list.get(8));
-    this.setOrderName3(list.get(9));
+    for (int i = 6; i>=list.size(); i++) {
+      this.setOrderName(this.getOrderName() != null ?
+          this.getOrderNumber() + "~" +list.get(i) :
+          list.get(i));
+    }
+
 
 
   }
@@ -66,16 +65,16 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderID")
-  public Integer getOrderID() {
+  @Column(name = "orderID", length = 50)
+  public String getOrderID() {
     return orderID;
   }
 
-  public void setOrderID(Integer orderID) {
+  public void setOrderID(String orderID) {
     this.orderID = orderID;
   }
 
-  @Column(name = "orderSUB")
+  @Column(name = "orderSUB", length = 50)
   public String getOrderSUB() {
     return orderSUB;
   }
@@ -84,7 +83,7 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.orderSUB = orderSUB;
   }
 
-  @Column(name = "orderNumber")
+  @Column(name = "orderNumber", length = 50)
   public String getOrderNumber() {
     return orderNumber;
   }
@@ -93,7 +92,7 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.orderNumber = orderNumber;
   }
 
-  @Column(name = "requistion")
+  @Column(name = "requistion", length = 50)
   public String getRequistion() {
     return requistion;
   }
@@ -102,7 +101,7 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.requistion = requistion;
   }
 
-  @Column(name = "contactName")
+  @Column(name = "contactName", length = 50)
   public String getContactName() {
     return contactName;
   }
@@ -111,7 +110,7 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.contactName = contactName;
   }
 
-  @Column(name = "contactNumber")
+  @Column(name = "contactNumber", length = 50)
   public String getContactNumber() {
     return contactNumber;
   }
@@ -120,40 +119,13 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.contactNumber = contactNumber;
   }
 
-  @Column(name = "orderName")
+  @Column(name = "orderName", length = 50)
   public String getOrderName() {
     return orderName;
   }
 
   public void setOrderName(String orderName) {
     this.orderName = orderName;
-  }
-
-  @Column(name = "orderName1")
-  public String getOrderName1() {
-    return orderName1;
-  }
-
-  public void setOrderName1(String orderName1) {
-    this.orderName1 = orderName1;
-  }
-
-  @Column(name = "orderName2")
-  public String getOrderName2() {
-    return orderName2;
-  }
-
-  public void setOrderName2(String orderName2) {
-    this.orderName2 = orderName2;
-  }
-
-  @Column(name = "orderName3")
-  public String getOrderName3() {
-    return orderName3;
-  }
-
-  public void setOrderName3(String orderName3) {
-    this.orderName3 = orderName3;
   }
 
   @Override
@@ -167,9 +139,7 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
         ", contactName='" + contactName + '\'' +
         ", contactNumber='" + contactNumber + '\'' +
         ", orderName='" + orderName + '\'' +
-        ", orderName1='" + orderName1 + '\'' +
-        ", orderName2='" + orderName2 + '\'' +
-        ", orderName3='" + orderName3 + '\'' +
+
         '}';
   }
 }

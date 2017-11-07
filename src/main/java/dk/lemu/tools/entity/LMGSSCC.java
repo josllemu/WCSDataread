@@ -56,7 +56,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
   }
 
 
-  @Column(name = "container")
+  @Column(name = "container", length = 50)
   public String getContainer() {
     return container;
   }
@@ -74,7 +74,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
     this.sequenceNumber = sequenceNumber;
   }
 
-  @Column(name = "sscc", unique = true)
+  @Column(name = "sscc", unique = true, length = 50)
   public String getSscc() {
     return sscc;
   }

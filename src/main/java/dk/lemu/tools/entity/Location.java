@@ -79,7 +79,7 @@ public class Location extends AbstractContainer implements Serializable {
     return locType;
   }
 
-  @Column(name = "location", nullable = false, unique = true)
+  @Column(name = "location", nullable = false, unique = true, length = 50)
   public String getLocation() {
     return location;
   }
@@ -151,7 +151,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.weight = weight;
   }
 
-  @Column(name = "errorStatus")
+  @Column(name = "errorStatus", length = 5)
   public String getErrorStatus() {
     return errorStatus;
   }
@@ -160,7 +160,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.errorStatus = errorStatus;
   }
 
-  @Column(name = "type")
+  @Column(name = "type", length = 5)
   public String getType() {
     return type;
   }
@@ -169,7 +169,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.type = type;
   }
 
-  @Column(name = "status")
+  @Column(name = "status", length = 5)
   public String getStatus() {
     return status;
   }
@@ -178,7 +178,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.status = status;
   }
 
-  @Column(name = "auditStatus")
+  @Column(name = "auditStatus", length = 5)
   public String getAuditStatus() {
     return auditStatus;
   }
@@ -187,7 +187,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.auditStatus = auditStatus;
   }
 
-  @Column(name = "picking")
+  @Column(name = "picking", length = 5)
   public String getPicking() {
     return picking;
   }
@@ -196,7 +196,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.picking = picking;
   }
 
-  @Column(name = "checkDigits")
+  @Column(name = "checkDigits", length = 5)
   public String getCheckDigits() {
     return checkDigits;
   }
@@ -205,7 +205,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.checkDigits = checkDigits;
   }
 
-  @Column(name = "fullStatus")
+  @Column(name = "fullStatus", length = 5)
   public String getFullStatus() {
     return fullStatus;
   }
@@ -232,7 +232,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.depth = depth;
   }
 
-  @Column(name = "piChecked")
+  @Column(name = "piChecked", length = 5)
   public String getPiChecked() {
     return piChecked;
   }
@@ -241,7 +241,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.piChecked = piChecked;
   }
 
-  @Column(name = "posnChecked")
+  @Column(name = "posnChecked", length = 5)
   public String getPosnChecked() {
     return posnChecked;
   }

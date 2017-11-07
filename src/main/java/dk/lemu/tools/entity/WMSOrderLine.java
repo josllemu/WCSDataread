@@ -26,7 +26,7 @@ import java.util.List;
 public class WMSOrderLine extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer orderId; //0
+  private String orderId; //0
   private Integer line; //1
   private String status; //2
   private Integer allocRef; //3
@@ -56,7 +56,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
   }
 
   public WMSOrderLine(List<String> list) throws Exception {
-    this.setOrderId((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setOrderId((String) TypeParser.fromCSVFile(String.class, list.get(0)));
     this.setLine((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
     this.setStatus((String) TypeParser.fromCSVFile(String.class, list.get(2)));
     this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
@@ -94,12 +94,12 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderId")
-  public Integer getOrderId() {
+  @Column(name = "orderId", length = 50)
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(Integer orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 
@@ -112,7 +112,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.line = line;
   }
 
-  @Column(name = "status")
+  @Column(name = "status", length = 5)
   public String getStatus() {
     return status;
   }
@@ -121,7 +121,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.status = status;
   }
 
-  @Column(name = "allocRef", unique = true, nullable = false)
+  @Column(name = "allocRef", nullable = false)
   public Integer getAllocRef() {
     return allocRef;
   }
@@ -184,7 +184,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.contGroup = contGroup;
   }
 
-  @Column(name = "itemCode")
+  @Column(name = "itemCode", length = 50)
   public String getItemCode() {
     return itemCode;
   }
@@ -193,7 +193,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.itemCode = itemCode;
   }
 
-  @Column(name = "codeNumber")
+  @Column(name = "codeNumber", length = 50)
   public String getCodeNumber() {
     return codeNumber;
   }
@@ -202,7 +202,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.codeNumber = codeNumber;
   }
 
-  @Column(name = "text")
+  @Column(name = "text", length = 50)
   public String getText() {
     return text;
   }
@@ -211,7 +211,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.text = text;
   }
 
-  @Column(name = "purchaseOrder")
+  @Column(name = "purchaseOrder", length = 50)
   public String getPurchaseOrder() {
     return purchaseOrder;
   }
@@ -220,7 +220,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.purchaseOrder = purchaseOrder;
   }
 
-  @Column(name = "blocked")
+  @Column(name = "blocked", length = 5)
   public String getBlocked() {
     return blocked;
   }
@@ -229,7 +229,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.blocked = blocked;
   }
 
-  @Column(name = "statusToHost")
+  @Column(name = "statusToHost", length = 5)
   public String getStatusToHost() {
     return statusToHost;
   }
@@ -238,7 +238,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.statusToHost = statusToHost;
   }
 
-  @Column(name = "hostname")
+  @Column(name = "hostname", length = 50)
   public String getHostname() {
     return hostname;
   }
@@ -274,7 +274,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.eachAllocRef = eachAllocRef;
   }
 
-  @Column(name = "altUnit")
+  @Column(name = "altUnit", length = 10)
   public String getAltUnit() {
     return altUnit;
   }

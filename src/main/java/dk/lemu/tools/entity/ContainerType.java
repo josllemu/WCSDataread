@@ -82,7 +82,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "containerTypeCode", unique = true, nullable = false)
+  @Column(name = "containerTypeCode", unique = true, nullable = false, length = 25)
   public String getContainerTypeCode() {
     return containerTypeCode;
   }
@@ -91,7 +91,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.containerTypeCode = containerTypeCode;
   }
 
-  @Column(name = "description", nullable = false)
+  @Column(name = "description", nullable = false, length = 25)
   public String getDescription() {
     return description;
   }
@@ -100,7 +100,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "groupInfo")
+  @Column(name = "groupInfo", length = 25)
   public String getGroupInfo() {
     return groupInfo;
   }
@@ -109,7 +109,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.groupInfo = groupInfo;
   }
 
-  @Column(name = "velocityCode")
+  @Column(name = "velocityCode", length = 25)
   public String getVelocityCode() {
     return velocityCode;
   }
@@ -199,7 +199,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.extLength = extLength;
   }
 
-  @Column(name = "lu")
+  @Column(name = "lu", length = 5)
   public String getLu() {
     return lu;
   }
@@ -208,7 +208,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.lu = lu;
   }
 
-  @Column(name = "size")
+  @Column(name = "size", length = 5)
   public String getSize() {
     return size;
   }

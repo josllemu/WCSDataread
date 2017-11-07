@@ -50,7 +50,7 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "moveJob", unique = true, nullable = false)
+  @Column(name = "moveJob", unique = true, nullable = false, length = 50)
   public String getMoveJob() {
     return moveJob;
   }
@@ -68,7 +68,7 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
     this.jobNo = jobNo;
   }
 
-  @Column(name = "description")
+  @Column(name = "description", length = 50)
   public String getDescription() {
     return description;
   }

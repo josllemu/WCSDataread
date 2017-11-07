@@ -61,6 +61,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "hostName", length = 50)
   public String getHostName() {
     return hostName;
   }
@@ -69,6 +70,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.hostName = hostName;
   }
 
+  @Column(name = "location", length = 50)
   public String getLocation() {
     return location;
   }
@@ -77,6 +79,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.location = location;
   }
 
+  @Column(name = "description", length = 50)
   public String getDescription() {
     return description;
   }
@@ -85,6 +88,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
+  @Column(name = "documentPrinter", length = 50)
   public String getDocumentPrinter() {
     return documentPrinter;
   }
@@ -93,6 +97,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.documentPrinter = documentPrinter;
   }
 
+  @Column(name = "labelPrinter", length = 50)
   public String getLabelPrinter() {
     return labelPrinter;
   }
@@ -101,6 +106,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.labelPrinter = labelPrinter;
   }
 
+  @Column(name = "mhe", length = 50)
   public String getMhe() {
     return mhe;
   }
@@ -109,6 +115,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.mhe = mhe;
   }
 
+  @Column(name = "guidePrinter", length = 50)
   public String getGuidePrinter() {
     return guidePrinter;
   }
@@ -117,6 +124,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.guidePrinter = guidePrinter;
   }
 
+  @Column(name = "trotterPrinter", length = 50)
   public String getTrotterPrinter() {
     return trotterPrinter;
   }

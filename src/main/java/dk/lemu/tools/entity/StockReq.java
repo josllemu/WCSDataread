@@ -321,7 +321,7 @@ public class StockReq extends AbstractEntity implements Serializable {
     this.weightRestrict = weightRestrict;
   }
 
-  @Column(name = "type")
+  @Column(name = "type", length = 5)
   public String getType() {
     return type;
   }
@@ -330,7 +330,7 @@ public class StockReq extends AbstractEntity implements Serializable {
     this.type = type;
   }
 
-  @Column(name = "requiredStatus")
+  @Column(name = "requiredStatus", length = 20)
   public String getRequiredStatus() {
     return requiredStatus;
   }
@@ -339,7 +339,7 @@ public class StockReq extends AbstractEntity implements Serializable {
     this.requiredStatus = requiredStatus;
   }
 
-  @Column(name = "allowedStatus")
+  @Column(name = "allowedStatus", length = 20)
   public String getAllowedStatus() {
     return allowedStatus;
   }
@@ -348,7 +348,7 @@ public class StockReq extends AbstractEntity implements Serializable {
     this.allowedStatus = allowedStatus;
   }
 
-  @Column(name = "preferStatus")
+  @Column(name = "preferStatus", length = 20)
   public String getPreferStatus() {
     return preferStatus;
   }
@@ -357,7 +357,7 @@ public class StockReq extends AbstractEntity implements Serializable {
     this.preferStatus = preferStatus;
   }
 
-  @Column(name = "lessPreferStatus")
+  @Column(name = "lessPreferStatus", length = 20)
   public String getLessPreferStatus() {
     return lessPreferStatus;
   }

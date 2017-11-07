@@ -34,7 +34,7 @@ public class WMSOrderLineDAO extends GenericDAOImplementation<WMSOrderLine, Long
     commit();
   }
 
-  public WMSOrderLine findByOrderAndLine(Integer orderId, Integer line) {
+  public WMSOrderLine findByOrderAndLine(String orderId, Integer line) {
     Query query = currentSession().getNamedQuery("WMSOrderLine.findByOrderAndLine");
     query.setParameter("orderId", orderId);
     query.setParameter("line", line);

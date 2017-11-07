@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "StockReq2.findByAllocRef", query = "SELECT object(o) FROM StockReq o WHERE o.allocRef = :allocRef")
+    @NamedQuery(name = "StockReq2.findByAllocRef", query = "SELECT object(o) FROM StockReq2 o WHERE o.allocRef = :allocRef")
 })
 @Entity
 @Table(name = "StockReq2",
@@ -25,7 +25,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
   private Long id;
   private Integer allocRef; //0
   private String clientCode; //1
-  private Integer itemCode; //2
+  private String itemCode; //2
   private String itemConf; //3
   private String parm1; //4
   private String parm2; //5
@@ -53,7 +53,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
   public StockReq2(List<String> list) throws Exception {
     this.setAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
     this.setClientCode((String) TypeParser.fromCSVFile(String.class, list.get(1)));
-    this.setItemCode((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
+    this.setItemCode((String) TypeParser.fromCSVFile(String.class, list.get(2)));
     this.setItemConf((String) TypeParser.fromCSVFile(String.class, list.get(3)));
     this.setParm1((String) TypeParser.fromCSVFile(String.class, list.get(4)));
     this.setParm2((String) TypeParser.fromCSVFile(String.class, list.get(5)));
@@ -96,7 +96,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.allocRef = allocRef;
   }
 
-  @Column(name = "clientCode")
+  @Column(name = "clientCode", length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -105,16 +105,16 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @Column(name = "itemCode")
-  public Integer getItemCode() {
+  @Column(name = "itemCode", length = 50)
+  public String getItemCode() {
     return itemCode;
   }
 
-  public void setItemCode(Integer itemCode) {
+  public void setItemCode(String itemCode) {
     this.itemCode = itemCode;
   }
 
-  @Column(name = "itemConf")
+  @Column(name = "itemConf", length = 50)
   public String getItemConf() {
     return itemConf;
   }
@@ -123,7 +123,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.itemConf = itemConf;
   }
 
-  @Column(name = "parm1")
+  @Column(name = "parm1", length = 10)
   public String getParm1() {
     return parm1;
   }
@@ -132,7 +132,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.parm1 = parm1;
   }
 
-  @Column(name = "parm2")
+  @Column(name = "parm2", length = 50)
   public String getParm2() {
     return parm2;
   }
@@ -141,7 +141,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.parm2 = parm2;
   }
 
-  @Column(name = "parm3")
+  @Column(name = "parm3", length = 50)
   public String getParm3() {
     return parm3;
   }
@@ -150,7 +150,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.parm3 = parm3;
   }
 
-  @Column(name = "parmN")
+  @Column(name = "parmN", length = 5)
   public String getParmN() {
     return parmN;
   }
@@ -159,7 +159,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.parmN = parmN;
   }
 
-  @Column(name = "type")
+  @Column(name = "type", length = 5)
   public String getType() {
     return type;
   }
@@ -168,7 +168,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.type = type;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", length = 15)
   public String getCategory() {
     return category;
   }
@@ -177,7 +177,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.category = category;
   }
 
-  @Column(name = "constant")
+  @Column(name = "constant", length = 15)
   public Integer getConstant() {
     return constant;
   }
@@ -186,7 +186,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.constant = constant;
   }
 
-  @Column(name = "nullable")
+  @Column(name = "nullable", length = 25)
   public String getNullable() {
     return nullable;
   }
@@ -195,7 +195,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.nullable = nullable;
   }
 
-  @Column(name = "describtion")
+  @Column(name = "describtion", length = 100)
   public String getDescribtion() {
     return describtion;
   }
@@ -204,7 +204,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.describtion = describtion;
   }
 
-  @Column(name = "select1")
+  @Column(name = "select1", length = 5)
   public String getSelect1() {
     return select1;
   }
@@ -213,7 +213,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.select1 = select1;
   }
 
-  @Column(name = "select2")
+  @Column(name = "select2", length = 5)
   public String getSelect2() {
     return select2;
   }
@@ -222,7 +222,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.select2 = select2;
   }
 
-  @Column(name = "select3")
+  @Column(name = "select3", length = 5)
   public String getSelect3() {
     return select3;
   }
@@ -231,7 +231,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.select3 = select3;
   }
 
-  @Column(name = "select4")
+  @Column(name = "select4", length = 5)
   public String getSelect4() {
     return select4;
   }
@@ -240,7 +240,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.select4 = select4;
   }
 
-  @Column(name = "select5")
+  @Column(name = "select5", length = 5)
   public String getSelect5() {
     return select5;
   }
@@ -249,7 +249,7 @@ public class StockReq2 extends AbstractEntity implements Serializable {
     this.select5 = select5;
   }
 
-  @Column(name = "form")
+  @Column(name = "form", length = 10)
   public String getForm() {
     return form;
   }

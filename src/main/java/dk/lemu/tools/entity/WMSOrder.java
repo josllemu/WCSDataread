@@ -13,7 +13,9 @@ import java.util.List;
 @NamedQueries({
     @NamedQuery(name = "WMSOrder.findByOrderId", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderId = :order_Id"),
     @NamedQuery(name = "WMSOrder.findByOrderNumber", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderNumber = :order_Number"),
-    @NamedQuery(name = "WMSOrder.findByDelNoteId", query = "SELECT object(o) FROM WMSOrder o WHERE o.delNoteId = :delNoteId")
+    @NamedQuery(name = "WMSOrder.findByDelNoteId", query = "SELECT object(o) FROM WMSOrder o WHERE o.delNoteId = :delNoteId"),
+    @NamedQuery(name = "WMSOrder.findByOrderIdOrderNumberAndDelNotId", query = "SELECT object(o) FROM WMSOrder o " +
+        "WHERE o.orderId = :order_Id AND o.orderNumber = :order_Number AND o.delNoteId = :delNoteId")
 
 })
 @Entity
@@ -39,7 +41,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   private Integer priority; //3
   private Integer noLines; //4
   private Date createdDate; //5
-  private Integer orderNumber; //6
+  private String orderNumber; //6
   private String delNoteId; //7
   private String refText; //8
   private Integer contGroup; //9
@@ -64,7 +66,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setNoLines((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
     this.setCreatedDate((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
-    this.setOrderNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setOrderNumber((String) TypeParser.fromCSVFile(String.class, list.get(6)));
     this.setDelNoteId((String) TypeParser.fromCSVFile(String.class, list.get(7)));
     this.setRefText((String) TypeParser.fromCSVFile(String.class, list.get(8)));
     this.setContGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
@@ -94,7 +96,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderId", unique = true,  nullable = false)
+  @Column(name = "orderId", nullable = false, length = 50)
   public String getOrderId() {
     return orderId;
   }
@@ -103,7 +105,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.orderId = orderId;
   }
 
-  @Column(name = "typeId")
+  @Column(name = "typeId", length = 5)
   public String getTypeId() {
     return typeId;
   }
@@ -112,7 +114,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.typeId = typeId;
   }
 
-  @Column(name = "status")
+  @Column(name = "status", length = 5)
   public String getStatus() {
     return status;
   }
@@ -148,16 +150,16 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.createdDate = createdDate;
   }
 
-  @Column(name = "orderNumber", unique = true,  nullable = false)
-  public Integer getOrderNumber() {
+  @Column(name = "orderNumber", nullable = false, length = 50)
+  public String getOrderNumber() {
     return orderNumber;
   }
 
-  public void setOrderNumber(Integer orderNumber) {
+  public void setOrderNumber(String orderNumber) {
     this.orderNumber = orderNumber;
   }
 
-  @Column(name = "delNoteId", unique = true,  nullable = false)
+  @Column(name = "delNoteId", length = 50)
   public String getDelNoteId() {
     return delNoteId;
   }
@@ -166,7 +168,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.delNoteId = delNoteId;
   }
 
-  @Column(name = "refText")
+  @Column(name = "refText", length = 50)
   public String getRefText() {
     return refText;
   }
@@ -184,7 +186,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.contGroup = contGroup;
   }
 
-  @Column(name = "statusToHost")
+  @Column(name = "statusToHost", length = 5)
   public String getStatusToHost() {
     return statusToHost;
   }
@@ -193,7 +195,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.statusToHost = statusToHost;
   }
 
-  @Column(name = "hostName")
+  @Column(name = "hostName", length = 50)
   public String getHostName() {
     return hostName;
   }
@@ -238,7 +240,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  @Column(name = "workStation")
+  @Column(name = "workStation", length = 50)
   public String getWorkStation() {
     return workStation;
   }

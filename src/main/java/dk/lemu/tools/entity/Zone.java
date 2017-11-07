@@ -97,7 +97,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.creationDate = creationDate;
   }
 
-  @Column(name = "description")
+  @Column(name = "description", length = 100)
   public String getDescription() {
     return description;
   }
@@ -106,7 +106,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "typeModule")
+  @Column(name = "typeModule", length = 50)
   public String getTypeModule() {
     return typeModule;
   }
@@ -115,7 +115,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.typeModule = typeModule;
   }
 
-  @Column(name = "selectModule")
+  @Column(name = "selectModule", length = 50)
   public String getSelectModule() {
     return selectModule;
   }
@@ -124,7 +124,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.selectModule = selectModule;
   }
 
-  @Column(name = "genericText")
+  @Column(name = "genericText", length = 50)
   public String getGenericText() {
     return genericText;
   }
@@ -133,7 +133,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.genericText = genericText;
   }
 
-  @Column(name = "templateText")
+  @Column(name = "templateText", length = 50)
   public String getTemplateText() {
     return templateText;
   }
@@ -142,7 +142,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.templateText = templateText;
   }
 
-  @Column(name = "fixedText")
+  @Column(name = "fixedText", length = 50)
   public String getFixedText() {
     return fixedText;
   }
@@ -214,7 +214,7 @@ public class Zone extends AbstractEntity implements Serializable {
     this.putdownBitmap = putdownBitmap;
   }
 
-  @Column(name = "mvFinModule")
+  @Column(name = "mvFinModule", length = 50)
   public String getMvFinModule() {
     return mvFinModule;
   }

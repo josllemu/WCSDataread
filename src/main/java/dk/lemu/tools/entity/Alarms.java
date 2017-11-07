@@ -29,7 +29,7 @@ public class Alarms extends AbstractEntity implements Serializable {
   }
 
   public Alarms(List<String> list) throws Exception {
-
+    setUnit(list.toString());
 
   }
 

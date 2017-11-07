@@ -1,15 +1,15 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.StockAssembly;
+import dk.lemu.tools.entity.Zone;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Long> {
+public class ZoneDAO extends GenericDAOImplementation<Zone, Long> {
 
   @Override
-  public void saveOrUpdate(StockAssembly entity) throws Exception {
-    StockAssembly candidate = findByOrder(entity.getOrderNumber());
+  public void saveOrUpdate(Zone entity) throws Exception {
+    Zone candidate = findByZone(entity.getZone());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -19,9 +19,9 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
   }
 
   @Override
-  public void multiSaveOrUpdate(Collection<StockAssembly> entities) throws Exception {
+  public void multiSaveOrUpdate(Collection<Zone> entities) throws Exception {
     int count = 0;
-    for (StockAssembly l : entities) {
+    for (Zone l : entities) {
 
       saveOrUpdate(l);
       if (++count % 50 == 0) {
@@ -34,9 +34,9 @@ public class StockAssemblyDAO extends GenericDAOImplementation<StockAssembly, Lo
     commit();
   }
 
-  public StockAssembly findByOrder(String orderNumber) {
-    Query query = currentSession().getNamedQuery("StockAssembly.findByOrder");
-    query.setParameter("orderNumber", orderNumber);
-    return (StockAssembly) query.uniqueResult();
+  public Zone findByZone(Integer zone) {
+    Query query = currentSession().getNamedQuery("Zone.findByZone");
+    query.setParameter("zone", zone);
+    return (Zone) query.uniqueResult();
   }
 }

@@ -100,7 +100,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.hisID = hisID;
   }
 
-  @Column(name = "jobType")
+  @Column(name = "jobType", length = 15)
   public String getJobType() {
     return jobType;
   }
@@ -127,7 +127,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.timeUsage = timeUsage;
   }
 
-  @Column(name = "user")
+  @Column(name = "user", length = 50)
   public String getUser() {
     return user;
   }
@@ -145,7 +145,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.zone = zone;
   }
 
-  @Column(name = "fromLocation")
+  @Column(name = "fromLocation", length = 15)
   public String getFromLocation() {
     return fromLocation;
   }
@@ -154,7 +154,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.fromLocation = fromLocation;
   }
 
-  @Column(name = "viaLocation")
+  @Column(name = "viaLocation", length = 15)
   public String getViaLocation() {
     return viaLocation;
   }
@@ -163,7 +163,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.viaLocation = viaLocation;
   }
 
-  @Column(name = "toLocation")
+  @Column(name = "toLocation", length = 15)
   public String getToLocation() {
     return toLocation;
   }
@@ -172,7 +172,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.toLocation = toLocation;
   }
 
-  @Column(name = "orderId")
+  @Column(name = "orderId", length = 50)
   public String getOrderId() {
     return orderId;
   }
@@ -190,7 +190,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.allocRef = allocRef;
   }
 
-  @Column(name = "lineId")
+  @Column(name = "lineId", length = 25)
   public String getLineId() {
     return lineId;
   }
@@ -208,7 +208,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.priority = priority;
   }
 
-  @Column(name = "item")
+  @Column(name = "item", length = 50)
   public String getItem() {
     return item;
   }
@@ -217,7 +217,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.item = item;
   }
 
-  @Column(name = "fromContainer")
+  @Column(name = "fromContainer", length = 25)
   public String getFromContainer() {
     return fromContainer;
   }
@@ -226,7 +226,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.fromContainer = fromContainer;
   }
 
-  @Column(name = "toContainer")
+  @Column(name = "toContainer", length = 25)
   public String getToContainer() {
     return toContainer;
   }
@@ -271,7 +271,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.toQtyAfter = toQtyAfter;
   }
 
-  @Column(name = "barcode")
+  @Column(name = "barcode", length = 25)
   public String getBarcode() {
     return barcode;
   }
@@ -280,7 +280,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.barcode = barcode;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", length = 15)
   public String getCategory() {
     return category;
   }
@@ -298,7 +298,7 @@ public class OperatorEvent extends AbstractEntity implements Serializable {
     this.dbDato = dbDato;
   }
 
-  @Column(name = "orderNumber")
+  @Column(name = "orderNumber", length = 50)
   public String getOrderNumber() {
     return orderNumber;
   }

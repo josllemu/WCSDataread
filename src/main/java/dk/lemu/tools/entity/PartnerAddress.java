@@ -24,7 +24,7 @@ import java.util.List;
 public class PartnerAddress extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer orderID; //0
+  private String orderID; //0
   private String orderSUB; //1
   private String cvr; //2
   private String phone; //3
@@ -45,7 +45,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
   }
 
   public PartnerAddress(List<String> list) throws Exception {
-    this.setOrderID((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setOrderID((String) TypeParser.fromCSVFile(String.class, list.get(0)));
     this.setOrderSUB(list.get(1));
     this.setCvr(list.get(2));
     this.setPhone(list.get(3));
@@ -66,7 +66,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
   @Id
   @GenericGenerator(name = "josl", strategy = "increment")
   @GeneratedValue(generator = "josl")
-  @Column(name = "Id", unique = true, nullable = false)
+  @Column(name = "Id", unique = true, nullable = false, length = 50)
   public Long getId() {
     return id;
   }
@@ -75,16 +75,16 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderID")
-  public Integer getOrderID() {
+  @Column(name = "orderID", length = 50)
+  public String getOrderID() {
     return orderID;
   }
 
-  public void setOrderID(Integer orderID) {
+  public void setOrderID(String orderID) {
     this.orderID = orderID;
   }
 
-  @Column(name = "orderSUB")
+  @Column(name = "orderSUB", length = 50)
   public String getOrderSUB() {
     return orderSUB;
   }
@@ -93,7 +93,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.orderSUB = orderSUB;
   }
 
-  @Column(name = "cvr")
+  @Column(name = "cvr", length = 50)
   public String getCvr() {
     return cvr;
   }
@@ -102,7 +102,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.cvr = cvr;
   }
 
-  @Column(name = "phone")
+  @Column(name = "phone", length = 50)
   public String getPhone() {
     return phone;
   }
@@ -111,7 +111,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.phone = phone;
   }
 
-  @Column(name = "fax")
+  @Column(name = "fax", length = 50)
   public String getFax() {
     return fax;
   }
@@ -120,7 +120,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.fax = fax;
   }
 
-  @Column(name = "email")
+  @Column(name = "email", length = 50)
   public String getEmail() {
     return email;
   }
@@ -129,7 +129,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.email = email;
   }
 
-  @Column(name = "name1")
+  @Column(name = "name1", length = 50)
   public String getName1() {
     return name1;
   }
@@ -138,7 +138,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.name1 = name1;
   }
 
-  @Column(name = "name2")
+  @Column(name = "name2", length = 50)
   public String getName2() {
     return name2;
   }
@@ -147,7 +147,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.name2 = name2;
   }
 
-  @Column(name = "name3")
+  @Column(name = "name3", length = 50)
   public String getName3() {
     return name3;
   }
@@ -156,7 +156,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.name3 = name3;
   }
 
-  @Column(name = "address1")
+  @Column(name = "address1", length = 50)
   public String getAddress1() {
     return address1;
   }
@@ -165,7 +165,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.address1 = address1;
   }
 
-  @Column(name = "address2")
+  @Column(name = "address2", length = 50)
   public String getAddress2() {
     return address2;
   }
@@ -174,7 +174,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.address2 = address2;
   }
 
-  @Column(name = "zip")
+  @Column(name = "zip", length = 15)
   public String getZip() {
     return zip;
   }
@@ -183,7 +183,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.zip = zip;
   }
 
-  @Column(name = "town")
+  @Column(name = "town", length = 50)
   public String getTown() {
     return town;
   }
@@ -192,7 +192,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.town = town;
   }
 
-  @Column(name = "country")
+  @Column(name = "country", length = 10)
   public String getCountry() {
     return country;
   }
@@ -201,7 +201,7 @@ public class PartnerAddress extends AbstractEntity implements Serializable {
     this.country = country;
   }
 
-  @Column(name = "column1")
+  @Column(name = "column1", length = 50)
   public String getColumn1() {
     return column1;
   }

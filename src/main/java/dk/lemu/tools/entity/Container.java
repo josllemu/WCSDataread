@@ -97,7 +97,7 @@ public class Container extends AbstractContainer implements Serializable {
     return locType;
   }
 
-  @Column(name = "container", nullable = false, unique = true)
+  @Column(name = "container", nullable = false, unique = true, length = 25)
   public String getContainer() {
     return container;
   }
@@ -124,7 +124,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.height = height;
   }
 
-  @Column(name = "location")
+  @Column(name = "location", length = 25)
   public String getLocation() {
     return location;
   }
@@ -160,7 +160,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.audit_date = audit_date;
   }
 
-  @Column(name = "weightStatus")
+  @Column(name = "weightStatus", length = 5)
   public String getWeightStatus() {
     return weightStatus;
   }
@@ -169,7 +169,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.weightStatus = weightStatus;
   }
 
-  @Column(name = "heightStatus")
+  @Column(name = "heightStatus", length = 5)
   public String getHeightStatus() {
     return heightStatus;
   }
@@ -178,7 +178,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.heightStatus = heightStatus;
   }
 
-  @Column(name = "holdingContainer")
+  @Column(name = "holdingContainer", length = 25)
   public String getHoldingContainer() {
     return holdingContainer;
   }
@@ -214,7 +214,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.labelled = labelled;
   }
 
-  @Column(name = "lastUserMoved")
+  @Column(name = "lastUserMoved", length = 25)
   public String getLastUserMoved() {
     return lastUserMoved;
   }
@@ -277,7 +277,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.fullStatus = fullStatus;
   }
 
-  @Column(name = "orientation")
+  @Column(name = "orientation", length = 5)
   public String getOrientation() {
     return orientation;
   }
@@ -286,7 +286,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.orientation = orientation;
   }
 
-  @Column(name = "bitMap")
+  @Column(name = "bitMap", length = 10)
   public String getBitMap() {
     return bitMap;
   }
@@ -295,7 +295,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.bitMap = bitMap;
   }
 
-  @Column(name = "pickGroup")
+  @Column(name = "pickGroup", length = 25)
   public String getPickGroup() {
     return pickGroup;
   }
@@ -331,7 +331,7 @@ public class Container extends AbstractContainer implements Serializable {
     return length;
   }
 
-  @Column(name = "type", nullable = false)
+  @Column(name = "type", nullable = false, length = 25)
   public String getType() {
     return type;
   }

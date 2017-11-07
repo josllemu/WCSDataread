@@ -50,7 +50,7 @@ public class EmptyContainer extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "category", unique = true, nullable = false)
+  @Column(name = "category", unique = true, nullable = false, length = 15)
   public String getCategory() {
     return category;
   }

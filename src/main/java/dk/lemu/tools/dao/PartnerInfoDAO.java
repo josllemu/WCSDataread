@@ -34,7 +34,7 @@ public class PartnerInfoDAO extends GenericDAOImplementation<PartnerInfo, Long> 
     commit();
   }
 
-  public PartnerInfo findByOrderAndOrderSub(Integer orderID, String orderSUB) {
+  public PartnerInfo findByOrderAndOrderSub(String orderID, String orderSUB) {
     Query query = currentSession().getNamedQuery("PartnerInfo.findByOrderAndOrderSub");
     query.setParameter("orderID", orderID);
     query.setParameter("orderSUB", orderSUB);

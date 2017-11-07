@@ -74,7 +74,7 @@ public class MHEEvent extends AbstractEntity implements Serializable {
     this.eventTime = eventTime;
   }
 
-  @Column(name = "value1")
+  @Column(name = "value1", length = 50)
   public String getValue1() {
     return value1;
   }
@@ -92,7 +92,7 @@ public class MHEEvent extends AbstractEntity implements Serializable {
     this.value2 = value2;
   }
 
-  @Column(name = "value3")
+  @Column(name = "value3", length = 50)
   public String getValue3() {
     return value3;
   }
@@ -101,7 +101,7 @@ public class MHEEvent extends AbstractEntity implements Serializable {
     this.value3 = value3;
   }
 
-  @Column(name = "value4")
+  @Column(name = "value4", length = 50)
   public String getValue4() {
     return value4;
   }

@@ -58,7 +58,7 @@ public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "orderType")
+  @Column(name = "orderType", length = 15)
   public String getOrderType() {
     return orderType;
   }
@@ -94,7 +94,7 @@ public class WCSAllocZoneWT extends AbstractEntity implements Serializable {
     this.weight = weight;
   }
 
-  @Column(name = "value")
+  @Column(name = "value", length = 100)
   public String getValue() {
     return value;
   }
