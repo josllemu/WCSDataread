@@ -27,6 +27,13 @@ public class TypeParser {
         } else if (objectClass == Integer.class) {
           return Integer.parseInt(value);
         } else if (objectClass == Boolean.class) {
+          if (value.equalsIgnoreCase("n") || value.equalsIgnoreCase("0")) {
+            value = "false";
+          } else if (value.equalsIgnoreCase("y") || value.equalsIgnoreCase("j") || value.equalsIgnoreCase("1")) {
+            value = "true";
+          } else {
+            value = "false";
+          }
           return Boolean.parseBoolean(value);
         } else if (objectClass == Float.class) {
           return Float.parseFloat(value);
