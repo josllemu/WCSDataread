@@ -23,7 +23,7 @@ public class Config extends AbstractEntity implements Serializable {
   private String configuration = "Singleton";
   private String path;
   private String folder;
-
+  private String logPath;
 
   public Config() {
 
@@ -66,6 +66,15 @@ public class Config extends AbstractEntity implements Serializable {
 
   public void setFolder(String folder) {
     this.folder = folder;
+  }
+
+  @Column(name = "logPath", unique = true)
+  public String getLogPath() {
+    return logPath;
+  }
+
+  public void setLogPath(String logPath) {
+    this.logPath = logPath;
   }
 }
 

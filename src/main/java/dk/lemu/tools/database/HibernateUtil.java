@@ -1,12 +1,15 @@
 package dk.lemu.tools.database;
 
 import com.github.fluent.hibernate.cfg.scanner.EntityScanner;
+import dk.lemu.tools.dao.ConfigDAO;
+import dk.lemu.tools.entity.Config;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import java.util.logging.Logger;
 
 public class HibernateUtil {
 
@@ -20,16 +23,39 @@ public class HibernateUtil {
 
       new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 
-      System.out.println(EntityScanner.scanPackages("dk.lemu.tools.entity").result());
+      Logger.getLogger("WCS").info(EntityScanner.scanPackages("dk.lemu.tools.entity").result().toString());
 
       sessionFactory = configuration.buildSessionFactory();
     } catch (Throwable ex) {
+      Logger.getLogger("WCS").severe(ex.getMessage());
       // Log exception!
       throw new ExceptionInInitializerError(ex);
     }
+
   }
 
-  public static void initialize() {
+  public static void initialize(String[] args) {
+    Logger.getLogger("WCS").info("Data base connection initialized");
+    try {
+      ConfigDAO configDAO = new ConfigDAO();
+      Config config = configDAO.findByConfiguration("Singleton");
+
+      if (args != null && args.length > 1 && config == null) {
+        if (config == null) {
+          config = new Config();
+        }
+        config.setPath(args[0]);
+        config.setFolder(args[1]);
+        config.setLogPath(args[2]);
+        configDAO.saveOrUpdate(config);
+        configDAO.commit();
+      }
+    } catch (Exception e) {
+
+      Logger.getLogger("WCS").severe(e.getMessage());
+      // Log exception!
+      throw new ExceptionInInitializerError(e);
+    }
   }
 
   private static final ThreadLocal session = new ThreadLocal();

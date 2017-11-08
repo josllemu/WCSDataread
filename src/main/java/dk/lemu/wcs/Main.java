@@ -3,11 +3,13 @@ package dk.lemu.wcs;
 import dk.lemu.tools.dao.*;
 import dk.lemu.tools.database.HibernateUtil;
 import dk.lemu.tools.entity.*;
+import dk.lemu.tools.logging.Logging;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -55,106 +57,145 @@ public class Main {
   private static String zonesFileName = "zones.dat.extract";
 
   private static Long folderSize = 0L;
+  private static Logging logger;
+
 
   public static void main(String[] args) throws Exception {
-    HibernateUtil.initialize();
-    String path = "Z:\\2017-11-6";
+    System.setProperty("java.util.logging.SimpleFormatter.format",
+        "%1$tF %1$tT %4$s %5$s%6$s%n");
+    HibernateUtil.initialize(args);
+    logger = new Logging();
 
+    try {
 
-    //@TODO
-    ConfigDAO configDAO = new ConfigDAO();
-    Config config = configDAO.findByConfiguration("Singleton");
+      ConfigDAO configDAO = new ConfigDAO();
+      Config config = configDAO.findByConfiguration("Singleton");
 
-    if (args != null && args.length > 1 && config == null) {
-      if (config == null) {
-        config = new Config();
+      String folder = getPath(config);
+      while (folder != null) {
+
+        String path = config.getPath() + "\\" + folder + "\\";
+
+        Long start = System.currentTimeMillis();
+        Long fullRecords = 0L;
+
+        fullRecords += fileHandling(alarmsFileName, path);
+        fullRecords += fileHandling(contSizeFileName, path);
+        fullRecords += fileHandling(contTypeFileName, path);
+        fullRecords += fileHandling(containerFileName, path);
+        fullRecords += fileHandling(customerLabelFileName, path);
+        fullRecords += fileHandling(emptyContainerFileName, path);
+        fullRecords += fileHandling(itemFileName, path);
+        fullRecords += fileHandling(itemConfFileName, path);
+        fullRecords += fileHandling(itemExtFileName, path);
+        fullRecords += fileHandling(lmgSSCCFileName, path);
+        fullRecords += fileHandling(locationFileName, path);
+        fullRecords += fileHandling(mheErrorDescFileName, path);
+        fullRecords += fileHandling(mheErrorsFileName, path);
+        fullRecords += fileHandling(mheEventFileName, path);
+        fullRecords += fileHandling(mheInfoFileName, path);
+        fullRecords += fileHandling(movementsFileName, path);
+        fullRecords += fileHandling(operatorEventFileName, path);
+        fullRecords += fileHandling(paramsFileName, path);
+        fullRecords += fileHandling(partnerAddressFileName, path);
+        fullRecords += fileHandling(partnerInfoFileName, path);
+        fullRecords += fileHandling(moveJobDescFileName, path);
+
+        fullRecords += fileHandling(pickCategoryFileName, path);
+        fullRecords += fileHandling(pickReqFileName, path);
+        fullRecords += fileHandling(psmDataFileName, path);
+        fullRecords += fileHandling(pickCountFileName, path);
+        fullRecords += fileHandling(putawayFileName, path);
+        fullRecords += fileHandling(replenQtyFileName, path);
+        fullRecords += fileHandling(stockFileName, path);
+        fullRecords += fileHandling(stockAssemblyFileName, path);
+        fullRecords += fileHandling(stockReqFileName, path);
+        fullRecords += fileHandling(stockReq2FileName, path);
+        //
+        fullRecords += fileHandling(usersFileName, path);
+        fullRecords += fileHandling(wmsOrderLineFileName, path);
+        fullRecords += fileHandling(stockSpreadFileName, path);
+        fullRecords += fileHandling(supplyFileName, path);
+        fullRecords += fileHandling(wcsAllocPriorityFileName, path);
+        fullRecords += fileHandling(wcsAllocZoneWtFileName, path);
+        fullRecords += fileHandling(wmsOrderFileName, path);
+        fullRecords += fileHandling(workstationFileName, path);
+        fullRecords += fileHandling(zonesFileName, path);
+
+        Long end = System.currentTimeMillis();
+        //Logging
+        //
+        Log log = new Log();
+        log.setDescription("Data for full run of path: " + path);
+        log.setPath(path);
+        log.setNumLines(fullRecords);
+        log.setRunTime((end - start));
+        log.setRunDay(new Date());
+        log.setSize(folderSize);
+        log.setFileName("N/A");
+        LogDAO logDAO = new LogDAO();
+        logDAO.saveOrUpdate(log);
+
+        config.setFolder(folder);
+        configDAO.saveOrUpdate(config);
+
+        logDAO.commit();
+
+        folderSize = 0L;
+
+        logger.log("Total records handled: " + fullRecords);
+        logger.log("Parse time for file: " + ((end - start)));
+        logger.log("Avg. parse time: " + ((end.doubleValue() - start.doubleValue()) / fullRecords.doubleValue()));
+
+        logger.log("------------------------------");
+        logger.log("Run finished on path");
+        logger.log("Run on path started: " +  new Date(start));
+        logger.log("Path: " + config.getPath());
+        logger.log("Start folder: " + config.getFolder());
+        logger.log("Last run took: " + (log.getRunTime()/1000L));
+        logger.log("Num linies on last run: " + log.getNumLines());
+        logger.log("------------------------------");
+        folder = getPath(config);
       }
-      config.setPath(args[0]);
-      config.setFolder(args[1]);
-      configDAO.saveOrUpdate(config);
-      configDAO.commit();
+    } catch (Exception e) {
+      logger.log(e);
+    } finally {
+      logger.log("------------------------------");
+      logger.log("Run finished");
+      logger.log("------------------------------");
+      System.exit(0);
     }
-
-
-    //path = getPath(config);
-
-
-
-
-
-    Long start = System.currentTimeMillis();
-    Long fullRecords = 0L;
-
-    fullRecords += fileHandling(alarmsFileName, path);
-    fullRecords += fileHandling(contSizeFileName, path);
-    fullRecords += fileHandling(contTypeFileName, path);
-    fullRecords += fileHandling(containerFileName, path);
-    fullRecords += fileHandling(customerLabelFileName, path);
-    fullRecords += fileHandling(emptyContainerFileName, path);
-    fullRecords += fileHandling(itemFileName, path);
-    fullRecords += fileHandling(itemConfFileName, path);
-    fullRecords += fileHandling(itemExtFileName, path);
-    fullRecords += fileHandling(lmgSSCCFileName, path);
-    fullRecords += fileHandling(locationFileName, path);
-    fullRecords += fileHandling(mheErrorDescFileName, path);
-    fullRecords += fileHandling(mheErrorsFileName, path);
-    fullRecords += fileHandling(mheEventFileName, path);
-    fullRecords += fileHandling(mheInfoFileName, path);
-    fullRecords += fileHandling(movementsFileName, path);
-    fullRecords += fileHandling(operatorEventFileName, path);
-    fullRecords += fileHandling(paramsFileName, path);
-    fullRecords += fileHandling(partnerAddressFileName, path);
-    fullRecords += fileHandling(partnerInfoFileName, path);
-    fullRecords += fileHandling(moveJobDescFileName, path);
-
-    fullRecords += fileHandling(pickCategoryFileName, path);
-    fullRecords += fileHandling(pickReqFileName, path);
-    fullRecords += fileHandling(psmDataFileName, path);
-    fullRecords += fileHandling(pickCountFileName, path);
-    fullRecords += fileHandling(putawayFileName, path);
-    fullRecords += fileHandling(replenQtyFileName, path);
-    fullRecords += fileHandling(stockFileName, path);
-    fullRecords += fileHandling(stockAssemblyFileName, path);
-    fullRecords += fileHandling(stockReqFileName, path);
-    fullRecords += fileHandling(stockReq2FileName, path);
-    //
-    fullRecords += fileHandling(usersFileName, path);
-    fullRecords += fileHandling(wmsOrderLineFileName, path);
-    fullRecords += fileHandling(stockSpreadFileName, path);
-    fullRecords += fileHandling(supplyFileName, path);
-    fullRecords += fileHandling(wcsAllocPriorityFileName, path);
-    fullRecords += fileHandling(wcsAllocZoneWtFileName, path);
-    fullRecords += fileHandling(wmsOrderFileName, path);
-    fullRecords += fileHandling(workstationFileName, path);
-    fullRecords += fileHandling(zonesFileName, path);
-
-    Long end = System.currentTimeMillis();
-    //Logging
-    //
-    Log log = new Log();
-    log.setDescription("Data for full run of path: " + path);
-    log.setPath(path);
-    log.setNumLines(fullRecords);
-    log.setRunTime((end - start));
-    log.setRunDay(new Date());
-    log.setSize(folderSize);
-    log.setFileName("N/A");
-    LogDAO logDAO = new LogDAO();
-    logDAO.saveOrUpdate(log);
-    logDAO.commit();
-
-    System.out.println("Total records handled: " + fullRecords);
-    System.out.println("Parse time for file: " + ((end - start)));
-    System.out.println("Avg. parse time: " + ((end.doubleValue() - start.doubleValue()) / fullRecords.doubleValue()));
-
-
-    System.exit(0);
   }
 
   private static String getPath(Config config) {
 
+    String folder = config.getFolder();
 
-    return null;
+    String[] split = folder.split("-");
+    Integer year = new Integer(split[0]);
+    Integer month = new Integer(split[1]);
+    Integer day = new Integer(split[2]);
+
+    String newFolder;
+    Calendar c = new GregorianCalendar(year, (month-1), day);
+    c.add(Calendar.DAY_OF_YEAR, 1);
+
+    SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-d");
+
+    newFolder = format.format(c.getTime());
+
+    if (doesFolderExist(newFolder, config.getPath())) {
+      return newFolder;
+    } else {
+      return null;
+    }
+  }
+
+  private static boolean doesFolderExist(String newFolder, String path) {
+    File file = new File("\\" + path+ "\\" + newFolder +"\\");
+    logger.log("file path: " + file.toString());
+    return file.isDirectory();
+
   }
 
   private static Long fileHandling(String type, String path) throws Exception {
@@ -163,7 +204,7 @@ public class Main {
     addTree(path, type, files);
     records = fileHandler(files);
 
-    System.out.println("Files: " + files.size() + ", records: " + records + ", Type: " + type);
+    logger.log("Files: " + files.size() + ", records: " + records + ", Type: " + type);
     return records;
   }
 
@@ -272,11 +313,8 @@ public class Main {
           list.set(i, list.get(i).trim());
         }
 
-        //@TODO refactor
         if (counter % 250 == 0) {
-          System.out.println("number: " + counter + ", time running: " + ((System.currentTimeMillis() - startTime) / 1000L));
-          //System.out.println("number: " + counter + ": List: " + list);
-
+          logger.log("number: " + counter + ", time running: " + ((System.currentTimeMillis() - startTime) / 1000L));
         }
 
         try {
@@ -649,8 +687,8 @@ public class Main {
           }
 
         } catch (Exception e) {
-          System.out.println("Error on file: " + file + ", count: " + counter + ", Exception: " + e.toString());
-          System.out.println("values failed: " + list);
+          logger.log("Error on file: " + file + ", count: " + counter + ", Exception: " + e.toString());
+          logger.log("values failed: " + list);
           throw new Exception(e);
         }
       }
@@ -835,9 +873,9 @@ public class Main {
       logDAO.commit();
       folderSize += file.length();
 
-      System.out.println(file + " contains: " + counter + " lines");
-      System.out.println("Parse time for file: " + ((endTime - startTime)));
-      System.out.println("Avg. parse time: " + ((endTime.doubleValue() - startTime.doubleValue()) / counter.doubleValue()));
+      logger.log(file + " contains: " + counter + " lines");
+      logger.log("Parse time for file: " + ((endTime - startTime)));
+      logger.log("Avg. parse time: " + ((endTime.doubleValue() - startTime.doubleValue()) / counter.doubleValue()));
     }
 
     return fullCounter;
@@ -850,7 +888,7 @@ public class Main {
     if (children != null) {
       for (File child : children) {
         if (!child.isDirectory() && child.getName().matches(fileNameMatch)) {
-          System.out.println("file added: " + child.getName());
+          logger.log("file added: " + child.getName());
           all.add(child);
         } else {
           addTree(child.getPath(), fileNameMatch, all);

@@ -1,12 +1,16 @@
 package dk.lemu.tools.filehandler;
 
-import java.io.*;
+import dk.lemu.tools.logging.Logging;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class TypeParser {
+  private static Logging logger = new Logging();
+
   private static String format1 = "dd-MMM-yyyy HH:mm:ss";
   private static String format2 = "d-MMM-yyyy HH:mm:ss";
   private static String format3 = "dd-MM-yyyy HH:mm:ss";
@@ -89,9 +93,11 @@ public class TypeParser {
       }
 
     } catch (IllegalArgumentException e) {
-      System.out.println("Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log("Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log(e);
     } catch (Exception e) {
-      System.out.println("Other Exception. Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log("Other Exception. Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log(e);
     }
     return null;
   }
