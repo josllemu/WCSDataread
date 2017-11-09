@@ -13,9 +13,7 @@ import java.util.List;
     @NamedQuery(name = "ContainerSize.findByUnit", query = "SELECT object(o) FROM ContainerSize o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "ContainerSize", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "ContainerSize",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),
@@ -26,8 +24,8 @@ public class ContainerSize extends AbstractEntity implements Serializable {
   private Long id;
   private Integer unit; //0
   private String parmP; //1
-  private Integer size1; //2
-  private Integer size2; //3
+  private Double size1; //2
+  private Double size2; //3
   private Integer parm4; //4
 
   public ContainerSize() {
@@ -37,8 +35,8 @@ public class ContainerSize extends AbstractEntity implements Serializable {
   public ContainerSize(List<String> list) throws Exception {
     this.setUnit((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
     this.setParmP(list.get(1));
-    this.setSize1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
-    this.setSize2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setSize1((Double) TypeParser.fromCSVFile(Double.class, list.get(2)));
+    this.setSize2((Double) TypeParser.fromCSVFile(Double.class, list.get(3)));
     this.setParm4((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
 
 
@@ -65,7 +63,7 @@ public class ContainerSize extends AbstractEntity implements Serializable {
     this.unit = unit;
   }
 
-  @Column(name = "parmP")
+  @Column(name = "parmP", length = 5)
   public String getParmP() {
     return parmP;
   }
@@ -75,20 +73,20 @@ public class ContainerSize extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "size1")
-  public Integer getSize1() {
+  public Double getSize1() {
     return size1;
   }
 
-  public void setSize1(Integer size1) {
+  public void setSize1(Double size1) {
     this.size1 = size1;
   }
 
   @Column(name = "size2")
-  public Integer getSize2() {
+  public Double getSize2() {
     return size2;
   }
 
-  public void setSize2(Integer size2) {
+  public void setSize2(Double size2) {
     this.size2 = size2;
   }
 

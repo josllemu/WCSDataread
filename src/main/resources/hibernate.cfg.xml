@@ -4,7 +4,10 @@
         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mysql://localhost:3306/jostest?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/jostest_ny?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+        <!--<property name="connection.url">jdbc:mysql://localhost:3306/josDB?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>
+
+        <property name="connection.url">jdbc:mysql://localhost:3306/josttest_norelation?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</property>-->
         <property name="connection.username">root</property>
         <property name="connection.password">jms7321</property>
         <!-- SQL dialect -->
@@ -24,6 +27,14 @@
         <property name="hibernate.cache.use_second_level_cache">true</property>
         <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
         <!--  <property name="hibernate.generate_statistics">true</property>-->
+
+        <!--
+            <property name="connection.url">jdbc:microsoft:sqlserver://XX.XX.XXX.XX:YYYY/DB-NAME</property>
+    <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+    <property name="connection.username">username</property>
+    <property name="connection.password">password</property>
+    <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>-->
+
 
       </session-factory>
 

@@ -1,12 +1,16 @@
 package dk.lemu.tools.filehandler;
 
-import java.io.*;
+import dk.lemu.tools.logging.Logging;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class TypeParser {
+  private static Logging logger = new Logging();
+
   private static String format1 = "dd-MMM-yyyy HH:mm:ss";
   private static String format2 = "d-MMM-yyyy HH:mm:ss";
   private static String format3 = "dd-MM-yyyy HH:mm:ss";
@@ -15,14 +19,22 @@ public class TypeParser {
   private static String format6 = "d-MMM-yyyy";
   private static String format7 = "dd-MMM-yyyy";
   private static String format8 = "d-MMM-yyyy";
+
   static public Serializable fromCSVFile(Class objectClass, String value) {
     try {
-      if (value != null && !value.equals("") && !value.isEmpty() &&  value != "") {
+      if (value != null && !value.equals("") && !value.isEmpty() && value != "") {
         if (objectClass == String.class) {
           return value;
         } else if (objectClass == Integer.class) {
           return Integer.parseInt(value);
         } else if (objectClass == Boolean.class) {
+          if (value.equalsIgnoreCase("n") || value.equalsIgnoreCase("0")) {
+            value = "false";
+          } else if (value.equalsIgnoreCase("y") || value.equalsIgnoreCase("j") || value.equalsIgnoreCase("1")) {
+            value = "true";
+          } else {
+            value = "false";
+          }
           return Boolean.parseBoolean(value);
         } else if (objectClass == Float.class) {
           return Float.parseFloat(value);
@@ -89,9 +101,11 @@ public class TypeParser {
       }
 
     } catch (IllegalArgumentException e) {
-      System.out.println("Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log("Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log(e);
     } catch (Exception e) {
-      System.out.println("Other Exception. Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log("Other Exception. Error parsing: " + value + ". of class: " + objectClass.getSimpleName() + ", with ERROR: " + e.toString());
+      logger.log(e);
     }
     return null;
   }

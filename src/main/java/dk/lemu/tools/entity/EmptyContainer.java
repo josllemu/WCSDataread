@@ -10,32 +10,30 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "EmptyContainer.findByUnit", query = "SELECT object(o) FROM EmptyContainer o WHERE o.unit = :unit")
+    @NamedQuery(name = "EmptyContainer.findByCategory", query = "SELECT object(o) FROM EmptyContainer o WHERE o.category = :category")
 })
 @Entity
-@Table(name = "EmptyContainer", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "EmptyContainer",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "category"),
+        @Index(columnList = "id, category")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class EmptyContainer extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String category;
-  private Integer parm1;
-  private Integer parm2;
+  private String category; //0
+  private Integer parm1; //1
+  private Integer parm2; //2
 
   public EmptyContainer() {
 
   }
 
   public EmptyContainer(List<String> list) throws Exception {
-    this.setCategory( list.get(14));
-    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
-    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setCategory(list.get(0));
+    this.setParm1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setParm2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(2)));
 
 
   }
@@ -52,7 +50,7 @@ public class EmptyContainer extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "category")
+  @Column(name = "category", unique = true, nullable = false, length = 15)
   public String getCategory() {
     return category;
   }

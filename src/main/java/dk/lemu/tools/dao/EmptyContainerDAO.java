@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class EmptyContainerDAO extends GenericDAOImplementation <EmptyContainer, Long>{
+public class EmptyContainerDAO extends GenericDAOImplementation<EmptyContainer, Long> {
 
   @Override
   public void saveOrUpdate(EmptyContainer entity) throws Exception {
-    EmptyContainer candidate = findByItem(entity.getUnit());
+    EmptyContainer candidate = findByCategory(entity.getCategory());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class EmptyContainerDAO extends GenericDAOImplementation <EmptyContainer,
 
   @Override
   public void multiSaveOrUpdate(Collection<EmptyContainer> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (EmptyContainer l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class EmptyContainerDAO extends GenericDAOImplementation <EmptyContainer,
     commit();
   }
 
-  public EmptyContainer findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("EmptyContainer.findByUnit");
-    query.setParameter("unit", unit);
+  public EmptyContainer findByCategory(String category) {
+    Query query = currentSession().getNamedQuery("EmptyContainer.findByCategory");
+    query.setParameter("category", category);
     return (EmptyContainer) query.uniqueResult();
   }
 }

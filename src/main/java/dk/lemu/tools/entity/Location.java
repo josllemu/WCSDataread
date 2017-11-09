@@ -15,11 +15,9 @@ import java.util.List;
             "WHERE lc.location = :locationId")
 })
 @Entity
-@Table(name = "location", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "location")},
+@Table(name = "Location",
     indexes = {
-        @Index(columnList = "id") ,
+        @Index(columnList = "id"),
         @Index(columnList = "id, location"),
         @Index(columnList = "id, location, type")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -45,12 +43,13 @@ public class Location extends AbstractContainer implements Serializable {
   private Double depth = 0.0; //16
   private String piChecked = "."; //17
   private String posnChecked = "."; //18
+  private Date dbDate = new Date();
 
 
   private Integer locType = AbstractContainer.TYPE_LOCATION;
 
   public Location() {
-      }
+  }
 
   public Location(List<String> list) {
     this.setLocation(list.get(0));
@@ -72,6 +71,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.setDepth((Double) TypeParser.fromCSVFile(Double.class, list.get(16)));
     this.setPiChecked(list.get(17));
     this.setPosnChecked(list.get(18));
+    this.setDbDate(new Date());
 
   }
 
@@ -81,7 +81,12 @@ public class Location extends AbstractContainer implements Serializable {
     return locType;
   }
 
-  @Column(name = "location", nullable = false, unique = true)
+  @Override
+  public void setLocType(Integer locType) {
+    this.locType = locType;
+  }
+
+  @Column(name = "location", nullable = false, unique = true, length = 50)
   public String getLocation() {
     return location;
   }
@@ -153,7 +158,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.weight = weight;
   }
 
-  @Column(name = "errorStatus")
+  @Column(name = "errorStatus", length = 5)
   public String getErrorStatus() {
     return errorStatus;
   }
@@ -162,7 +167,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.errorStatus = errorStatus;
   }
 
-  @Column(name = "type")
+  @Column(name = "type", length = 5)
   public String getType() {
     return type;
   }
@@ -171,7 +176,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.type = type;
   }
 
-  @Column(name = "status")
+  @Column(name = "status", length = 5)
   public String getStatus() {
     return status;
   }
@@ -180,7 +185,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.status = status;
   }
 
-  @Column(name = "auditStatus")
+  @Column(name = "auditStatus", length = 5)
   public String getAuditStatus() {
     return auditStatus;
   }
@@ -189,7 +194,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.auditStatus = auditStatus;
   }
 
-  @Column(name = "picking")
+  @Column(name = "picking", length = 5)
   public String getPicking() {
     return picking;
   }
@@ -198,7 +203,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.picking = picking;
   }
 
-  @Column(name = "checkDigits")
+  @Column(name = "checkDigits", length = 5)
   public String getCheckDigits() {
     return checkDigits;
   }
@@ -207,7 +212,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.checkDigits = checkDigits;
   }
 
-  @Column(name = "fullStatus")
+  @Column(name = "fullStatus", length = 5)
   public String getFullStatus() {
     return fullStatus;
   }
@@ -234,7 +239,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.depth = depth;
   }
 
-  @Column(name = "piChecked")
+  @Column(name = "piChecked", length = 5)
   public String getPiChecked() {
     return piChecked;
   }
@@ -243,7 +248,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.piChecked = piChecked;
   }
 
-  @Column(name = "posnChecked")
+  @Column(name = "posnChecked", length = 5)
   public String getPosnChecked() {
     return posnChecked;
   }
@@ -252,9 +257,13 @@ public class Location extends AbstractContainer implements Serializable {
     this.posnChecked = posnChecked;
   }
 
-  @Override
-  public void setLocType(Integer locType) {
-    this.locType = locType;
+  @Column(name = "dbDate")
+  public Date getDbDate() {
+    return dbDate;
+  }
+
+  public void setDbDate(Date dbDate) {
+    this.dbDate = dbDate;
   }
 
   @Override
@@ -279,6 +288,7 @@ public class Location extends AbstractContainer implements Serializable {
         ", depth=" + depth +
         ", piChecked='" + piChecked + '\'' +
         ", posnChecked='" + posnChecked + '\'' +
+        ", dbDate=" + dbDate +
         ", locType=" + locType +
         '}';
   }

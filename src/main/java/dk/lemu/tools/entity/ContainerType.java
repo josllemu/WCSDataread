@@ -14,11 +14,9 @@ import java.util.List;
         "FROM ContainerType ct WHERE ct.containerTypeCode = :typeId")
 })
 @Entity
-@Table(name = "containertype", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "containerTypeCode")},
+@Table(name = "ContainerType",
     indexes = {
-        @Index(columnList = "id") ,
+        @Index(columnList = "id"),
         @Index(columnList = "id, containerTypeCode")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ContainerType extends AbstractEntity implements Serializable {
@@ -73,8 +71,8 @@ public class ContainerType extends AbstractEntity implements Serializable {
   }
 
   @Id
-  @GenericGenerator(name="josl" , strategy="increment")
-  @GeneratedValue(generator="josl")
+  @GenericGenerator(name = "josl", strategy = "increment")
+  @GeneratedValue(generator = "josl")
   @Column(name = "Id", unique = true, nullable = false)
   public Long getId() {
     return id;
@@ -84,7 +82,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "containerTypeCode", nullable = false)
+  @Column(name = "containerTypeCode", unique = true, nullable = false, length = 25)
   public String getContainerTypeCode() {
     return containerTypeCode;
   }
@@ -93,7 +91,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.containerTypeCode = containerTypeCode;
   }
 
-  @Column(name = "description", nullable = false)
+  @Column(name = "description", nullable = false, length = 25)
   public String getDescription() {
     return description;
   }
@@ -102,7 +100,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "groupInfo")
+  @Column(name = "groupInfo", length = 25)
   public String getGroupInfo() {
     return groupInfo;
   }
@@ -111,7 +109,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.groupInfo = groupInfo;
   }
 
-  @Column(name = "velocityCode")
+  @Column(name = "velocityCode", length = 25)
   public String getVelocityCode() {
     return velocityCode;
   }
@@ -201,7 +199,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.extLength = extLength;
   }
 
-  @Column(name = "lu")
+  @Column(name = "lu", length = 5)
   public String getLu() {
     return lu;
   }
@@ -210,7 +208,7 @@ public class ContainerType extends AbstractEntity implements Serializable {
     this.lu = lu;
   }
 
-  @Column(name = "size")
+  @Column(name = "size", length = 5)
   public String getSize() {
     return size;
   }

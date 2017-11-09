@@ -1,6 +1,5 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.Container;
 import dk.lemu.tools.entity.ContainerType;
 import org.hibernate.query.Query;
 

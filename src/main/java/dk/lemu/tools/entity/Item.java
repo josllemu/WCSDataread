@@ -8,19 +8,17 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 @NamedQueries({
     @NamedQuery(name = "Item.findbyItemCode", query = "SELECT object(i) FROM Item i WHERE i.item_code = :itemCode")
 })
 @Entity
-@Table(name = "item", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_code")},
+@Table(name = "Item",
     indexes = {
-    @Index(columnList = "id") ,
-    @Index(columnList = "id, item_code")})
+        @Index(columnList = "id"),
+        @Index(columnList = "id, item_code")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Item extends AbstractEntity  implements Serializable {
-
+public class Item extends AbstractEntity implements Serializable {
 
 
   private Long id;
@@ -49,8 +47,8 @@ public class Item extends AbstractEntity  implements Serializable {
   }
 
   @Id
-  @GenericGenerator(name="josl" , strategy="increment")
-  @GeneratedValue(generator="josl")
+  @GenericGenerator(name = "josl", strategy = "increment")
+  @GeneratedValue(generator = "josl")
   @Column(name = "Id", unique = true, nullable = false)
   public Long getId() {
     return id;
@@ -60,7 +58,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.id = id;
   }
 
-  @Column(name = "item_code", unique = true, nullable = false)
+  @Column(name = "item_code", unique = true, nullable = false, length = 50)
   public String getItem_code() {
     return item_code;
   }
@@ -69,7 +67,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.item_code = item_code;
   }
 
-  @Column(name = "client_code", nullable = false)
+  @Column(name = "client_code", nullable = false, length = 50)
   public String getClient_code() {
     return client_code;
   }
@@ -78,7 +76,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.client_code = client_code;
   }
 
-  @Column(name = "description", length = 500)
+  @Column(name = "description", length = 100)
   public String getDescription() {
     return description;
   }
@@ -87,7 +85,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "brand_code")
+  @Column(name = "brand_code", length = 50)
   public String getBrand_code() {
     return brand_code;
   }
@@ -96,7 +94,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.brand_code = brand_code;
   }
 
-  @Column(name = "shelf_life")
+  @Column(name = "shelf_life", length = 50)
   public String getShelf_life() {
     return shelf_life;
   }
@@ -114,7 +112,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.alcohol_by_volume = alcohol_by_volume;
   }
 
-  @Column(name = "duty_code")
+  @Column(name = "duty_code", length = 5)
   public String getDuty_code() {
     return duty_code;
   }
@@ -123,7 +121,7 @@ public class Item extends AbstractEntity  implements Serializable {
     this.duty_code = duty_code;
   }
 
-  @Column(name = "segregation_code")
+  @Column(name = "segregation_code", length = 5)
   public String getSegregation_code() {
     return segregation_code;
   }

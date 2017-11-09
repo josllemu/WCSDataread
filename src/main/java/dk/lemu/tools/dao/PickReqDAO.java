@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class PickReqDAO extends GenericDAOImplementation <PickReq, Long>{
+public class PickReqDAO extends GenericDAOImplementation<PickReq, Long> {
 
   @Override
   public void saveOrUpdate(PickReq entity) throws Exception {
-    PickReq candidate = findByItem(entity.getUnit());
+    PickReq candidate = findByAllocRef(entity.getAllocRef());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class PickReqDAO extends GenericDAOImplementation <PickReq, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<PickReq> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (PickReq l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class PickReqDAO extends GenericDAOImplementation <PickReq, Long>{
     commit();
   }
 
-  public PickReq findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("PickReq.findByUnit");
-    query.setParameter("unit", unit);
+  public PickReq findByAllocRef(Integer allocRef) {
+    Query query = currentSession().getNamedQuery("PickReq.findByAllocRef");
+    query.setParameter("allocRef", allocRef);
     return (PickReq) query.uniqueResult();
   }
 }

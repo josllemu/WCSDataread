@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class WorkStationDAO extends GenericDAOImplementation <WorkStation, Long>{
+public class WorkStationDAO extends GenericDAOImplementation<WorkStation, Long> {
 
   @Override
   public void saveOrUpdate(WorkStation entity) throws Exception {
-    WorkStation candidate = findByItem(entity.getHostName());
+    WorkStation candidate = findByHostName(entity.getHostName());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class WorkStationDAO extends GenericDAOImplementation <WorkStation, Long>
 
   @Override
   public void multiSaveOrUpdate(Collection<WorkStation> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (WorkStation l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class WorkStationDAO extends GenericDAOImplementation <WorkStation, Long>
     commit();
   }
 
-  public WorkStation findByItem(String orderId) {
+  public WorkStation findByHostName(String hostName) {
     Query query = currentSession().getNamedQuery("WorkStation.findByHostName");
-    query.setParameter("order_Id", orderId);
+    query.setParameter("hostName", hostName);
     return (WorkStation) query.uniqueResult();
   }
 }

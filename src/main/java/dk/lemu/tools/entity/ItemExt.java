@@ -1,7 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ConfigurationCodeDAO;
-import dk.lemu.tools.dao.ItemDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,19 +13,17 @@ import java.util.List;
     @NamedQuery(name = "ItemExt.findbyItem", query = "SELECT object(ie) FROM ItemExt ie WHERE ie.item = :item_id")
 })
 @Entity
-@Table(name = "ItemExt", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_id")},
+@Table(name = "ItemExt",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "id, item_id")})
+        @Index(columnList = "item"),
+        @Index(columnList = "id, item")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ItemExt extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Item item; //0
-  private ConfigurationCode itemConf; //1
+  private String item; //0
+  private String itemConf; //1
   private String clientCode; //2
   private Integer result; //3
   private Integer minRefill1; //4
@@ -63,12 +59,11 @@ public class ItemExt extends AbstractEntity implements Serializable {
   }
 
   public ItemExt(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
-    ConfigurationCodeDAO configurationCodeDAO = new ConfigurationCodeDAO();
 
-    this.setItem(itemDAO.findByItemCode(list.get(0)));
+
+    this.setItem(list.get(0));
     this.setClientCode(list.get(1));
-    this.setItemConf(configurationCodeDAO.findByConfigurationCode(list.get(2)));
+    this.setItemConf(list.get(2));
     this.setResult((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setMinRefill1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
     this.setMaxRefill1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
@@ -113,17 +108,16 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
-  public Item getItem() {
+  @Column(name = "item", unique = true, nullable = false, length = 50)
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
-  @Column(name = "clientCode", nullable = false)
+  @Column(name = "clientCode", nullable = false, length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -132,13 +126,12 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.clientCode = clientCode;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "configurationcode_id", nullable = false)
-  public ConfigurationCode getItemConf() {
+  @Column(name = "itemConf", nullable = false, length = 50)
+  public String getItemConf() {
     return itemConf;
   }
 
-  public void setItemConf(ConfigurationCode itemConf) {
+  public void setItemConf(String itemConf) {
     this.itemConf = itemConf;
   }
 
@@ -268,7 +261,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.palletHeight = palletHeight;
   }
 
-  @Column(name = "storageArea")
+  @Column(name = "storageArea", length = 50)
   public String getStorageArea() {
     return storageArea;
   }
@@ -277,7 +270,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageArea = storageArea;
   }
 
-  @Column(name = "handlingText")
+  @Column(name = "handlingText", length = 10)
   public String getHandlingText() {
     return handlingText;
   }
@@ -286,7 +279,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.handlingText = handlingText;
   }
 
-  @Column(name = "storageType1")
+  @Column(name = "storageType1", length = 10)
   public String getStorageType1() {
     return storageType1;
   }
@@ -295,7 +288,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageType1 = storageType1;
   }
 
-  @Column(name = "storageType2")
+  @Column(name = "storageType2", length = 10)
   public String getStorageType2() {
     return storageType2;
   }
@@ -304,7 +297,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.storageType2 = storageType2;
   }
 
-  @Column(name = "baseUnitVol")
+  @Column(name = "baseUnitVol", length = 10)
   public String getBaseUnitVol() {
     return baseUnitVol;
   }
@@ -313,7 +306,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseUnitVol = baseUnitVol;
   }
 
-  @Column(name = "qaText")
+  @Column(name = "qaText", length = 100)
   public String getQaText() {
     return qaText;
   }
@@ -322,7 +315,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.qaText = qaText;
   }
 
-  @Column(name = "textDiff")
+  @Column(name = "textDiff", length = 50)
   public String getTextDiff() {
     return textDiff;
   }
@@ -331,7 +324,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.textDiff = textDiff;
   }
 
-  @Column(name = "baseWeightUnit")
+  @Column(name = "baseWeightUnit", length = 10)
   public String getBaseWeightUnit() {
     return baseWeightUnit;
   }
@@ -340,7 +333,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseWeightUnit = baseWeightUnit;
   }
 
-  @Column(name = "baseLenghtUnit")
+  @Column(name = "baseLenghtUnit", length = 10)
   public String getBaseLenghtUnit() {
     return baseLenghtUnit;
   }
@@ -349,7 +342,7 @@ public class ItemExt extends AbstractEntity implements Serializable {
     this.baseLenghtUnit = baseLenghtUnit;
   }
 
-  @Column(name = "operator")
+  @Column(name = "operator", length = 50)
   public String getOperator() {
     return operator;
   }
@@ -398,8 +391,8 @@ public class ItemExt extends AbstractEntity implements Serializable {
   public String toString() {
     return "ItemExt{" +
         "id=" + id +
-        ", item=" + item.getItem_code() +
-        ", itemConf=" + itemConf.getCode() +
+        ", item='" + item + '\'' +
+        ", itemConf='" + itemConf + '\'' +
         ", clientCode='" + clientCode + '\'' +
         ", result=" + result +
         ", minRefill1=" + minRefill1 +
