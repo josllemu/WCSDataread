@@ -35,7 +35,6 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
   private Date dbDate = new Date();
 
 
-
   public WCSAllocPriority() {
 
   }
@@ -161,7 +160,7 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
 
   public void setColumn10(Double column10) {
     this.column10 = column10;
- }
+  }
 
   @Column(name = "column11")
   public Double getColumn11() {
@@ -199,6 +198,7 @@ public class WCSAllocPriority extends AbstractEntity implements Serializable {
     this.column14 = column14;
   }
 
+  @Column(name = "dbDate")
   public Date getDbDate() {
     return dbDate;
   }

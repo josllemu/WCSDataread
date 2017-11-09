@@ -20,7 +20,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "WMSOrder", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"orderId","orderNumber","delNoteId"})},
+    @UniqueConstraint(columnNames = {"orderId", "orderNumber", "delNoteId"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "orderId"),
@@ -79,7 +79,6 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.setWorkStation((String) TypeParser.fromCSVFile(String.class, list.get(16)));
     this.setPrintRequired((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(17)));
     this.setDbDate(new Date());
-
 
 
   }

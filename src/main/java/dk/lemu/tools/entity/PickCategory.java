@@ -29,7 +29,6 @@ public class PickCategory extends AbstractEntity implements Serializable {
   private Integer value; //4
 
 
-
   public PickCategory() {
 
   }

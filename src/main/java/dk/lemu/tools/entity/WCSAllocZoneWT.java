@@ -15,7 +15,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "WCSAllocZoneWT", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"zone","priority","weight"})},
+    @UniqueConstraint(columnNames = {"zone", "priority", "weight"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "id, zone, priority, weight")})

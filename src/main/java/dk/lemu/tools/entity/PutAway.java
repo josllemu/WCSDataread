@@ -37,7 +37,6 @@ public class PutAway extends AbstractEntity implements Serializable {
   private Integer xCode; //11
 
 
-
   public PutAway() {
 
   }

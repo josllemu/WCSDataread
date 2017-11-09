@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class HibernateUtil {
 
   private static final SessionFactory sessionFactory;
+  private static final ThreadLocal session = new ThreadLocal();
 
   static {
     try {
@@ -57,8 +58,6 @@ public class HibernateUtil {
       throw new ExceptionInInitializerError(e);
     }
   }
-
-  private static final ThreadLocal session = new ThreadLocal();
 
   public static Session currentSession() throws HibernateException {
     if (session != null) {

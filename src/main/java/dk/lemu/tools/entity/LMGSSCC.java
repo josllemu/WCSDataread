@@ -14,7 +14,7 @@ import java.util.List;
 })
 @Entity
 @Table(name = "LMGSSCC", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"container","sscc" })},
+    @UniqueConstraint(columnNames = {"container", "sscc"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "container"),

@@ -43,6 +43,7 @@ public class Location extends AbstractContainer implements Serializable {
   private Double depth = 0.0; //16
   private String piChecked = "."; //17
   private String posnChecked = "."; //18
+  private Date dbDate = new Date();
 
 
   private Integer locType = AbstractContainer.TYPE_LOCATION;
@@ -70,6 +71,7 @@ public class Location extends AbstractContainer implements Serializable {
     this.setDepth((Double) TypeParser.fromCSVFile(Double.class, list.get(16)));
     this.setPiChecked(list.get(17));
     this.setPosnChecked(list.get(18));
+    this.setDbDate(new Date());
 
   }
 
@@ -77,6 +79,11 @@ public class Location extends AbstractContainer implements Serializable {
   @Column(name = "locType", nullable = false)
   public Integer getLocType() {
     return locType;
+  }
+
+  @Override
+  public void setLocType(Integer locType) {
+    this.locType = locType;
   }
 
   @Column(name = "location", nullable = false, unique = true, length = 50)
@@ -250,9 +257,13 @@ public class Location extends AbstractContainer implements Serializable {
     this.posnChecked = posnChecked;
   }
 
-  @Override
-  public void setLocType(Integer locType) {
-    this.locType = locType;
+  @Column(name = "dbDate")
+  public Date getDbDate() {
+    return dbDate;
+  }
+
+  public void setDbDate(Date dbDate) {
+    this.dbDate = dbDate;
   }
 
   @Override
@@ -277,6 +288,7 @@ public class Location extends AbstractContainer implements Serializable {
         ", depth=" + depth +
         ", piChecked='" + piChecked + '\'' +
         ", posnChecked='" + posnChecked + '\'' +
+        ", dbDate=" + dbDate +
         ", locType=" + locType +
         '}';
   }

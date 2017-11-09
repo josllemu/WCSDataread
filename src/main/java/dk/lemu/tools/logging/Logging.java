@@ -24,9 +24,6 @@ public class Logging {
       configure();
     }
 
-
-
-
   }
 
   private void configure() {
@@ -53,11 +50,11 @@ public class Logging {
   private void initializedMessage(Config config) {
     LogDAO logDAO = new LogDAO();
 
-    Log log = logDAO.findByPath(config.getPath() +"\\"+ config.getFolder() +"\\");
+    Log log = logDAO.findByPath(config.getPath() + "\\" + config.getFolder() + "\\");
 
     log("------------------------------");
     log("Logger initialized");
-    log("Scheduled script started: " +  getCurrentTimeString());
+    log("Scheduled script started: " + getCurrentTimeString());
     log("Path: " + config.getPath());
     log("Start folder: " + config.getFolder());
     if (log != null) {

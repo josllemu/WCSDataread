@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
@@ -15,7 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "WMSOrderLine",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"orderId","line","allocRef"})},
+        @UniqueConstraint(columnNames = {"orderId", "line", "allocRef"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "orderId"),
@@ -48,7 +49,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
   private Integer eachAllocRef; //19
   private String altUnit; //20
   private Integer altCount; //21
-
+  private Date dbDate = new Date();
 
 
   public WMSOrderLine() {
@@ -78,7 +79,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.setEachAllocRef((Integer) TypeParser.fromCSVFile(Integer.class, list.get(19)));
     this.setAltUnit((String) TypeParser.fromCSVFile(String.class, list.get(20)));
     this.setAltCount((Integer) TypeParser.fromCSVFile(Integer.class, list.get(21)));
-
+    this.setDbDate(new Date());
 
   }
 
@@ -292,12 +293,21 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
     this.altCount = altCount;
   }
 
+  @Column(name = "dbDate")
+  public Date getDbDate() {
+    return dbDate;
+  }
+
+  public void setDbDate(Date dbDate) {
+    this.dbDate = dbDate;
+  }
+
   @Override
   public String toString() {
     return "WMSOrderLine{" +
         "id=" + id +
-        ", orderId=" + orderId +
-        ", line='" + line + '\'' +
+        ", orderId='" + orderId + '\'' +
+        ", line=" + line +
         ", status='" + status + '\'' +
         ", allocRef=" + allocRef +
         ", expected=" + expected +
@@ -318,6 +328,7 @@ public class WMSOrderLine extends AbstractEntity implements Serializable {
         ", eachAllocRef=" + eachAllocRef +
         ", altUnit='" + altUnit + '\'' +
         ", altCount=" + altCount +
+        ", dbDate=" + dbDate +
         '}';
   }
 }

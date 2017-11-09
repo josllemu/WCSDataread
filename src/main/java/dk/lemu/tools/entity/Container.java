@@ -322,13 +322,13 @@ public class Container extends AbstractContainer implements Serializable {
     this.width = width;
   }
 
-  public void setLength(Double length) {
-    this.length = length;
-  }
-
   @Column(name = "length")
   public Double getLength() {
     return length;
+  }
+
+  public void setLength(Double length) {
+    this.length = length;
   }
 
   @Column(name = "type", nullable = false, length = 25)

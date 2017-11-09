@@ -133,5 +133,19 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.trotterPrinter = trotterPrinter;
   }
 
+  @Override
+  public String toString() {
+    return "WorkStation{" +
+        "id=" + id +
+        ", hostName='" + hostName + '\'' +
+        ", location='" + location + '\'' +
+        ", description='" + description + '\'' +
+        ", documentPrinter='" + documentPrinter + '\'' +
+        ", labelPrinter='" + labelPrinter + '\'' +
+        ", mhe='" + mhe + '\'' +
+        ", guidePrinter='" + guidePrinter + '\'' +
+        ", trotterPrinter='" + trotterPrinter + '\'' +
+        '}';
+  }
 }
 

@@ -19,9 +19,10 @@ public class TypeParser {
   private static String format6 = "d-MMM-yyyy";
   private static String format7 = "dd-MMM-yyyy";
   private static String format8 = "d-MMM-yyyy";
+
   static public Serializable fromCSVFile(Class objectClass, String value) {
     try {
-      if (value != null && !value.equals("") && !value.isEmpty() &&  value != "") {
+      if (value != null && !value.equals("") && !value.isEmpty() && value != "") {
         if (objectClass == String.class) {
           return value;
         } else if (objectClass == Integer.class) {

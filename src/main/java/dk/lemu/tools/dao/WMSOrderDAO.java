@@ -57,5 +57,6 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
   public WMSOrder findByDelNoteId(String delNoteId) {
     Query query = currentSession().getNamedQuery("WMSOrder.findByDelNoteId");
     query.setParameter("delNoteId", delNoteId);
-    return (WMSOrder) query.uniqueResult();  }
+    return (WMSOrder) query.uniqueResult();
+  }
 }

@@ -43,12 +43,11 @@ public class PartnerInfo extends AbstractEntity implements Serializable {
     this.setRequistion(list.get(3));
     this.setContactName(list.get(4));
     this.setContactNumber(list.get(5));
-    for (int i = 6; i>=list.size(); i++) {
+    for (int i = 6; i >= list.size(); i++) {
       this.setOrderName(this.getOrderName() != null ?
-          this.getOrderNumber() + "~" +list.get(i) :
+          this.getOrderNumber() + "~" + list.get(i) :
           list.get(i));
     }
-
 
 
   }

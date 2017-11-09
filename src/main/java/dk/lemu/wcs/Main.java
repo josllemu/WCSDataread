@@ -149,10 +149,10 @@ public class Main {
 
         logger.log("------------------------------");
         logger.log("Run finished on path");
-        logger.log("Run on path started: " +  new Date(start));
+        logger.log("Run on path started: " + new Date(start));
         logger.log("Path: " + config.getPath());
         logger.log("Start folder: " + config.getFolder());
-        logger.log("Last run took: " + (log.getRunTime()/1000L));
+        logger.log("Last run took: " + (log.getRunTime() / 1000L));
         logger.log("Num linies on last run: " + log.getNumLines());
         logger.log("------------------------------");
         folder = getPath(config);
@@ -177,7 +177,7 @@ public class Main {
     Integer day = new Integer(split[2]);
 
     String newFolder;
-    Calendar c = new GregorianCalendar(year, (month-1), day);
+    Calendar c = new GregorianCalendar(year, (month - 1), day);
     c.add(Calendar.DAY_OF_YEAR, 1);
 
     SimpleDateFormat format = new SimpleDateFormat("YYYY-MM-d");
@@ -192,7 +192,7 @@ public class Main {
   }
 
   private static boolean doesFolderExist(String newFolder, String path) {
-    File file = new File("\\" + path+ "\\" + newFolder +"\\");
+    File file = new File("\\" + path + "\\" + newFolder + "\\");
     logger.log("file path: " + file.toString());
     return file.isDirectory();
 
@@ -570,7 +570,7 @@ public class Main {
             if (!stockHists.contains(stockHist)) {
               stockHists.add(stockHist);
             }
-            if (counter % 500 == 0) {
+            if (counter % 250 == 0) {
               stockDAO.multiSaveOrUpdate(stocks);
               stockHistDAO.multiSaveOrUpdate(stockHists);
               stocks = new ArrayList<>();

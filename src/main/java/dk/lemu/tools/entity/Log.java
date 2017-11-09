@@ -30,10 +30,10 @@ public class Log extends AbstractEntity implements Serializable {
   private Long numLines;
   private String fileName;
   private Long size;
+
   public Log() {
 
   }
-
 
 
   @Id

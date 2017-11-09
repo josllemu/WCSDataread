@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
@@ -42,6 +43,7 @@ public class Supply extends AbstractEntity implements Serializable {
   private String distInfo1; //17
   private String distInfo2; //18
   private String zipCodeArea; //19
+  private Date dbDate = new Date();
 
 
   public Supply() {
@@ -69,6 +71,7 @@ public class Supply extends AbstractEntity implements Serializable {
     this.setDistInfo1((String) TypeParser.fromCSVFile(String.class, list.get(17)));
     this.setDistInfo2((String) TypeParser.fromCSVFile(String.class, list.get(18)));
     this.setZipCodeArea((String) TypeParser.fromCSVFile(String.class, list.get(19)));
+    this.setDbDate(new Date());
 
 
   }
@@ -265,6 +268,15 @@ public class Supply extends AbstractEntity implements Serializable {
     this.zipCodeArea = zipCodeArea;
   }
 
+  @Column(name = "dbDate")
+  public Date getDbDate() {
+    return dbDate;
+  }
+
+  public void setDbDate(Date dbDate) {
+    this.dbDate = dbDate;
+  }
+
   @Override
   public String toString() {
     return "Supply{" +
@@ -289,6 +301,7 @@ public class Supply extends AbstractEntity implements Serializable {
         ", distInfo1='" + distInfo1 + '\'' +
         ", distInfo2='" + distInfo2 + '\'' +
         ", zipCodeArea='" + zipCodeArea + '\'' +
+        ", dbDate=" + dbDate +
         '}';
   }
 }
