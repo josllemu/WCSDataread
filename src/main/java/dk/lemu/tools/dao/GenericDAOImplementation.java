@@ -12,8 +12,8 @@ import java.util.List;
 public abstract class GenericDAOImplementation<T, Id extends Serializable> implements GenericDAOInterface<T, Id> {
 
 
-  private Class<? extends T> daoType;
   private static Transaction transaction;
+  private Class<? extends T> daoType;
   private Session session;
 
 

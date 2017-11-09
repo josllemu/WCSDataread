@@ -1,6 +1,6 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ItemDAO;
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,32 +12,36 @@ import java.util.List;
 
 @NamedQueries({
     @NamedQuery(name = "WMSOrder.findByOrderId", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderId = :order_Id"),
-    @NamedQuery(name = "WMSOrder.findByOrderNumber", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderNumber = :order_Number")
+    @NamedQuery(name = "WMSOrder.findByOrderNumber", query = "SELECT object(o) FROM WMSOrder o WHERE o.orderNumber = :order_Number"),
+    @NamedQuery(name = "WMSOrder.findByDelNoteId", query = "SELECT object(o) FROM WMSOrder o WHERE o.delNoteId = :delNoteId"),
+    @NamedQuery(name = "WMSOrder.findByOrderIdOrderNumberAndDelNotId", query = "SELECT object(o) FROM WMSOrder o " +
+        "WHERE o.orderId = :order_Id AND o.orderNumber = :order_Number AND o.delNoteId = :delNoteId")
 
 })
 @Entity
 @Table(name = "WMSOrder", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "orderId"),
-    @UniqueConstraint(columnNames = "orderNumber")},
+    @UniqueConstraint(columnNames = {"orderId", "orderNumber", "delNoteId"})},
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "orderId"),
         @Index(columnList = "orderNumber"),
+        @Index(columnList = "delNoteId"),
         @Index(columnList = "id, orderId, orderNumber"),
         @Index(columnList = "id, orderId"),
-        @Index(columnList = "id, orderNumber")})
+        @Index(columnList = "id, orderNumber"),
+        @Index(columnList = "id, delNoteId"),
+        @Index(columnList = "id, orderId, orderNumber, delNoteId")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class WMSOrder extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer orderId; //0
+  private String orderId; //0
   private String typeId; //1
   private String status; //2
   private Integer priority; //3
   private Integer noLines; //4
   private Date createdDate; //5
-  private Integer orderNumber; //6
+  private String orderNumber; //6
   private String delNoteId; //7
   private String refText; //8
   private Integer contGroup; //9
@@ -47,7 +51,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   private Integer pallets; //13
   private Integer packageNo; //14
   private Integer stage; //15
-  private WorkStation workStation; //16
+  private String workStation; //16
   private Boolean printRequired; //17
   private Date dbDate = new Date();
 
@@ -56,7 +60,25 @@ public class WMSOrder extends AbstractEntity implements Serializable {
   }
 
   public WMSOrder(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
+    this.setOrderId((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setTypeId((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setStatus((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setPriority((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setNoLines((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
+    this.setCreatedDate((Date) TypeParser.fromCSVFile(Date.class, list.get(5)));
+    this.setOrderNumber((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setDelNoteId((String) TypeParser.fromCSVFile(String.class, list.get(7)));
+    this.setRefText((String) TypeParser.fromCSVFile(String.class, list.get(8)));
+    this.setContGroup((Integer) TypeParser.fromCSVFile(Integer.class, list.get(9)));
+    this.setStatusToHost((String) TypeParser.fromCSVFile(String.class, list.get(10)));
+    this.setHostName((String) TypeParser.fromCSVFile(String.class, list.get(11)));
+    this.setBoxes((Integer) TypeParser.fromCSVFile(Integer.class, list.get(12)));
+    this.setPallets((Integer) TypeParser.fromCSVFile(Integer.class, list.get(13)));
+    this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(14)));
+    this.setStage((Integer) TypeParser.fromCSVFile(Integer.class, list.get(15)));
+    this.setWorkStation((String) TypeParser.fromCSVFile(String.class, list.get(16)));
+    this.setPrintRequired((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(17)));
+    this.setDbDate(new Date());
 
 
   }
@@ -73,14 +95,16 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public Integer getOrderId() {
+  @Column(name = "orderId", nullable = false, length = 50)
+  public String getOrderId() {
     return orderId;
   }
 
-  public void setOrderId(Integer orderId) {
+  public void setOrderId(String orderId) {
     this.orderId = orderId;
   }
 
+  @Column(name = "typeId", length = 5)
   public String getTypeId() {
     return typeId;
   }
@@ -89,6 +113,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.typeId = typeId;
   }
 
+  @Column(name = "status", length = 5)
   public String getStatus() {
     return status;
   }
@@ -97,6 +122,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.status = status;
   }
 
+  @Column(name = "priority")
   public Integer getPriority() {
     return priority;
   }
@@ -105,6 +131,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.priority = priority;
   }
 
+  @Column(name = "noLines")
   public Integer getNoLines() {
     return noLines;
   }
@@ -113,6 +140,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.noLines = noLines;
   }
 
+  @Column(name = "createdDate")
   public Date getCreatedDate() {
     return createdDate;
   }
@@ -121,14 +149,16 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.createdDate = createdDate;
   }
 
-  public Integer getOrderNumber() {
+  @Column(name = "orderNumber", nullable = false, length = 50)
+  public String getOrderNumber() {
     return orderNumber;
   }
 
-  public void setOrderNumber(Integer orderNumber) {
+  public void setOrderNumber(String orderNumber) {
     this.orderNumber = orderNumber;
   }
 
+  @Column(name = "delNoteId", length = 50)
   public String getDelNoteId() {
     return delNoteId;
   }
@@ -137,6 +167,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.delNoteId = delNoteId;
   }
 
+  @Column(name = "refText", length = 50)
   public String getRefText() {
     return refText;
   }
@@ -145,6 +176,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.refText = refText;
   }
 
+  @Column(name = "contGroup")
   public Integer getContGroup() {
     return contGroup;
   }
@@ -153,6 +185,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.contGroup = contGroup;
   }
 
+  @Column(name = "statusToHost", length = 5)
   public String getStatusToHost() {
     return statusToHost;
   }
@@ -161,6 +194,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.statusToHost = statusToHost;
   }
 
+  @Column(name = "hostName", length = 50)
   public String getHostName() {
     return hostName;
   }
@@ -169,6 +203,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.hostName = hostName;
   }
 
+  @Column(name = "boxes")
   public Integer getBoxes() {
     return boxes;
   }
@@ -177,6 +212,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.boxes = boxes;
   }
 
+  @Column(name = "pallets")
   public Integer getPallets() {
     return pallets;
   }
@@ -185,6 +221,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.pallets = pallets;
   }
 
+  @Column(name = "packageNo")
   public Integer getPackageNo() {
     return packageNo;
   }
@@ -193,6 +230,7 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.packageNo = packageNo;
   }
 
+  @Column(name = "stage")
   public Integer getStage() {
     return stage;
   }
@@ -201,14 +239,16 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.stage = stage;
   }
 
-  public WorkStation getWorkStation() {
+  @Column(name = "workStation", length = 50)
+  public String getWorkStation() {
     return workStation;
   }
 
-  public void setWorkStation(WorkStation workStation) {
+  public void setWorkStation(String workStation) {
     this.workStation = workStation;
   }
 
+  @Column(name = "printRequired")
   public Boolean getPrintRequired() {
     return printRequired;
   }
@@ -217,12 +257,39 @@ public class WMSOrder extends AbstractEntity implements Serializable {
     this.printRequired = printRequired;
   }
 
+  @Column(name = "dbDate")
   public Date getDbDate() {
     return dbDate;
   }
 
   public void setDbDate(Date dbDate) {
     this.dbDate = dbDate;
+  }
+
+  @Override
+  public String toString() {
+    return "WMSOrder{" +
+        "id=" + id +
+        ", orderId=" + orderId +
+        ", typeId='" + typeId + '\'' +
+        ", status='" + status + '\'' +
+        ", priority=" + priority +
+        ", noLines=" + noLines +
+        ", createdDate=" + createdDate +
+        ", orderNumber=" + orderNumber +
+        ", delNoteId='" + delNoteId + '\'' +
+        ", refText='" + refText + '\'' +
+        ", contGroup=" + contGroup +
+        ", statusToHost='" + statusToHost + '\'' +
+        ", hostName='" + hostName + '\'' +
+        ", boxes=" + boxes +
+        ", pallets=" + pallets +
+        ", packageNo=" + packageNo +
+        ", stage=" + stage +
+        ", workStation='" + workStation + '\'' +
+        ", printRequired=" + printRequired +
+        ", dbDate=" + dbDate +
+        '}';
   }
 }
 

@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -12,10 +13,11 @@ import java.util.List;
     @NamedQuery(name = "WorkStation.findByHostName", query = "SELECT object(o) FROM WorkStation o WHERE o.hostName = :hostName")
 })
 @Entity
-@Table(name = "WorkStation", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id")},
+@Table(name = "WorkStation",
     indexes = {
-        @Index(columnList = "id")})
+        @Index(columnList = "id"),
+        @Index(columnList = "hostName"),
+        @Index(columnList = "id, hostName")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class WorkStation extends AbstractEntity implements Serializable {
 
@@ -25,10 +27,9 @@ public class WorkStation extends AbstractEntity implements Serializable {
   private String description; //2
   private String documentPrinter; //3
   private String labelPrinter; //4
-  private MHEInfo mhe; //5
+  private String mhe; //5
   private String guidePrinter; //6
   private String trotterPrinter; //7
-
 
 
   public WorkStation() {
@@ -36,6 +37,14 @@ public class WorkStation extends AbstractEntity implements Serializable {
   }
 
   public WorkStation(List<String> list) throws Exception {
+    this.setHostName((String) TypeParser.fromCSVFile(String.class, list.get(0)));
+    this.setLocation((String) TypeParser.fromCSVFile(String.class, list.get(1)));
+    this.setDescription((String) TypeParser.fromCSVFile(String.class, list.get(2)));
+    this.setDocumentPrinter((String) TypeParser.fromCSVFile(String.class, list.get(3)));
+    this.setLabelPrinter((String) TypeParser.fromCSVFile(String.class, list.get(4)));
+    this.setMhe((String) TypeParser.fromCSVFile(String.class, list.get(5)));
+    this.setGuidePrinter((String) TypeParser.fromCSVFile(String.class, list.get(6)));
+    this.setTrotterPrinter((String) TypeParser.fromCSVFile(String.class, list.get(7)));
 
 
   }
@@ -52,6 +61,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
+  @Column(name = "hostName", length = 50)
   public String getHostName() {
     return hostName;
   }
@@ -60,6 +70,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.hostName = hostName;
   }
 
+  @Column(name = "location", length = 50)
   public String getLocation() {
     return location;
   }
@@ -68,6 +79,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.location = location;
   }
 
+  @Column(name = "description", length = 50)
   public String getDescription() {
     return description;
   }
@@ -76,6 +88,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
+  @Column(name = "documentPrinter", length = 50)
   public String getDocumentPrinter() {
     return documentPrinter;
   }
@@ -84,6 +97,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.documentPrinter = documentPrinter;
   }
 
+  @Column(name = "labelPrinter", length = 50)
   public String getLabelPrinter() {
     return labelPrinter;
   }
@@ -92,14 +106,16 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.labelPrinter = labelPrinter;
   }
 
-  public MHEInfo getMhe() {
+  @Column(name = "mhe", length = 50)
+  public String getMhe() {
     return mhe;
   }
 
-  public void setMhe(MHEInfo mhe) {
+  public void setMhe(String mhe) {
     this.mhe = mhe;
   }
 
+  @Column(name = "guidePrinter", length = 50)
   public String getGuidePrinter() {
     return guidePrinter;
   }
@@ -108,6 +124,7 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.guidePrinter = guidePrinter;
   }
 
+  @Column(name = "trotterPrinter", length = 50)
   public String getTrotterPrinter() {
     return trotterPrinter;
   }
@@ -116,5 +133,19 @@ public class WorkStation extends AbstractEntity implements Serializable {
     this.trotterPrinter = trotterPrinter;
   }
 
+  @Override
+  public String toString() {
+    return "WorkStation{" +
+        "id=" + id +
+        ", hostName='" + hostName + '\'' +
+        ", location='" + location + '\'' +
+        ", description='" + description + '\'' +
+        ", documentPrinter='" + documentPrinter + '\'' +
+        ", labelPrinter='" + labelPrinter + '\'' +
+        ", mhe='" + mhe + '\'' +
+        ", guidePrinter='" + guidePrinter + '\'' +
+        ", trotterPrinter='" + trotterPrinter + '\'' +
+        '}';
+  }
 }
 

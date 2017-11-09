@@ -1,8 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ContainerDAO;
-import dk.lemu.tools.dao.ContainerTypeDAO;
-import dk.lemu.tools.dao.LocationDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -18,16 +15,14 @@ import java.util.List;
             "WHERE c.container = :containerId")
 })
 @Entity
-@Table(name = "container", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "container")},
+@Table(name = "Container",
     indexes = {
-    @Index(columnList = "id") ,
-    @Index(columnList = "id, container")})
+        @Index(columnList = "id"),
+        @Index(columnList = "id, container")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Container extends AbstractContainer implements Serializable {
 
-  private Location location; //0
+  private String location; //0
   private Date storageTime; //1
   private Date audit_date; //2
   private String auditRef; //3
@@ -36,16 +31,16 @@ public class Container extends AbstractContainer implements Serializable {
   private String weightStatus; //6
   private String heightStatus; //7
   private String container; //8
-  private ContainerType type; //9
-  private Container holdingContainer; //10
+  private String type; //9
+  private String holdingContainer; //10
   private Boolean auditStatus; //11
   private Boolean wrapped; //12
   private Boolean labelled; //13
   private String lastUserMoved; //14
   private Boolean picked; //15
   private Integer Temperature; //16
-  private Integer profileStatus =0; //17
-  private Integer containerStatus =0; //18
+  private Integer profileStatus = 0; //17
+  private Integer containerStatus = 0; //18
   private Date lastAllokationTime; //19
   private String fullStatus; //20
   private String orientation; //21
@@ -63,11 +58,8 @@ public class Container extends AbstractContainer implements Serializable {
   }
 
   public Container(List<String> list) throws Exception {
-    ContainerDAO containerDAO = new ContainerDAO();
-    ContainerTypeDAO containerTypeDAO = new ContainerTypeDAO();
-    LocationDAO locationDAO = new LocationDAO();
 
-    this.setLocation(list.get(0) != null ? locationDAO.findByLocation(list.get(0)) : null);
+    this.setLocation(list.get(0));
     this.setStorageTime((Date) TypeParser.fromCSVFile(Date.class, list.get(1)));
     this.setAudit_date((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
     this.setAuditRef(list.get(3));
@@ -76,8 +68,8 @@ public class Container extends AbstractContainer implements Serializable {
     this.setWeightStatus(list.get(6));
     this.setHeightStatus(list.get(7));
     this.setContainer(list.get(8));
-    this.setType(list.get(9) != null ? containerTypeDAO.findByType(list.get(9)) : null);
-    this.setHoldingContainer(list.get(10) != null ? containerDAO.findByContainer(list.get(10)) : null);
+    this.setType(list.get(9));
+    this.setHoldingContainer(list.get(10));
     this.setAuditStatus((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(11)));
     this.setWrapped((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(12)));
     this.setLabelled((Boolean) TypeParser.fromCSVFile(Boolean.class, list.get(13)));
@@ -105,7 +97,7 @@ public class Container extends AbstractContainer implements Serializable {
     return locType;
   }
 
-  @Column(name = "container", nullable = false, unique = true)
+  @Column(name = "container", nullable = false, unique = true, length = 25)
   public String getContainer() {
     return container;
   }
@@ -132,13 +124,12 @@ public class Container extends AbstractContainer implements Serializable {
     this.height = height;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "location_id")
-  public Location getLocation() {
+  @Column(name = "location", length = 25)
+  public String getLocation() {
     return location;
   }
 
-  public void setLocation(Location location) {
+  public void setLocation(String location) {
     this.location = location;
   }
 
@@ -169,7 +160,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.audit_date = audit_date;
   }
 
-  @Column(name = "weightStatus")
+  @Column(name = "weightStatus", length = 5)
   public String getWeightStatus() {
     return weightStatus;
   }
@@ -178,7 +169,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.weightStatus = weightStatus;
   }
 
-  @Column(name = "heightStatus")
+  @Column(name = "heightStatus", length = 5)
   public String getHeightStatus() {
     return heightStatus;
   }
@@ -187,13 +178,12 @@ public class Container extends AbstractContainer implements Serializable {
     this.heightStatus = heightStatus;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "holdingContainer_id")
-  public Container getHoldingContainer() {
+  @Column(name = "holdingContainer", length = 25)
+  public String getHoldingContainer() {
     return holdingContainer;
   }
 
-  public void setHoldingContainer(Container holdingContainer) {
+  public void setHoldingContainer(String holdingContainer) {
     this.holdingContainer = holdingContainer;
   }
 
@@ -224,7 +214,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.labelled = labelled;
   }
 
-  @Column(name = "lastUserMoved")
+  @Column(name = "lastUserMoved", length = 25)
   public String getLastUserMoved() {
     return lastUserMoved;
   }
@@ -287,7 +277,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.fullStatus = fullStatus;
   }
 
-  @Column(name = "orientation")
+  @Column(name = "orientation", length = 5)
   public String getOrientation() {
     return orientation;
   }
@@ -296,7 +286,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.orientation = orientation;
   }
 
-  @Column(name = "bitMap")
+  @Column(name = "bitMap", length = 10)
   public String getBitMap() {
     return bitMap;
   }
@@ -305,7 +295,7 @@ public class Container extends AbstractContainer implements Serializable {
     this.bitMap = bitMap;
   }
 
-  @Column(name = "pickGroup")
+  @Column(name = "pickGroup", length = 25)
   public String getPickGroup() {
     return pickGroup;
   }
@@ -332,22 +322,21 @@ public class Container extends AbstractContainer implements Serializable {
     this.width = width;
   }
 
-  public void setLength(Double length) {
-    this.length = length;
-  }
-
   @Column(name = "length")
   public Double getLength() {
     return length;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "containertype_id", nullable = false)
-  public ContainerType getType() {
+  public void setLength(Double length) {
+    this.length = length;
+  }
+
+  @Column(name = "type", nullable = false, length = 25)
+  public String getType() {
     return type;
   }
 
-  public void setType(ContainerType type) {
+  public void setType(String type) {
     this.type = type;
   }
 
@@ -363,7 +352,7 @@ public class Container extends AbstractContainer implements Serializable {
   @Override
   public String toString() {
     return "Container{" +
-        "location=" + location.getLocation() +
+        "location='" + location + '\'' +
         ", storageTime=" + storageTime +
         ", audit_date=" + audit_date +
         ", auditRef='" + auditRef + '\'' +
@@ -372,8 +361,8 @@ public class Container extends AbstractContainer implements Serializable {
         ", weightStatus='" + weightStatus + '\'' +
         ", heightStatus='" + heightStatus + '\'' +
         ", container='" + container + '\'' +
-        ", type=" + type.getContainerTypeCode() +
-        ", holdingContainer=" + (holdingContainer != null ? holdingContainer.getContainer() : null) +
+        ", type='" + type + '\'' +
+        ", holdingContainer='" + holdingContainer + '\'' +
         ", auditStatus=" + auditStatus +
         ", wrapped=" + wrapped +
         ", labelled=" + labelled +
@@ -390,6 +379,7 @@ public class Container extends AbstractContainer implements Serializable {
         ", relocate=" + relocate +
         ", width=" + width +
         ", length=" + length +
+        ", dbDate=" + dbDate +
         ", locType=" + locType +
         '}';
   }

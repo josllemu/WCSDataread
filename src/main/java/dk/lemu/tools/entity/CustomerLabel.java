@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -13,9 +14,7 @@ import java.util.List;
     @NamedQuery(name = "CustomerLabel.findByShippingCode", query = "SELECT object(o) FROM CustomerLabel o WHERE o.shippingCode = :shipping_Code")
 })
 @Entity
-@Table(name = "CustomerLabel", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "shippingCode")},
+@Table(name = "CustomerLabel",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "shippingCode"),
@@ -24,26 +23,26 @@ import java.util.List;
 public class CustomerLabel extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Integer seq;
-  private String carrier;
-  private String name1;
-  private String name2;
-  private String address;
-  private String zipTown;
-  private Integer packageNo;
-  private Double weight;
-  private String route;
-  private String salesCompanyID;
-  private String orderType;
-  private String zipCodeArea;
-  private String salesOrderNum;
-  private WMSOrder orderNumber;
-  private Date packDate;
-  private String despatchRemarks;
-  private String remarks;
-  private String cODText;
-  private String shippingCode;
-  private String shippingCodeText;
+  private Integer seq; //0
+  private String carrier; //1
+  private String name1; //2
+  private String name2; //3
+  private String address; //4
+  private String zipTown; //5
+  private Integer packageNo; //6
+  private Double weight; //7
+  private String route; //8
+  private String salesCompanyID; //9
+  private String orderType; //10
+  private String zipCodeArea; //11
+  private String salesOrderNum; //12
+  private String orderNumber; //13
+  private Date packDate; //14
+  private String despatchRemarks; //15
+  private String remarks; //16
+  private String cODText; //17
+  private String shippingCode; //18
+  private String shippingCodeText; //19
 
   private Date dbDate = new Date();
 
@@ -53,7 +52,27 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
 
   public CustomerLabel(List<String> list) throws Exception {
 
-
+    this.setSeq((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
+    this.setCarrier(list.get(1));
+    this.setName1(list.get(2));
+    this.setName2(list.get(3));
+    this.setAddress(list.get(4));
+    this.setZipTown(list.get(5));
+    this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(6)));
+    this.setWeight((Double) TypeParser.fromCSVFile(Double.class, list.get(7)));
+    this.setRoute(list.get(8));
+    this.setSalesCompanyID(list.get(9));
+    this.setOrderType(list.get(10));
+    this.setZipCodeArea(list.get(11));
+    this.setSalesOrderNum(list.get(12));
+    this.setOrderNumber(list.get(13));
+    this.setPackDate((Date) TypeParser.fromCSVFile(Date.class, list.get(14)));
+    this.setDespatchRemarks(list.get(15));
+    this.setRemarks(list.get(16));
+    this.setcODText(list.get(17));
+    this.setShippingCode(list.get(18));
+    this.setShippingCodeText(list.get(19));
+    this.setDbDate(new Date());
   }
 
   @Id
@@ -77,7 +96,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.seq = seq;
   }
 
-  @Column(name = "carrier")
+  @Column(name = "carrier", length = 50)
   public String getCarrier() {
     return carrier;
   }
@@ -86,7 +105,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.carrier = carrier;
   }
 
-  @Column(name = "name1")
+  @Column(name = "name1", length = 50)
   public String getName1() {
     return name1;
   }
@@ -95,7 +114,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.name1 = name1;
   }
 
-  @Column(name = "name2")
+  @Column(name = "name2", length = 50)
   public String getName2() {
     return name2;
   }
@@ -104,7 +123,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.name2 = name2;
   }
 
-  @Column(name = "address")
+  @Column(name = "address", length = 50)
   public String getAddress() {
     return address;
   }
@@ -113,7 +132,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.address = address;
   }
 
-  @Column(name = "zipTown")
+  @Column(name = "zipTown", length = 50)
   public String getZipTown() {
     return zipTown;
   }
@@ -140,7 +159,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.weight = weight;
   }
 
-  @Column(name = "route")
+  @Column(name = "route", length = 5)
   public String getRoute() {
     return route;
   }
@@ -149,7 +168,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.route = route;
   }
 
-  @Column(name = "salesCompanyID")
+  @Column(name = "salesCompanyID", length = 50)
   public String getSalesCompanyID() {
     return salesCompanyID;
   }
@@ -158,7 +177,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.salesCompanyID = salesCompanyID;
   }
 
-  @Column(name = "orderType")
+  @Column(name = "orderType", length = 50)
   public String getOrderType() {
     return orderType;
   }
@@ -167,7 +186,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.orderType = orderType;
   }
 
-  @Column(name = "zipCodeArea")
+  @Column(name = "zipCodeArea", length = 10)
   public String getZipCodeArea() {
     return zipCodeArea;
   }
@@ -176,7 +195,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.zipCodeArea = zipCodeArea;
   }
 
-  @Column(name = "salesOrderNum")
+  @Column(name = "salesOrderNum", length = 50)
   public String getSalesOrderNum() {
     return salesOrderNum;
   }
@@ -185,12 +204,12 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.salesOrderNum = salesOrderNum;
   }
 
-  @Column(name = "orderNumber")
-  public WMSOrder getOrderNumber() {
+  @Column(name = "orderNumber", length = 50)
+  public String getOrderNumber() {
     return orderNumber;
   }
 
-  public void setOrderNumber(WMSOrder orderNumber) {
+  public void setOrderNumber(String orderNumber) {
     this.orderNumber = orderNumber;
   }
 
@@ -203,7 +222,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.packDate = packDate;
   }
 
-  @Column(name = "despatchRemarks")
+  @Column(name = "despatchRemarks", length = 50)
   public String getDespatchRemarks() {
     return despatchRemarks;
   }
@@ -212,7 +231,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.despatchRemarks = despatchRemarks;
   }
 
-  @Column(name = "remarks")
+  @Column(name = "remarks", length = 50)
   public String getRemarks() {
     return remarks;
   }
@@ -221,7 +240,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.remarks = remarks;
   }
 
-  @Column(name = "cODText")
+  @Column(name = "cODText", length = 50)
   public String getcODText() {
     return cODText;
   }
@@ -230,7 +249,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.cODText = cODText;
   }
 
-  @Column(name = "shippingCode", unique = true, nullable = false)
+  @Column(name = "shippingCode", unique = true, nullable = false, length = 50)
   public String getShippingCode() {
     return shippingCode;
   }
@@ -239,7 +258,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
     this.shippingCode = shippingCode;
   }
 
-  @Column(name = "shippingCodeText")
+  @Column(name = "shippingCodeText", length = 50)
   public String getShippingCodeText() {
     return shippingCodeText;
   }
@@ -274,7 +293,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
         ", orderType='" + orderType + '\'' +
         ", zipCodeArea='" + zipCodeArea + '\'' +
         ", salesOrderNum='" + salesOrderNum + '\'' +
-        ", orderNumber='" + orderNumber.getOrderId() + '\'' +
+        ", orderNumber='" + orderNumber + '\'' +
         ", packDate=" + packDate +
         ", despatchRemarks='" + despatchRemarks + '\'' +
         ", remarks='" + remarks + '\'' +

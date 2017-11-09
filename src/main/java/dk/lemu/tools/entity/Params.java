@@ -9,26 +9,20 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "Params.findByUnit", query = "SELECT object(o) FROM Params o WHERE o.unit = :unit")
+    @NamedQuery(name = "Params.findByParms", query = "SELECT object(o) FROM Params o WHERE o.parms = :parms")
 })
 @Entity
-@Table(name = "Params", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "Params",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "parms"),
+        @Index(columnList = "id, parms")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Params extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String unit;
-
-
-
-
-
+  private String parms; //0
+  private String value; //1
 
 
   public Params() {
@@ -36,7 +30,8 @@ public class Params extends AbstractEntity implements Serializable {
   }
 
   public Params(List<String> list) throws Exception {
-
+    this.setParms(list.get(0));
+    this.setValues(list.get(1));
 
   }
 
@@ -52,12 +47,31 @@ public class Params extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public String getUnit() {
-    return unit;
+  @Column(name = "parms", unique = true, length = 50)
+  public String getParms() {
+    return parms;
   }
 
-  public void setUnit(String unit) {
-    this.unit = unit;
+  public void setParms(String parms) {
+    this.parms = parms;
+  }
+
+  @Column(name = "value", length = 50)
+  public String getValues() {
+    return value;
+  }
+
+  public void setValues(String values) {
+    this.value = value;
+  }
+
+  @Override
+  public String toString() {
+    return "Params{" +
+        "id=" + id +
+        ", parms='" + parms + '\'' +
+        ", value='" + value + '\'' +
+        '}';
   }
 }
 

@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class UserDAO extends GenericDAOImplementation <User, Long>{
+public class UserDAO extends GenericDAOImplementation<User, Long> {
 
   @Override
   public void saveOrUpdate(User entity) throws Exception {
-    User candidate = findByItem(entity.getUnit());
+    User candidate = findByUserName(entity.getUsername());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class UserDAO extends GenericDAOImplementation <User, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<User> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (User l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class UserDAO extends GenericDAOImplementation <User, Long>{
     commit();
   }
 
-  public User findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("User.findByUnit");
-    query.setParameter("unit", unit);
+  public User findByUserName(String username) {
+    Query query = currentSession().getNamedQuery("User.findByUserName");
+    query.setParameter("username", username);
     return (User) query.uniqueResult();
   }
 }

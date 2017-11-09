@@ -5,7 +5,7 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class ContainerSizeDAO extends GenericDAOImplementation <ContainerSize, Long>{
+public class ContainerSizeDAO extends GenericDAOImplementation<ContainerSize, Long> {
 
   @Override
   public void saveOrUpdate(ContainerSize entity) throws Exception {
@@ -20,11 +20,11 @@ public class ContainerSizeDAO extends GenericDAOImplementation <ContainerSize, L
 
   @Override
   public void multiSaveOrUpdate(Collection<ContainerSize> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (ContainerSize l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();

@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
+public class LMGSSCCDAO extends GenericDAOImplementation<LMGSSCC, Long> {
 
   @Override
   public void saveOrUpdate(LMGSSCC entity) throws Exception {
-    LMGSSCC candidate = findByItem(entity.getUnit());
+    LMGSSCC candidate = findBySSCC(entity.getSscc());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
 
   @Override
   public void multiSaveOrUpdate(Collection<LMGSSCC> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (LMGSSCC l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class LMGSSCCDAO extends GenericDAOImplementation <LMGSSCC, Long>{
     commit();
   }
 
-  public LMGSSCC findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("LMGSSCC.findByUnit");
-    query.setParameter("unit", unit);
+  public LMGSSCC findBySSCC(String sscc) {
+    Query query = currentSession().getNamedQuery("LMGSSCC.findBySSCC");
+    query.setParameter("sscc", sscc);
     return (LMGSSCC) query.uniqueResult();
   }
 }

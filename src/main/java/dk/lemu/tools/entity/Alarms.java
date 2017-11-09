@@ -12,9 +12,7 @@ import java.util.List;
     @NamedQuery(name = "Alarms.findByUnit", query = "SELECT object(o) FROM Alarms o WHERE o.unit = :unit")
 })
 @Entity
-@Table(name = "Alarms", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "Alarms",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "unit"),
@@ -26,17 +24,12 @@ public class Alarms extends AbstractEntity implements Serializable {
   private String unit;
 
 
-
-
-
-
-
   public Alarms() {
 
   }
 
   public Alarms(List<String> list) throws Exception {
-
+    setUnit(list.toString());
 
   }
 

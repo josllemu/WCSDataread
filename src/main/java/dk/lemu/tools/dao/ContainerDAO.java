@@ -35,7 +35,7 @@ public class ContainerDAO extends GenericDAOImplementation<Container, Long> {
       }
     }
     if (count % 20 != 0)
-    commit();
+      commit();
   }
 
   public Container findByContainer(String containerId) {

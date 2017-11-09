@@ -1,5 +1,6 @@
 package dk.lemu.tools.entity;
 
+import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,26 +10,21 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "MoveJobDesc.findByUnit", query = "SELECT object(o) FROM MoveJobDesc o WHERE o.unit = :unit")
+    @NamedQuery(name = "MoveJobDesc.findByMoveJob", query = "SELECT object(o) FROM MoveJobDesc o WHERE o.moveJob = :moveJob")
 })
 @Entity
-@Table(name = "MoveJobDesc", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "unit")},
+@Table(name = "MoveJobDesc",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "unit"),
-        @Index(columnList = "id, unit")})
+        @Index(columnList = "moveJob"),
+        @Index(columnList = "id, moveJob")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class MoveJobDesc extends AbstractEntity implements Serializable {
 
   private Long id;
-  private String unit;
-
-
-
-
-
+  private String moveJob; //0
+  private Integer jobNo; //1
+  private String description; //2
 
 
   public MoveJobDesc() {
@@ -36,7 +32,9 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
   }
 
   public MoveJobDesc(List<String> list) throws Exception {
-
+    this.setMoveJob(list.get(0));
+    this.setJobNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
+    this.setDescription(list.get(2));
 
   }
 
@@ -52,12 +50,42 @@ public class MoveJobDesc extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  public String getUnit() {
-    return unit;
+  @Column(name = "moveJob", unique = true, nullable = false, length = 50)
+  public String getMoveJob() {
+    return moveJob;
   }
 
-  public void setUnit(String unit) {
-    this.unit = unit;
+  public void setMoveJob(String moveJob) {
+    this.moveJob = moveJob;
   }
+
+  @Column(name = "jobNo")
+  public Integer getJobNo() {
+    return jobNo;
+  }
+
+  public void setJobNo(Integer jobNo) {
+    this.jobNo = jobNo;
+  }
+
+  @Column(name = "description", length = 50)
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  @Override
+  public String toString() {
+    return "MoveJobDesc{" +
+        "id=" + id +
+        ", moveJob='" + moveJob + '\'' +
+        ", jobNo=" + jobNo +
+        ", description='" + description + '\'' +
+        '}';
+  }
+
 }
 

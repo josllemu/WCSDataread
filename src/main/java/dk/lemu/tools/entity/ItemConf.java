@@ -1,7 +1,5 @@
 package dk.lemu.tools.entity;
 
-import dk.lemu.tools.dao.ConfigurationCodeDAO;
-import dk.lemu.tools.dao.ItemDAO;
 import dk.lemu.tools.filehandler.TypeParser;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -15,20 +13,18 @@ import java.util.List;
     @NamedQuery(name = "ItemConf.findbyItem", query = "SELECT object(ic) FROM ItemConf ic WHERE ic.item = :item_id")
 })
 @Entity
-@Table(name = "itemconf", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_id")},
+@Table(name = "ItemConf",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "id, item_id")})
+        @Index(columnList = "item"),
+        @Index(columnList = "id, item")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ItemConf extends AbstractEntity implements Serializable {
 
   private Long id;
-  private Item item; //0
+  private String item; //0
   private String client_code; //1
-  private ConfigurationCode itemConf; //2
+  private String itemConf; //2
   private String description; //3
   private String subConf; //4
   private Integer subFactor = 0; //5
@@ -59,18 +55,11 @@ public class ItemConf extends AbstractEntity implements Serializable {
   }
 
   public ItemConf(List<String> list) throws Exception {
-    ItemDAO itemDAO = new ItemDAO();
-    ConfigurationCodeDAO configurationCodeDAO = new ConfigurationCodeDAO();
-    ConfigurationCode configurationCode = configurationCodeDAO.findByConfigurationCode(list.get(2));
-    if (configurationCode == null) {
-      configurationCode = new ConfigurationCode();
-      configurationCode.setCode(list.get(2));
-      configurationCodeDAO.saveOrUpdate(configurationCode);
-    }
 
-    this.setItem(itemDAO.findByItemCode(list.get(0)));
+
+    this.setItem(list.get(0));
     this.setClient_code(list.get(1));
-    this.setItemConf(configurationCode);
+    this.setItemConf(list.get(2));
     this.setDescription(list.get(3));
     this.setSubConf(list.get(4));
     this.setSubFactor((Integer) TypeParser.fromCSVFile(Integer.class, list.get(5)));
@@ -110,17 +99,16 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
-  public Item getItem() {
+  @Column(name = "item", unique = true, nullable = false, length = 50)
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
-  @Column(name = "client_code", nullable = false)
+  @Column(name = "client_code", nullable = false, length = 50)
   public String getClient_code() {
     return client_code;
   }
@@ -129,13 +117,12 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.client_code = client_code;
   }
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "configurationcode_id", nullable = false)
-  public ConfigurationCode getItemConf() {
+  @Column(name = "itemConf", nullable = false, length = 50)
+  public String getItemConf() {
     return itemConf;
   }
 
-  public void setItemConf(ConfigurationCode itemConf) {
+  public void setItemConf(String itemConf) {
     this.itemConf = itemConf;
   }
 
@@ -148,7 +135,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.serialNumReqd = serialNumReqd;
   }
 
-  @Column(name = "velocity_code")
+  @Column(name = "velocity_code", length = 50)
   public String getVelocity_code() {
     return velocity_code;
   }
@@ -157,7 +144,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.velocity_code = velocity_code;
   }
 
-  @Column(name = "barcode", nullable = false)
+  @Column(name = "barcode", nullable = false, length = 50)
   public String getBarcode() {
     return barcode;
   }
@@ -211,7 +198,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.measured_qty = measured_qty;
   }
 
-  @Column(name = "barcode2")
+  @Column(name = "barcode2", length = 50)
   public String getBarcode2() {
     return barcode2;
   }
@@ -220,7 +207,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode2 = barcode2;
   }
 
-  @Column(name = "barcode3")
+  @Column(name = "barcode3", length = 50)
   public String getBarcode3() {
     return barcode3;
   }
@@ -229,7 +216,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode3 = barcode3;
   }
 
-  @Column(name = "barcode4")
+  @Column(name = "barcode4", length = 50)
   public String getBarcode4() {
     return barcode4;
   }
@@ -238,7 +225,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.barcode4 = barcode4;
   }
 
-  @Column(name = "description")
+  @Column(name = "description", length = 100)
   public String getDescription() {
     return description;
   }
@@ -247,7 +234,7 @@ public class ItemConf extends AbstractEntity implements Serializable {
     this.description = description;
   }
 
-  @Column(name = "subConf")
+  @Column(name = "subConf", length = 10)
   public String getSubConf() {
     return subConf;
   }
@@ -359,9 +346,9 @@ public class ItemConf extends AbstractEntity implements Serializable {
   public String toString() {
     return "ItemConf{" +
         "id=" + id +
-        ", item=" + (item != null ? item.getItem_code() : null) +
+        ", item='" + item + '\'' +
         ", client_code='" + client_code + '\'' +
-        ", itemConf=" + (itemConf != null ? itemConf.getCode() : null) +
+        ", itemConf='" + itemConf + '\'' +
         ", description='" + description + '\'' +
         ", subConf='" + subConf + '\'' +
         ", subFactor=" + subFactor +
@@ -388,5 +375,4 @@ public class ItemConf extends AbstractEntity implements Serializable {
         ", barcode4='" + barcode4 + '\'' +
         '}';
   }
-
 }

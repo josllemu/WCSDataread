@@ -15,19 +15,17 @@ import java.util.List;
     @NamedQuery(name = "PickCount.findbyItem", query = "SELECT object(pc) FROM PickCount pc WHERE pc.item = :item_id")
 })
 @Entity
-@Table(name = "PickCount", uniqueConstraints = {
-    @UniqueConstraint(columnNames = "id"),
-    @UniqueConstraint(columnNames = "item_id")},
+@Table(name = "PickCount",
     indexes = {
         @Index(columnList = "id"),
-        @Index(columnList = "item_id"),
-        @Index(columnList = "id, item_id")})
+        @Index(columnList = "item"),
+        @Index(columnList = "id, item")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PickCount extends AbstractEntity implements Serializable {
 
   private Long id;
   private String clientCode; //0
-  private Item item; //1
+  private String item; //1
   private Date lastUpdateTime; //3
   private Integer month1; //4
   private Integer month2; //5
@@ -41,8 +39,8 @@ public class PickCount extends AbstractEntity implements Serializable {
   public PickCount(List<String> list) throws Exception {
     ItemDAO itemDAO = new ItemDAO();
 
-    this.setItem(itemDAO.findByItemCode(list.get(0)));
-    this.setClientCode(list.get(1));
+    this.setItem(list.get(1));
+    this.setClientCode(list.get(0));
     this.setLastUpdateTime((Date) TypeParser.fromCSVFile(Date.class, list.get(2)));
     this.setMonth1((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
     this.setMonth2((Integer) TypeParser.fromCSVFile(Integer.class, list.get(4)));
@@ -62,17 +60,16 @@ public class PickCount extends AbstractEntity implements Serializable {
     this.id = id;
   }
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "item_id")
-  public Item getItem() {
+  @Column(name = "item", unique = true, nullable = false, length = 50)
+  public String getItem() {
     return item;
   }
 
-  public void setItem(Item item) {
+  public void setItem(String item) {
     this.item = item;
   }
 
-  @Column(name = "clientcode", nullable = false)
+  @Column(name = "clientcode", nullable = false, length = 50)
   public String getClientCode() {
     return clientCode;
   }
@@ -122,7 +119,7 @@ public class PickCount extends AbstractEntity implements Serializable {
     return "PickCount{" +
         "id=" + id +
         ", clientCode='" + clientCode + '\'' +
-        ", item=" + item.getItem_code() +
+        ", item='" + item + '\'' +
         ", lastUpdateTime=" + lastUpdateTime +
         ", month1=" + month1 +
         ", month2=" + month2 +

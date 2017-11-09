@@ -5,11 +5,11 @@ import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class MHEErrorDescDAO extends GenericDAOImplementation <MHEErrorDesc, Long>{
+public class MHEErrorDescDAO extends GenericDAOImplementation<MHEErrorDesc, Long> {
 
   @Override
   public void saveOrUpdate(MHEErrorDesc entity) throws Exception {
-    MHEErrorDesc candidate = findByItem(entity.getUnit());
+    MHEErrorDesc candidate = findByDescription(entity.getDescription());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -20,11 +20,11 @@ public class MHEErrorDescDAO extends GenericDAOImplementation <MHEErrorDesc, Lon
 
   @Override
   public void multiSaveOrUpdate(Collection<MHEErrorDesc> entities) throws Exception {
-    int count=0;
+    int count = 0;
     for (MHEErrorDesc l : entities) {
 
       saveOrUpdate(l);
-      if ( ++count % 50 == 0 ) {
+      if (++count % 50 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();
@@ -34,9 +34,9 @@ public class MHEErrorDescDAO extends GenericDAOImplementation <MHEErrorDesc, Lon
     commit();
   }
 
-  public MHEErrorDesc findByItem(String unit) {
-    Query query = currentSession().getNamedQuery("MHEErrorDesc.findByUnit");
-    query.setParameter("unit", unit);
+  public MHEErrorDesc findByDescription(String description) {
+    Query query = currentSession().getNamedQuery("MHEErrorDesc.findByDescription");
+    query.setParameter("description", description);
     return (MHEErrorDesc) query.uniqueResult();
   }
 }
