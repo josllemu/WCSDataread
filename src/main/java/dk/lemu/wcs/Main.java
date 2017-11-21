@@ -59,13 +59,20 @@ public class Main {
   private static Long folderSize = 0L;
   private static Logging logger;
 
+  private static final String pathSep = System.getProperty("file.separator");
 
   public static void main(String[] args) throws Exception {
     System.setProperty("java.util.logging.SimpleFormatter.format",
         "%1$tF %1$tT %4$s %5$s%6$s%n");
-    HibernateUtil.initialize(args);
-    logger = new Logging();
+    if (args.length == 3) {
+      HibernateUtil.initialize(args);
+    } else {
+      HibernateUtil.initialize(null);
+    }
 
+
+    logger = new Logging();
+    int countRun = 1;
     try {
 
       ConfigDAO configDAO = new ConfigDAO();
@@ -74,52 +81,92 @@ public class Main {
       String folder = getPath(config);
       while (folder != null) {
 
-        String path = config.getPath() + "\\" + folder + "\\";
+        String path = config.getPath() + pathSep + folder + pathSep;
 
         Long start = System.currentTimeMillis();
         Long fullRecords = 0L;
+        Integer restartValue = getRestartValue(config);
+        logger.log("restart value: " + restartValue);
 
+        if (restartValue <= 1)
         fullRecords += fileHandling(alarmsFileName, path);
+        if (restartValue <= 2)
         fullRecords += fileHandling(contSizeFileName, path);
+        if (restartValue <= 3)
         fullRecords += fileHandling(contTypeFileName, path);
+        if (restartValue <= 4)
         fullRecords += fileHandling(containerFileName, path);
+        if (restartValue <= 5)
         fullRecords += fileHandling(customerLabelFileName, path);
+        if (restartValue <= 6)
         fullRecords += fileHandling(emptyContainerFileName, path);
+        if (restartValue <= 7)
         fullRecords += fileHandling(itemFileName, path);
+        if (restartValue <= 8)
         fullRecords += fileHandling(itemConfFileName, path);
+        if (restartValue <= 9)
         fullRecords += fileHandling(itemExtFileName, path);
+        if (restartValue <= 10)
         fullRecords += fileHandling(lmgSSCCFileName, path);
+        if (restartValue <= 11)
         fullRecords += fileHandling(locationFileName, path);
+        if (restartValue <= 12)
         fullRecords += fileHandling(mheErrorDescFileName, path);
+        if (restartValue <= 13)
         fullRecords += fileHandling(mheErrorsFileName, path);
+        if (restartValue <= 14)
         fullRecords += fileHandling(mheEventFileName, path);
+        if (restartValue <= 15)
         fullRecords += fileHandling(mheInfoFileName, path);
-        fullRecords += fileHandling(movementsFileName, path);
-        fullRecords += fileHandling(operatorEventFileName, path);
-        fullRecords += fileHandling(paramsFileName, path);
-        fullRecords += fileHandling(partnerAddressFileName, path);
-        fullRecords += fileHandling(partnerInfoFileName, path);
+        if (restartValue <= 16)
         fullRecords += fileHandling(moveJobDescFileName, path);
-
+        if (restartValue <= 17)
+        fullRecords += fileHandling(movementsFileName, path);
+        if (restartValue <= 18)
+        fullRecords += fileHandling(operatorEventFileName, path);
+        if (restartValue <= 19)
+        fullRecords += fileHandling(paramsFileName, path);
+        if (restartValue <= 20)
+        fullRecords += fileHandling(partnerAddressFileName, path);
+        if (restartValue <= 21)
+        fullRecords += fileHandling(partnerInfoFileName, path);
+        if (restartValue <= 22)
         fullRecords += fileHandling(pickCategoryFileName, path);
-        fullRecords += fileHandling(pickReqFileName, path);
-        fullRecords += fileHandling(psmDataFileName, path);
+        if (restartValue <= 23)
         fullRecords += fileHandling(pickCountFileName, path);
+        if (restartValue <= 24)
+        fullRecords += fileHandling(pickReqFileName, path);
+        if (restartValue <= 25)
+        fullRecords += fileHandling(psmDataFileName, path);
+        if (restartValue <= 26)
         fullRecords += fileHandling(putawayFileName, path);
+        if (restartValue <= 27)
         fullRecords += fileHandling(replenQtyFileName, path);
+        if (restartValue <= 28)
         fullRecords += fileHandling(stockFileName, path);
+        if (restartValue <= 29)
         fullRecords += fileHandling(stockAssemblyFileName, path);
+        if (restartValue <= 30)
         fullRecords += fileHandling(stockReqFileName, path);
+        if (restartValue <= 31)
         fullRecords += fileHandling(stockReq2FileName, path);
-        //
-        fullRecords += fileHandling(usersFileName, path);
-        fullRecords += fileHandling(wmsOrderLineFileName, path);
+        if (restartValue <= 32)
         fullRecords += fileHandling(stockSpreadFileName, path);
+        if (restartValue <= 33)
         fullRecords += fileHandling(supplyFileName, path);
+        if (restartValue <= 34)
+        fullRecords += fileHandling(usersFileName, path);
+        if (restartValue <= 35)
         fullRecords += fileHandling(wcsAllocPriorityFileName, path);
+        if (restartValue <= 36)
         fullRecords += fileHandling(wcsAllocZoneWtFileName, path);
+        if (restartValue <= 37)
         fullRecords += fileHandling(wmsOrderFileName, path);
+        if (restartValue <= 38)
+        fullRecords += fileHandling(wmsOrderLineFileName, path);
+        if (restartValue <= 39)
         fullRecords += fileHandling(workstationFileName, path);
+        if (restartValue <= 40)
         fullRecords += fileHandling(zonesFileName, path);
 
         Long end = System.currentTimeMillis();
@@ -137,6 +184,7 @@ public class Main {
         logDAO.saveOrUpdate(log);
 
         config.setFolder(folder);
+        config.setRestartPoint(null);
         configDAO.saveOrUpdate(config);
 
         logDAO.commit();
@@ -155,7 +203,13 @@ public class Main {
         logger.log("Last run took: " + (log.getRunTime() / 1000L));
         logger.log("Num linies on last run: " + log.getNumLines());
         logger.log("------------------------------");
+
         folder = getPath(config);
+        if (countRun == 5) {
+          folder = null;
+        }
+        countRun++;
+
       }
     } catch (Exception e) {
       logger.log(e);
@@ -192,14 +246,14 @@ public class Main {
   }
 
   private static boolean doesFolderExist(String newFolder, String path) {
-    File file = new File("\\" + path + "\\" + newFolder + "\\");
+    File file = new File(path + pathSep + newFolder + pathSep);
     logger.log("file path: " + file.toString());
     return file.isDirectory();
 
   }
 
   private static Long fileHandling(String type, String path) throws Exception {
-    Long records;
+    Long records = 0L;
     Collection<File> files = new ArrayList<>();
     addTree(path, type, files);
     records = fileHandler(files);
@@ -250,26 +304,48 @@ public class Main {
     WorkStationDAO workStationDAO = new WorkStationDAO();
     ZoneDAO zoneDAO = new ZoneDAO();
     StockHistDAO stockHistDAO = new StockHistDAO();
+    CustomerLabelHistDAO customerLabelHistDAO = new CustomerLabelHistDAO();
+    OperatorEventHistDAO operatorEventHistDAO = new OperatorEventHistDAO();
+    LMGSSCCHISTDAO lmgssccHistDAO = new LMGSSCCHISTDAO();
+    WMSOrderHistDAO wmsOrderHistDAO = new WMSOrderHistDAO();
+    SupplyHistDAO supplyHistDAO = new SupplyHistDAO();
 
 
     Long fullCounter = 0L;
     for (File file : files) {
+      if (file.getName().matches(stockFileName)) {
+        logger.log("num records deleted from Stock: " + stockDAO.deleteAll());
+      } else if (file.getName().matches(customerLabelFileName)) {
+        logger.log("num records deleted from customerlabel: " + customerLabelDAO.deleteAll());
+      } else if (file.getName().matches(operatorEventFileName)) {
+        logger.log("num records deleted from Operator event: " + operatorEventDAO.deleteAll());
+      } else if (file.getName().matches(lmgSSCCFileName)) {
+        logger.log("num records deleted from lmgSSCC: " + lmgssccdao.deleteAll());
+      } else if (file.getName().matches(supplyFileName)) {
+        logger.log("num records deleted from supply: " + supplyDAO.deleteAll());
+      } else if (file.getName().matches(wmsOrderFileName)) {
+        logger.log("num records deleted from order: " + wmsOrderDAO.deleteAll());
+      }
+
 
       BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "Windows-1252"), 1024 * 8192);
       String line = null;
       Integer counter = 0;
       Long startTime = System.currentTimeMillis();
       //could be an easier way to do this
+
       Collection<Alarms> alarmsCollection = new ArrayList<>();
       Collection<Container> containers = new ArrayList<>();
       Collection<ContainerSize> containerSizes = new ArrayList<>();
       Collection<ContainerType> types = new ArrayList<>();
       Collection<CustomerLabel> customerLabels = new ArrayList<>();
+      Collection<CustomerLabelHist> customerLabelHists = new ArrayList<>();
       Collection<EmptyContainer> emptyContainers = new ArrayList<>();
       Collection<ItemConf> itemConfs = new ArrayList<>();
       Collection<Item> items = new ArrayList<>();
       Collection<ItemExt> itemExts = new ArrayList<>();
       Collection<LMGSSCC> lmgssccs = new ArrayList<>();
+      Collection<LMGSSCCHist> lmgssccHists = new ArrayList<>();
       Collection<Location> locations = new ArrayList<>();
       Collection<MHEError> mheErrors = new ArrayList<>();
       Collection<MHEErrorDesc> mheErrorDescs = new ArrayList<>();
@@ -278,6 +354,7 @@ public class Main {
       Collection<MoveJobDesc> moveJobDescs = new ArrayList<>();
       Collection<Movements> movementsCollection = new ArrayList<>();
       Collection<OperatorEvent> operatorEvents = new ArrayList<>();
+      Collection<OperatorEventHist> operatorEventHists = new ArrayList<>();
       Collection<Params> paramsCollection = new ArrayList<>();
       Collection<PartnerAddress> partnerAddresses = new ArrayList<>();
       Collection<PartnerInfo> partnerInfos = new ArrayList<>();
@@ -294,10 +371,12 @@ public class Main {
       Collection<StockReq2> stockReq2s = new ArrayList<>();
       Collection<StockSpread> stockSpreads = new ArrayList<>();
       Collection<Supply> supplies = new ArrayList<>();
+      Collection<SupplyHist> supplyHists = new ArrayList<>();
       Collection<User> users = new ArrayList<>();
       Collection<WCSAllocPriority> wcsAllocPriorities = new ArrayList<>();
       Collection<WCSAllocZoneWT> wcsAllocZoneWTS = new ArrayList<>();
       Collection<WMSOrder> wmsOrders = new ArrayList<>();
+      Collection<WMSOrderHist> wmsOrderHists = new ArrayList<>();
       Collection<WMSOrderLine> wmsOrderLines = new ArrayList<>();
       Collection<WorkStation> workStations = new ArrayList<>();
       Collection<Zone> zones = new ArrayList<>();
@@ -314,7 +393,7 @@ public class Main {
         }
 
         if (counter % 250 == 0) {
-          logger.log("number: " + counter + ", time running: " + ((System.currentTimeMillis() - startTime) / 1000L));
+          logger.log("file: " + file.getName() + " - number: " + counter + ", time running: " + ((System.currentTimeMillis() - startTime) / 1000L));
         }
 
         try {
@@ -356,12 +435,18 @@ public class Main {
             }
           } else if (file.getName().matches(customerLabelFileName)) {
             CustomerLabel c = new CustomerLabel(list);
+            CustomerLabelHist cHist = new CustomerLabelHist(list);
             if (!customerLabels.contains(c)) {
               customerLabels.add(c);
+            }
+            if (!customerLabelHists.contains(cHist)) {
+              customerLabelHists.add(cHist);
             }
             if (counter % 250 == 0) {
               customerLabelDAO.multiSaveOrUpdate(customerLabels);
               customerLabels = new ArrayList<>();
+              customerLabelHistDAO.multiSaveOrUpdate(customerLabelHists);
+              customerLabelHists = new ArrayList<>();
             }
           } else if (file.getName().matches(emptyContainerFileName)) {
             EmptyContainer c = new EmptyContainer(list);
@@ -401,12 +486,18 @@ public class Main {
             }
           } else if (file.getName().matches(lmgSSCCFileName)) {
             LMGSSCC c = new LMGSSCC(list);
+            LMGSSCCHist cHist = new LMGSSCCHist(list);
             if (!lmgssccs.contains(c)) {
               lmgssccs.add(c);
+            }
+            if (!lmgssccHists.contains(cHist)) {
+              lmgssccHists.add(cHist);
             }
             if (counter % 250 == 0) {
               lmgssccdao.multiSaveOrUpdate(lmgssccs);
               lmgssccs = new ArrayList<>();
+              lmgssccHistDAO.multiSaveOrUpdate(lmgssccHists);
+              lmgssccHists = new ArrayList<>();
             }
           } else if (file.getName().matches(locationFileName)) {
             Location c = new Location(list);
@@ -464,12 +555,18 @@ public class Main {
             }
           } else if (file.getName().matches(operatorEventFileName)) {
             OperatorEvent c = new OperatorEvent(list);
+            OperatorEventHist cHist = new OperatorEventHist(list);
             if (!operatorEvents.contains(c)) {
               operatorEvents.add(c);
+            }
+            if (!operatorEventHists.contains(cHist)) {
+              operatorEventHists.add(cHist);
             }
             if (counter % 250 == 0) {
               operatorEventDAO.multiSaveOrUpdate(operatorEvents);
               operatorEvents = new ArrayList<>();
+              operatorEventHistDAO.multiSaveOrUpdate(operatorEventHists);
+              operatorEventHists = new ArrayList<>();
             }
           } else if (file.getName().matches(paramsFileName)) {
             Params c = new Params(list);
@@ -632,12 +729,18 @@ public class Main {
             }
           } else if (file.getName().matches(supplyFileName)) {
             Supply c = new Supply(list);
+            SupplyHist cHist = new SupplyHist(list);
             if (!supplies.contains(c)) {
               supplies.add(c);
+            }
+            if (!supplyHists.contains(cHist)) {
+              supplyHists.add(cHist);
             }
             if (counter % 250 == 0) {
               supplyDAO.multiSaveOrUpdate(supplies);
               supplies = new ArrayList<>();
+              supplyHistDAO.multiSaveOrUpdate(supplyHists);
+              supplyHists = new ArrayList<>();
             }
           } else if (file.getName().matches(wcsAllocPriorityFileName)) {
             WCSAllocPriority c = new WCSAllocPriority(list);
@@ -659,12 +762,18 @@ public class Main {
             }
           } else if (file.getName().matches(wmsOrderFileName)) {
             WMSOrder c = new WMSOrder(list);
+            WMSOrderHist cHist = new WMSOrderHist(list);
             if (!wmsOrders.contains(c)) {
               wmsOrders.add(c);
+            }
+            if (!wmsOrderHists.contains(cHist)) {
+              wmsOrderHists.add(cHist);
             }
             if (counter % 250 == 0) {
               wmsOrderDAO.multiSaveOrUpdate(wmsOrders);
               wmsOrders = new ArrayList<>();
+              wmsOrderHistDAO.multiSaveOrUpdate(wmsOrderHists);
+              wmsOrderHists = new ArrayList<>();
             }
           } else if (file.getName().matches(workstationFileName)) {
             WorkStation c = new WorkStation(list);
@@ -713,6 +822,10 @@ public class Main {
         customerLabelDAO.multiSaveOrUpdate(customerLabels);
         customerLabels = new ArrayList<>();
       }
+      if (!customerLabelHists.isEmpty()) {
+        customerLabelHistDAO.multiSaveOrUpdate(customerLabelHists);
+        customerLabelHists = new ArrayList<>();
+      }
       if (!emptyContainers.isEmpty()) {
         emptyContainerDAO.multiSaveOrUpdate(emptyContainers);
         emptyContainers = new ArrayList<>();
@@ -732,6 +845,10 @@ public class Main {
       if (!lmgssccs.isEmpty()) {
         lmgssccdao.multiSaveOrUpdate(lmgssccs);
         lmgssccs = new ArrayList<>();
+      }
+      if (!lmgssccHists.isEmpty()) {
+        lmgssccHistDAO.multiSaveOrUpdate(lmgssccHists);
+        lmgssccHists = new ArrayList<>();
       }
       if (!locations.isEmpty()) {
         locationDAO.multiSaveOrUpdate(locations);
@@ -760,6 +877,10 @@ public class Main {
       if (!operatorEvents.isEmpty()) {
         operatorEventDAO.multiSaveOrUpdate(operatorEvents);
         operatorEvents = new ArrayList<>();
+      }
+      if (!operatorEventHists.isEmpty()) {
+        operatorEventHistDAO.multiSaveOrUpdate(operatorEventHists);
+        operatorEventHists = new ArrayList<>();
       }
       if (!paramsCollection.isEmpty()) {
         paramsDAO.multiSaveOrUpdate(paramsCollection);
@@ -837,6 +958,10 @@ public class Main {
         supplyDAO.multiSaveOrUpdate(supplies);
         supplies = new ArrayList<>();
       }
+      if (!supplyHists.isEmpty()) {
+        supplyHistDAO.multiSaveOrUpdate(supplyHists);
+        supplyHists = new ArrayList<>();
+      }
       if (!wcsAllocPriorities.isEmpty()) {
         wcsAllocPriorityDAO.multiSaveOrUpdate(wcsAllocPriorities);
         wcsAllocPriorities = new ArrayList<>();
@@ -848,6 +973,10 @@ public class Main {
       if (!wmsOrders.isEmpty()) {
         wmsOrderDAO.multiSaveOrUpdate(wmsOrders);
         wmsOrders = new ArrayList<>();
+      }
+      if (!wmsOrderHists.isEmpty()) {
+        wmsOrderHistDAO.multiSaveOrUpdate(wmsOrderHists);
+        wmsOrderHists = new ArrayList<>();
       }
       if (!workStations.isEmpty()) {
         workStationDAO.multiSaveOrUpdate(workStations);
@@ -895,5 +1024,145 @@ public class Main {
         }
       }
     }
+  }
+
+  private static Integer getRestartValue(Config config) {
+    Integer restartValue = 0;
+
+
+    if (config.getRestartPoint() == null) {
+      return restartValue;
+    }
+
+    String restartPoint = config.getRestartPoint() != null ? config.getRestartPoint().replace(".dat.extract", "") : null;
+
+
+    switch (restartPoint) {
+      case "alarm":
+        restartValue = 1;
+        break;
+      case "cont_size":
+        restartValue = 2;
+        break;
+      case "cont_type":
+        restartValue = 3;
+        break;
+      case "container":
+        restartValue = 4;
+        break;
+      case "customer_label":
+        restartValue = 5;
+        break;
+      case "empty_container":
+        restartValue = 6;
+        break;
+      case "item":
+        restartValue = 7;
+        break;
+      case "item_conf":
+        restartValue = 8;
+        break;
+      case "item_ext":
+        restartValue = 9;
+        break;
+      case "lmg_sscc":
+        restartValue = 10;
+        break;
+      case "location":
+        restartValue = 11;
+        break;
+      case "mhe_error_desc":
+        restartValue = 12;
+        break;
+      case "mhe_error":
+        restartValue = 13;
+        break;
+      case "mhe_errors":
+        restartValue = 14;
+        break;
+      case "mhe_info":
+        restartValue = 15;
+        break;
+      case "move_job":
+        restartValue = 16;
+        break;
+      case "movements":
+        restartValue = 17;
+        break;
+      case "operator_event":
+        restartValue = 18;
+        break;
+      case "params":
+        restartValue = 19;
+        break;
+      case "partner_address":
+        restartValue = 20;
+        break;
+      case "partner_info":
+        restartValue = 21;
+        break;
+      case "pick_category":
+        restartValue = 22;
+        break;
+      case "pick_count":
+        restartValue = 23;
+        break;
+      case "pick_req":
+        restartValue = 24;
+        break;
+      case "pms_data":
+        restartValue = 25;
+        break;
+      case "putaway":
+        restartValue = 26;
+        break;
+      case "replen_qty":
+        restartValue = 27;
+        break;
+      case "stock":
+        restartValue = 28;
+        break;
+      case "stock_assembly":
+        restartValue = 29;
+        break;
+      case "stock_req":
+        restartValue = 30;
+        break;
+      case "stock_req2":
+        restartValue = 31;
+        break;
+      case "stock_spread":
+        restartValue = 32;
+        break;
+      case "supply":
+        restartValue = 33;
+        break;
+      case "users":
+        restartValue = 34;
+        break;
+      case "wcs_alloc_priority":
+        restartValue = 35;
+        break;
+      case "wcs_alloc_zone_wt":
+        restartValue = 36;
+        break;
+      case "wms_order":
+        restartValue = 37;
+        break;
+      case "wms_order_line":
+        restartValue = 38;
+        break;
+      case "workstation":
+        restartValue = 39;
+        break;
+      case "zones":
+        restartValue = 40;
+        break;
+      default:
+        restartValue = 0;
+        break;
+    }
+
+    return restartValue;
   }
 }

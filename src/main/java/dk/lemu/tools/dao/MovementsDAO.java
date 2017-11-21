@@ -41,4 +41,12 @@ public class MovementsDAO extends GenericDAOImplementation<Movements, Long> {
     query.setParameter("createTime", createTime);
     return (Movements) query.uniqueResult();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from Movements where createTime < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

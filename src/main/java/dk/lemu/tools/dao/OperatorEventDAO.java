@@ -9,13 +9,13 @@ public class OperatorEventDAO extends GenericDAOImplementation<OperatorEvent, Lo
 
   @Override
   public void saveOrUpdate(OperatorEvent entity) throws Exception {
-    OperatorEvent candidate = findByHisID(entity.getHisID());
-    if (candidate != null) {
-      entity.setId(candidate.getId());
-      currentSession().merge(entity);
-    } else {
+    //OperatorEvent candidate = findByHisID(entity.getHisID());
+    //if (candidate != null) {
+    //  entity.setId(candidate.getId());
+    //  currentSession().merge(entity);
+   // } else {
       currentSession().save(entity);
-    }
+    //}
   }
 
   @Override
@@ -38,5 +38,12 @@ public class OperatorEventDAO extends GenericDAOImplementation<OperatorEvent, Lo
     Query query = currentSession().getNamedQuery("OperatorEvent.findByHisID");
     query.setParameter("his_ID", hisID);
     return (OperatorEvent) query.uniqueResult();
+  }
+
+  public int deleteAll() throws Exception {
+    Query query = currentSession().createQuery("delete from OperatorEvent");
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
   }
 }

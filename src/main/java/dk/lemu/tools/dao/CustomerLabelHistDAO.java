@@ -1,22 +1,22 @@
 package dk.lemu.tools.dao;
 
-import dk.lemu.tools.entity.WCSAllocPriority;
+import dk.lemu.tools.entity.CustomerLabelHist;
 import org.hibernate.query.Query;
 
 import java.util.Collection;
 
-public class WCSAllocPriorityDAO extends GenericDAOImplementation<WCSAllocPriority, Long> {
+public class CustomerLabelHistDAO extends GenericDAOImplementation<CustomerLabelHist, Long> {
 
   @Override
-  public void saveOrUpdate(WCSAllocPriority entity) throws Exception {
-    //save new entity each day
+  public void saveOrUpdate(CustomerLabelHist entity) throws Exception {
     currentSession().save(entity);
   }
 
+
   @Override
-  public void multiSaveOrUpdate(Collection<WCSAllocPriority> entities) throws Exception {
+  public void multiSaveOrUpdate(Collection<CustomerLabelHist> entities) throws Exception {
     int count = 0;
-    for (WCSAllocPriority l : entities) {
+    for (CustomerLabelHist l : entities) {
 
       saveOrUpdate(l);
       if (++count % 50 == 0) {
@@ -29,12 +29,17 @@ public class WCSAllocPriorityDAO extends GenericDAOImplementation<WCSAllocPriori
     commit();
   }
 
+  public CustomerLabelHist findByShippingCode(String shippingCode) {
+    Query query = currentSession().getNamedQuery("CustomerLabel.findByShippingCode");
+    query.setParameter("shipping_Code", shippingCode);
+    return (CustomerLabelHist) query.uniqueResult();
+  }
+
   public int deleteOldPost() throws Exception {
-    Query query = currentSession().createQuery("delete from WCSAllocPriority where dbDate < :ninetyDays");
+    Query query = currentSession().createQuery("delete from CustomerLabelHist where dbDate < :ninetyDays");
     query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
     int numpost = query.executeUpdate();
     commit();
     return numpost;
   }
-
 }

@@ -24,7 +24,7 @@ public class ItemExtDAO extends GenericDAOImplementation<ItemExt, Long> {
     for (ItemExt l : entities) {
 
       saveOrUpdate(l);
-      if (++count % 50 == 0) {
+      if (++count % 20 == 0) {
         //System.out.println("chunk: " +(count/50) + " of " + (entities.size()/50) + " saved - numEntries: " + entities.size());
         //flush a batch of updates and release memory:
         currentSession().flush();

@@ -24,6 +24,7 @@ public class Config extends AbstractEntity implements Serializable {
   private String path;
   private String folder;
   private String logPath;
+  private String restartPoint;
 
   public Config() {
 
@@ -75,6 +76,27 @@ public class Config extends AbstractEntity implements Serializable {
 
   public void setLogPath(String logPath) {
     this.logPath = logPath;
+  }
+
+  @Column(name = "restartPoint", unique = true)
+  public String getRestartPoint() {
+    return restartPoint;
+  }
+
+  public void setRestartPoint(String restartPoint) {
+    this.restartPoint = restartPoint;
+  }
+
+  @Override
+  public String toString() {
+    return "Config{" +
+        "id=" + id +
+        ", configuration='" + configuration + '\'' +
+        ", path='" + path + '\'' +
+        ", folder='" + folder + '\'' +
+        ", logPath='" + logPath + '\'' +
+        ", restartPoint='" + restartPoint + '\'' +
+        '}';
   }
 }
 

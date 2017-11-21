@@ -16,6 +16,7 @@ import java.util.logging.*;
 
 public class Logging {
   private Logger logger;
+  private String pathSep = System.getProperty("file.separator");
 
   public Logging() {
 
@@ -50,7 +51,7 @@ public class Logging {
   private void initializedMessage(Config config) {
     LogDAO logDAO = new LogDAO();
 
-    Log log = logDAO.findByPath(config.getPath() + "\\" + config.getFolder() + "\\");
+    Log log = logDAO.findByPath(config.getPath() + pathSep + config.getFolder() + pathSep);
 
     log("------------------------------");
     log("Logger initialized");
@@ -86,6 +87,9 @@ public class Logging {
 
   public void log(String message) {
     logger.log(Level.INFO, message);
+  }
 
+  public void log(Integer message) {
+    logger.log(Level.INFO, "Int value: " + message);
   }
 }

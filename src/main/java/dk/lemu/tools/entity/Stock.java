@@ -11,13 +11,14 @@ import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "Stock.findByItemCodeAndContainerAndTimeReceived",
+    @NamedQuery(name = "Stock.findByUniqueConstraints",
         query = "SELECT object(s) FROM Stock s " +
-            "WHERE s.item = :itemCode AND s.container = :containerId and s.timeReceived = :receiveDate")
+            "WHERE s.item = :itemCode AND s.container = :containerId AND s.timeReceived = :receiveDate AND  s.allocRef = :allocRef " +
+            "AND s.timeCreated = :timeCreated AND s.receiptLine = :receiptLine AND s.batchRef = :batchRef AND s.sequence = :sequence")
 })
 @Entity
 @Table(name = "Stock", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"item", "container", "timeReceived", "allocRef"})
+    @UniqueConstraint(columnNames = {"item", "container", "timeReceived", "allocRef", "timeCreated", "receiptLine", "batchRef", "sequence"})
 },
     indexes = {
         @Index(columnList = "id"),
@@ -25,6 +26,7 @@ import java.util.List;
         @Index(columnList = "item"),
         @Index(columnList = "container"),
         @Index(columnList = "id, item, container, timeReceived"),
+        @Index(columnList = "item, container, timeReceived, allocRef, timeCreated, receiptLine, batchRef, sequence"),
         @Index(columnList = "id, item, container")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Stock extends AbstractEntity implements Serializable {

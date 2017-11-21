@@ -39,4 +39,12 @@ public class PickReqDAO extends GenericDAOImplementation<PickReq, Long> {
     query.setParameter("allocRef", allocRef);
     return (PickReq) query.uniqueResult();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from PickReq where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

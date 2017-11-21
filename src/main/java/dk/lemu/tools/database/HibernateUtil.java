@@ -17,6 +17,8 @@ public class HibernateUtil {
   private static final ThreadLocal session = new ThreadLocal();
 
   static {
+    System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s %5$s%6$s%n");
+
     try {
       Configuration configuration = new Configuration();
       configuration.configure("hibernate.cfg.xml");
@@ -37,17 +39,19 @@ public class HibernateUtil {
 
   public static void initialize(String[] args) {
     Logger.getLogger("WCS").info("Data base connection initialized");
+    String pathSep = System.getProperty("file.separator");
     try {
       ConfigDAO configDAO = new ConfigDAO();
       Config config = configDAO.findByConfiguration("Singleton");
 
-      if (args != null && args.length > 1 && config == null) {
-        if (config == null) {
-          config = new Config();
-        }
+      if (args != null && args.length <= 2 && config == null) {
+        config = new Config();
+
         config.setPath(args[0]);
         config.setFolder(args[1]);
-        config.setLogPath(args[2]);
+        String logPath = args.length == 3 ? args[2] : System.getProperty("user.home") + pathSep +"temp"+ pathSep +"log" + pathSep;
+        config.setLogPath(logPath);
+        config.setRestartPoint(null);
         configDAO.saveOrUpdate(config);
         configDAO.commit();
       }

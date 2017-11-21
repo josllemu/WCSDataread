@@ -39,4 +39,11 @@ public class SupplyDAO extends GenericDAOImplementation<Supply, Long> {
     query.setParameter("orderId", orderId);
     return (Supply) query.uniqueResult();
   }
+
+  public int deleteAll() throws Exception {
+    Query query = currentSession().createQuery("delete from Supply");
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

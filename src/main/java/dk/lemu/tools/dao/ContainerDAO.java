@@ -43,4 +43,12 @@ public class ContainerDAO extends GenericDAOImplementation<Container, Long> {
     query.setParameter("containerId", containerId);
     return (Container) query.uniqueResult();
   }
+
+  public Integer deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from Container where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

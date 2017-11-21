@@ -39,4 +39,12 @@ public class StockReqDAO extends GenericDAOImplementation<StockReq, Long> {
     query.setParameter("allocRef", allocRef);
     return (StockReq) query.uniqueResult();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from StockReq where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

@@ -9,7 +9,7 @@ public class LMGSSCCDAO extends GenericDAOImplementation<LMGSSCC, Long> {
 
   @Override
   public void saveOrUpdate(LMGSSCC entity) throws Exception {
-    LMGSSCC candidate = findBySSCC(entity.getSscc());
+    LMGSSCC candidate = findBySSCCANDContainer(entity.getSscc(), entity.getContainer(), entity.getSequenceNumber());
     if (candidate != null) {
       entity.setId(candidate.getId());
       currentSession().merge(entity);
@@ -34,9 +34,18 @@ public class LMGSSCCDAO extends GenericDAOImplementation<LMGSSCC, Long> {
     commit();
   }
 
-  public LMGSSCC findBySSCC(String sscc) {
-    Query query = currentSession().getNamedQuery("LMGSSCC.findBySSCC");
+  public LMGSSCC findBySSCCANDContainer(String sscc, String container, Integer seqNo) {
+    Query query = currentSession().getNamedQuery("LMGSSCC.findBySSCCANDContainer");
     query.setParameter("sscc", sscc);
+    query.setParameter("container", container);
+    query.setParameter("sequenceNumber", seqNo);
     return (LMGSSCC) query.uniqueResult();
+  }
+
+  public int deleteAll() throws Exception {
+    Query query = currentSession().createQuery("delete from LMGSSCC");
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
   }
 }

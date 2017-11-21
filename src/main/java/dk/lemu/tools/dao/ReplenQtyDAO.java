@@ -39,4 +39,12 @@ public class ReplenQtyDAO extends GenericDAOImplementation<ReplenQty, Long> {
     query.setParameter("allocRef", allocRef);
     return (ReplenQty) query.uniqueResult();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from ReplenQty where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

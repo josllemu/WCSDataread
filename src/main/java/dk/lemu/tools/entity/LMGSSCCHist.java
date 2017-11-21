@@ -10,22 +10,19 @@ import java.io.Serializable;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "LMGSSCC.findBySSCCANDContainer", query = "SELECT object(o) FROM LMGSSCC o WHERE " +
-        "o.sscc = :sscc AND o.container = :container AND o.sequenceNumber = :sequenceNumber")
+    @NamedQuery(name = "LMGSSCCHist.findBySSCC", query = "SELECT object(o) FROM LMGSSCCHist o WHERE o.sscc = :sscc")
 })
 @Entity
-@Table(name = "LMGSSCC", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"container", "sscc", "sequenceNumber"})},
+@Table(name = "LMGSSCCHist",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "container"),
         @Index(columnList = "sscc"),
         @Index(columnList = "id, container"),
         @Index(columnList = "id, container, sscc"),
-        @Index(columnList = "id, container, sscc, sequenceNumber"),
         @Index(columnList = "id, sscc")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class LMGSSCC extends AbstractEntity implements Serializable {
+public class LMGSSCCHist extends AbstractEntity implements Serializable {
 
   private Long id;
   private String container; //0 //qualified ID is with running numbering, no reference to Container
@@ -33,11 +30,11 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
   private String sscc; //2 with no leading zeroes, no direct link to CustomerLabel because of this
   private Integer packageNo; //3
 
-  public LMGSSCC() {
+  public LMGSSCCHist() {
 
   }
 
-  public LMGSSCC(List<String> list) throws Exception {
+  public LMGSSCCHist(List<String> list) throws Exception {
     this.setContainer(list.get(0));
     this.setSequenceNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
     this.setSscc(list.get(2));
@@ -96,7 +93,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
 
   @Override
   public String toString() {
-    return "LMGSSCC{" +
+    return "LMGSSCCHist{" +
         "id=" + id +
         ", container='" + container + '\'' +
         ", sequenceNumber=" + sequenceNumber +
