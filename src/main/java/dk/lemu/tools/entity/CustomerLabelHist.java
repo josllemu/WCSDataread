@@ -11,20 +11,16 @@ import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
-    @NamedQuery(name = "CustomerLabel.findByShippingCode", query = "SELECT object(o) FROM CustomerLabel o WHERE " +
-        "o.seq = :seq AND o.shippingCode = :shipping_Code AND o.orderNumber = :orderNumber AND o.packDate = :packDate")
+    @NamedQuery(name = "CustomerLabelHist.findByShippingCode", query = "SELECT object(o) FROM CustomerLabelHist o WHERE o.shippingCode = :shipping_Code")
 })
 @Entity
-@Table(name = "CustomerLabel", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"seq", "shippingCode", "orderNumber", "packDate"})
-},
+@Table(name = "CustomerLabelHist",
     indexes = {
         @Index(columnList = "id"),
         @Index(columnList = "shippingCode"),
-        @Index(columnList = "seq, shippingCode, orderNumber, packDate"),
         @Index(columnList = "id, shippingCode")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class CustomerLabel extends AbstractEntity implements Serializable {
+public class CustomerLabelHist extends AbstractEntity implements Serializable {
 
   private Long id;
   private Integer seq; //0
@@ -50,11 +46,11 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
 
   private Date dbDate = new Date();
 
-  public CustomerLabel() {
+  public CustomerLabelHist() {
 
   }
 
-  public CustomerLabel(List<String> list) throws Exception {
+  public CustomerLabelHist(List<String> list) throws Exception {
 
     this.setSeq((Integer) TypeParser.fromCSVFile(Integer.class, list.get(0)));
     this.setCarrier(list.get(1));
@@ -282,7 +278,7 @@ public class CustomerLabel extends AbstractEntity implements Serializable {
 
   @Override
   public String toString() {
-    return "CustomerLabel{" +
+    return "CustomerLabelHist{" +
         "id=" + id +
         ", seq=" + seq +
         ", carrier='" + carrier + '\'' +

@@ -7,10 +7,12 @@ import org.hibernate.Transaction;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.List;
 
 public abstract class GenericDAOImplementation<T, Id extends Serializable> implements GenericDAOInterface<T, Id> {
 
+  public static Date ninetyDaysAgo = new Date(System.currentTimeMillis()-7776000000L);
 
   private static Transaction transaction;
   private Class<? extends T> daoType;

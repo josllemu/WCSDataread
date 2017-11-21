@@ -1,6 +1,7 @@
 package dk.lemu.tools.dao;
 
 import dk.lemu.tools.entity.StockSpread;
+import org.hibernate.query.Query;
 
 import java.util.Collection;
 
@@ -28,5 +29,14 @@ public class StockSpreadDAO extends GenericDAOImplementation<StockSpread, Long> 
     }
     commit();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from StockSpread where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
+
 
 }

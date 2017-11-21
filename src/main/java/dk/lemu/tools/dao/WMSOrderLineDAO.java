@@ -40,4 +40,12 @@ public class WMSOrderLineDAO extends GenericDAOImplementation<WMSOrderLine, Long
     query.setParameter("line", line);
     return (WMSOrderLine) query.uniqueResult();
   }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from WMSOrderLine where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }

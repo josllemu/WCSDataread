@@ -59,4 +59,11 @@ public class WMSOrderDAO extends GenericDAOImplementation<WMSOrder, Long> {
     query.setParameter("delNoteId", delNoteId);
     return (WMSOrder) query.uniqueResult();
   }
+
+  public int deleteAll() throws Exception {
+    Query query = currentSession().createQuery("delete from WMSOrder");
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
+  }
 }
