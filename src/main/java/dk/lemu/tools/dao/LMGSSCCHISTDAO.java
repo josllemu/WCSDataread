@@ -33,4 +33,12 @@ public class LMGSSCCHISTDAO extends GenericDAOImplementation<LMGSSCCHist, Long> 
     query.setParameter("sscc", sscc);
     return (LMGSSCCHist) query.uniqueResult();
   }
+
+    public int deleteOldPost() throws Exception {
+      Query query = currentSession().createQuery("delete from LMGSSCCHist where dbDato < :ninetyDays");
+      query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+      int numpost = query.executeUpdate();
+      commit();
+      return numpost;
+  }
 }
