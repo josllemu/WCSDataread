@@ -9,26 +9,41 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @NamedNativeQueries( {
-    @NamedNativeQuery(name = "SuperSearchKol.makePost", query = "SELECT Lev.id levID, sup.id supID, Part.id partId, Oper.id operID, it.id itID, ic.id icID, ie.id ieID, Col.id colID, SSCC.id ssccID, Sto.id stoID " +
+    @NamedNativeQuery(name = "SuperSearchKol.makePost",
+        query = "SELECT Lev.id levID, sup.id supID, Part.id partId, " +
+        "Oper.id operID, it.id itID, col.id colID, SSCC.id ssccID, Sto.id stoID " +
         "FROM WMSOrderHist Lev " +
-        "Inner Join PartnerAddress Part " +
-        "ON Lev.orderId = Part.orderID And Part.orderSUB = 'EA' " +
-        "Inner Join OperatorEventHist Oper " +
-        "ON Oper.orderNumber = Lev.orderNumber And Oper.jobType in ( 'PICK' , 'PACK' , 'FULL') " +
-        "Inner Join Item it " +
-        "ON it.item_code  = Oper.item " +
-        "Inner join ItemConf  ic " +
-        "ON it.item_code = ic.item " +
-        "Inner join ItemExt ie " +
-        "ON it.item_code = ie.item " +
-        "Inner Join StockHist Sto " +
-        "ON Sto.allocRef = Oper.allocRef " +
-        "LEFT OUTER JOIN SupplyHist sup " +
-        "ON sup.orderId = Lev.orderId AND DATE(Lev.dbDate) = DATE(sup.dbDate) " +
-        "LEFT JOIN CustomerLabelHist Col " +
-        "ON Date(Oper.timestamp) = Date(Col.packDate) AND Lev.orderNumber = Col.orderNumber " +
-        "INNER JOIN LMGSSCCHist SSCC " +
-        "ON CONVERT(SSCC.sscc, char)  = CONVERT(REGEXP_REPLACE(Col.shippingCode, '^00', ''), CHAR) ")
+            "INNER JOIN PartnerAddress Part " +
+              "ON Lev.orderId = Part.orderID And Part.orderSUB = 'EA' " +
+            "INNER JOIN OperatorEventHist Oper " +
+              "ON Oper.orderNumber = Lev.orderNumber " +
+              "AND Oper.jobType IN ( 'PICK' , 'PACK' , 'FULL') " +
+            "INNER JOIN Item it " +
+              "ON it.item_code  = Oper.item " +
+            "INNER JOIN ItemConf  ic " +
+              "ON it.item_code = ic.item " +
+            "Inner join ItemExt ie " +
+              "ON it.item_code = ie.item " +
+            "INNER JOIN StockHist Sto " +
+              "ON Sto.allocRef = Oper.allocRef " +
+                "AND (Sto.container LIKE concat(Oper.fromContainer, '%') " +
+                "OR (Oper.jobType in ('PICK', 'FULL') " +
+                  "AND (Sto.Container LIKE concat(Oper.toLocation ,'%') " +
+                  "OR Sto.qty = (Oper.fromQtyBefore - Oper.fromQtyAfter) " +
+                  "OR Sto.item = Oper.item))) " +
+            "LEFT OUTER JOIN SupplyHist sup " +
+              "ON sup.orderId = Lev.orderId AND DATE(Lev.dbDate) = DATE(sup.dbDate) " +
+            "LEFT JOIN CustomerLabelHist Col " +
+              "ON Date(Oper.timestamp) = Date(Col.packDate) AND Lev.orderNumber = Col.orderNumber " +
+              "AND RIGHT(Col.shippingCode, 18) = Oper.barcode " +
+            "LEFT OUTER JOIN LMGSSCCHist SSCC " +
+              "ON SSCC.sscc  = RIGHT(Col.shippingCode, 18) " +
+            "WHERE /*lev.dbDate < '2017-11-24 16:40' " +
+              "AND Sto.dbDate < '2017-11-24 16:40' " +
+              "AND Oper.dbDato < '2017-11-24 16:40' " +
+              "AND sup.dbDate < '2017-11-24 16:40' " +
+              "AND*/ Date(Lev.createdDate) >= DATE_ADD(CURDATE(),INTERVAL -365 DAY)" +
+            "GROUP BY Lev.orderId, Col.shippingCode, Lev.orderNumber, Oper.id, Part.orderSUB")
 })
 @NamedQueries({
     @NamedQuery(name = "SuperSearchKol.findByIds", query = "SELECT object(o) FROM SuperSearchKol o " +
@@ -89,6 +104,8 @@ public class SuperSearchKol extends AbstractEntity implements Serializable {
   private StockHist stockHist;
   private Date dbDate = new Date();
 
+  public SuperSearchKol() {}
+
 
   public SuperSearchKol(WMSOrderHist wmsOrderHist, SupplyHist supplyHist, PartnerAddress partnerAddress, OperatorEventHist operatorEventHist,
     Item item, ItemConf itemConf, ItemExt itemExt, CustomerLabelHist customerLabelHist, LMGSSCCHist lmgssccHist, StockHist stockHist) {
@@ -106,7 +123,7 @@ public class SuperSearchKol extends AbstractEntity implements Serializable {
   }
 
   public SuperSearchKol(Long levID, Long supID, Long partId, Long operID,
-                        Long itID, Long icID, Long ieID, Long colId, Long ssccID, Long stoID) {
+                        Long itID, Long colId, Long ssccID, Long stoID) {
 
     WMSOrderHistDAO wmsOrderHistDAO = new WMSOrderHistDAO();
     SupplyHistDAO supplyHistDAO =  new SupplyHistDAO();
@@ -124,8 +141,8 @@ public class SuperSearchKol extends AbstractEntity implements Serializable {
     this.partnerAddress = partnerAddressDAO.find(partId);
     this.operatorEventHist = operatorEventHistDAO.find(operID);
     this.item = itemDAO.find(itID);
-    this.itemConf = itemConfDAO.find(icID);
-    this.itemExt = itemExtDAO.find(ieID);
+    this.itemConf = itemConfDAO.findByItem(item.getItem_code());
+    this.itemExt = itemExtDAO.findByItem(item.getItem_code());
     this.customerLabelHist = colId != null ? customerLabelHistDAO.find(colId) : null;
     this.lmgssccHist = ssccID != null ? lmgsscchistdao.find(ssccID) : null;
     this.stockHist = stockHistDAO.find(stoID);
@@ -326,8 +343,8 @@ public class SuperSearchKol extends AbstractEntity implements Serializable {
 
   private String route() {
     if (customerLabelHist != null) {
-      if (customerLabelHist.getRoute().length() == 2) {
-        if (customerLabelHist.getZipCodeArea().equalsIgnoreCase("NORD")) {
+      if (customerLabelHist.getRoute() != null && customerLabelHist.getRoute().length() == 2) {
+        if (customerLabelHist.getZipCodeArea() != null && customerLabelHist.getZipCodeArea().equalsIgnoreCase("NORD")) {
           return "01" + customerLabelHist.getRoute();
         } else if (customerLabelHist.getZipCodeArea().equalsIgnoreCase("MIDT")) {
           return "02" + customerLabelHist.getRoute();

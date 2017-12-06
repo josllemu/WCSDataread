@@ -26,8 +26,6 @@ public class HibernateUtil {
 
       new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
 
-      Logger.getLogger("WCS").info(EntityScanner.scanPackages("dk.lemu.tools.entity").result().toString());
-
       sessionFactory = configuration.buildSessionFactory();
     } catch (Throwable ex) {
       Logger.getLogger("WCS").severe(ex.getMessage());
