@@ -3,8 +3,10 @@ package dk.lemu.tools.dao;
 import dk.lemu.tools.entity.SuperSearchKol;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SuperSearchKolDAO extends GenericDAOImplementation<SuperSearchKol, Long> {
 
@@ -51,14 +53,58 @@ public class SuperSearchKolDAO extends GenericDAOImplementation<SuperSearchKol, 
     return (SuperSearchKol) query.uniqueResult();
   }
 
-  public SuperSearchKol makePost() {
+  public Integer makePost() throws Exception {
+    Long start = System.currentTimeMillis();
     Query query = currentSession().getNamedNativeQuery("SuperSearchKol.makePost");
-    query.setMaxResults(1);
-    List list = query.list();
+    Long endq = System.currentTimeMillis();
 
-    System.out.println(list.toArray());
+    Logger.getLogger("WCS").info("Running search: " + (endq - start));
 
-    return null;
+
+    List<Object[]> list = query.list();
+
+    Long endR = System.currentTimeMillis();
+    Logger.getLogger("WCS").info("Running list: " + (endR - endq));
+
+    Logger.getLogger("WCS").info("Running all: " + (endR - start));
+
+
+    Collection<SuperSearchKol> posts = new ArrayList<>();
+    int counter = 0;
+    for (Object[] row : list) {
+
+      SuperSearchKol kol = new SuperSearchKol(new Long(row[0].toString()),
+          new Long(row[1].toString()),
+          new Long(row[2].toString()),
+          new Long(row[3].toString()),
+          new Long(row[4].toString()),
+          row[5] != null ? new Long(row[5].toString()) : null,
+          row[6] != null ? new Long(row[6].toString()) : null,
+          new Long(row[7].toString()));
+
+      if(!posts.contains(kol)) {
+        posts.add(kol);
+      }
+
+      if (posts.size() == 250) {
+        counter ++;
+        Logger.getLogger("WCS").info("saving records: " + (250*(counter-1)) + " to " + (250*counter) + " of (estimate) " + list.size());
+
+        multiSaveOrUpdate(posts);
+
+        posts = new ArrayList<>();
+      }
+    }
+    if (!posts.isEmpty()) {
+      multiSaveOrUpdate(posts);
+    }
+
+    Long endS = System.currentTimeMillis();
+    Logger.getLogger("WCS").info("Running list: " + (endS - endR));
+
+    Logger.getLogger("WCS").info("Running all: " + (endS - start));
+
+    return ((counter*250)+posts.size());
   }
 
   public int deleteOldPost() throws Exception {

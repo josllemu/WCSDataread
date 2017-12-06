@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 @NamedQueries({
@@ -32,6 +33,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
   private Integer sequenceNumber; //1
   private String sscc; //2 with no leading zeroes, no direct link to CustomerLabel because of this
   private Integer packageNo; //3
+  private Date dbDate = new Date();
 
   public LMGSSCC() {
 
@@ -42,6 +44,8 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
     this.setSequenceNumber((Integer) TypeParser.fromCSVFile(Integer.class, list.get(1)));
     this.setSscc(list.get(2));
     this.setPackageNo((Integer) TypeParser.fromCSVFile(Integer.class, list.get(3)));
+    this.setDbDate(new Date());
+
 
   }
 
@@ -94,6 +98,15 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
     this.packageNo = packageNo;
   }
 
+  @Column(name = "dbDate")
+  public Date getDbDate() {
+    return dbDate;
+  }
+
+  public void setDbDate(Date dbDate) {
+    this.dbDate = dbDate;
+  }
+
   @Override
   public String toString() {
     return "LMGSSCC{" +
@@ -102,6 +115,7 @@ public class LMGSSCC extends AbstractEntity implements Serializable {
         ", sequenceNumber=" + sequenceNumber +
         ", sscc='" + sscc + '\'' +
         ", packageNo=" + packageNo +
+        ", dbDate=" + dbDate +
         '}';
   }
 }

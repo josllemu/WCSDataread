@@ -31,7 +31,7 @@ public class Params extends AbstractEntity implements Serializable {
 
   public Params(List<String> list) throws Exception {
     this.setParms(list.get(0));
-    this.setValues(list.get(1));
+    this.setValue(list.get(1));
 
   }
 
@@ -57,11 +57,11 @@ public class Params extends AbstractEntity implements Serializable {
   }
 
   @Column(name = "value", length = 50)
-  public String getValues() {
+  public String getValue() {
     return value;
   }
 
-  public void setValues(String values) {
+  public void setValue(String value) {
     this.value = value;
   }
 
