@@ -1,7 +1,8 @@
 package dk.lemu.wcs;
 
-import dk.lemu.tools.dao.SuperSearchKolDAO;
+import dk.lemu.tools.dao.ConfigDAO;
 import dk.lemu.tools.database.HibernateUtil;
+import dk.lemu.tools.entity.Config;
 import dk.lemu.tools.logging.Logging;
 
 public class test {
@@ -13,20 +14,16 @@ public class test {
   public static void main(String[] args) throws Exception {
     System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s %5$s%6$s%n");
 
-    HibernateUtil.initialize(args);
+
+    HibernateUtil.initialize(null);
     logger = new Logging();
-    SuperSearchKolDAO superSearchKolDAO = new SuperSearchKolDAO();
+    ConfigDAO configDAO = new ConfigDAO();
+    Config config = configDAO.findByConfiguration("Singleton");
 
-    /*Collection<SuperSearchKol> col  = superSearchKolDAO.getAll();
-
-    for (SuperSearchKol s : col) {
-      System.out.println(s);
-    }*/
-
-
-    Integer kol1 = superSearchKolDAO.makePost();
-
-    logger.log("Amount of posts: " + kol1);
+    logger.log("Database connection successful");
+    logger.log("Config:  " + config);
+    logger.log("Config set up correctly");
+    logger.log("Everything is set to go!");
 
 
     System.exit(0);

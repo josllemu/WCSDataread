@@ -64,12 +64,8 @@ public class Main {
   public static void main(String[] args) throws Exception {
     System.setProperty("java.util.logging.SimpleFormatter.format",
         "%1$tF %1$tT %4$s %5$s%6$s%n");
-    if (args.length == 3) {
-      HibernateUtil.initialize(args);
-    } else {
-      HibernateUtil.initialize(null);
-    }
 
+    HibernateUtil.initialize(null);
 
     logger = new Logging();
     int countRun = 1;
@@ -77,7 +73,12 @@ public class Main {
 
       ConfigDAO configDAO = new ConfigDAO();
       Config config = configDAO.findByConfiguration("Singleton");
-
+      if (args.length == 1 && args[0].contains(".dat.extract")) {
+        config.setRestartPoint(args[0]);
+        configDAO.saveOrUpdate(config);
+      } else if (args.length >= 1 && !args[0].contains(".dat.extract")) {
+        throw new IllegalArgumentException("Invalid restart point: " + args[0]);
+      }
       String folder = getPath(config);
       while (folder != null) {
 
