@@ -49,6 +49,7 @@ public class CleanUpData {
   private static StockHistDAO stockHistDAO = new StockHistDAO();
   private static WMSOrderHistDAO wmsOrderHistDAO = new WMSOrderHistDAO();
   private static SupplyHistDAO supplyHistDAO = new SupplyHistDAO();
+  private static SuperSearchKolDAO superSearchKolDAO = new SuperSearchKolDAO();
 
   private static Logging logger;
 
@@ -61,7 +62,9 @@ public class CleanUpData {
     logger = new Logging();
 
     try {
-      int numpost = containerDAO.deleteOldPost();
+      int numpost = superSearchKolDAO.deleteOldPost();
+      logger.log("num post deleted: " + numpost);
+      numpost = containerDAO.deleteOldPost();
       logger.log("num post deleted: " + numpost);
       numpost = customerLabelDAO.deleteAll();
       logger.log("num post deleted: " + numpost);
@@ -97,6 +100,7 @@ public class CleanUpData {
       logger.log("num post deleted: " + numpost);
       numpost = wmsOrderLineDAO.deleteOldPost();
       logger.log("num post deleted: " + numpost);
+
     } catch (Exception e) {
       logger.log(e);
       System.exit(0);

@@ -38,11 +38,11 @@ import java.util.Date;
               "AND RIGHT(Col.shippingCode, 18) = Oper.barcode " +
             "LEFT OUTER JOIN LMGSSCCHist SSCC " +
               "ON SSCC.sscc  = RIGHT(Col.shippingCode, 18) " +
-            "WHERE /*lev.dbDate < '2017-11-24 16:40' " +
-              "AND Sto.dbDate < '2017-11-24 16:40' " +
-              "AND Oper.dbDato < '2017-11-24 16:40' " +
-              "AND sup.dbDate < '2017-11-24 16:40' " +
-              "AND*/ Date(Lev.createdDate) >= DATE_ADD(CURDATE(),INTERVAL -365 DAY)" +
+            "WHERE date(lev.dbDate) = CURDATE() " +
+              "AND date(sto.dbDate ) = CURDATE()  " +
+              "AND date(Oper.dbDato ) = CURDATE()  " +
+              "AND date(sup.dbDate ) = CURDATE()  " +
+              "AND Date(Lev.createdDate) >= DATE_ADD(CURDATE(),INTERVAL -365 DAY)" +
             "GROUP BY Lev.orderId, Col.shippingCode, Lev.orderNumber, Oper.id, Part.orderSUB")
 })
 @NamedQueries({

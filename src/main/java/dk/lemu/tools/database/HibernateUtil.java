@@ -9,6 +9,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
+import java.io.File;
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 public class HibernateUtil {
@@ -18,10 +21,17 @@ public class HibernateUtil {
 
   static {
     System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT %4$s %5$s%6$s%n");
-
+    Properties prop = new Properties();
+    String configFile = System.getProperty("configFile");
     try {
+
+      prop.load(new FileReader(configFile));
+
+      File cfg = new File(prop.getProperty("hibernate.config"));
+
       Configuration configuration = new Configuration();
-      configuration.configure("hibernate.cfg.xml");
+
+      configuration.configure(cfg.getAbsoluteFile());
       EntityScanner.scanPackages("dk.lemu.tools.entity").addTo(configuration);
 
       new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
