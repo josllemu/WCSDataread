@@ -40,7 +40,7 @@ public class LocationDAO extends GenericDAOImplementation<Location, Long> {
   }
 
   public int deleteOldPost() throws Exception {
-    Query query = currentSession().createQuery("delete from Container where dbDate < :ninetyDays");
+    Query query = currentSession().createQuery("delete from Location where dbDate < :ninetyDays");
     query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
     query.executeUpdate();
     int numpost = query.executeUpdate();

@@ -1,6 +1,7 @@
 package dk.lemu.tools.dao;
 
 import dk.lemu.tools.entity.StockHist;
+import org.hibernate.query.Query;
 
 import java.util.Collection;
 
@@ -25,6 +26,14 @@ public class StockHistDAO extends GenericDAOImplementation<StockHist, Long> {
       }
     }
     commit();
+  }
+
+  public int deleteOldPost() throws Exception {
+    Query query = currentSession().createQuery("delete from StockHist where dbDate < :ninetyDays");
+    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
+    int numpost = query.executeUpdate();
+    commit();
+    return numpost;
   }
 
 }

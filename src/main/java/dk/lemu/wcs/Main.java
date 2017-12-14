@@ -76,8 +76,8 @@ public class Main {
       if (args.length == 1 && args[0].contains(".dat.extract")) {
         config.setRestartPoint(args[0]);
         configDAO.saveOrUpdate(config);
-      } else if (args.length >= 1 && !args[0].contains(".dat.extract")) {
-        throw new IllegalArgumentException("Invalid restart point: " + args[0]);
+      } else if (args.length >= 2 && !args[0].contains(".dat.extract")) {
+        throw new IllegalArgumentException("Invalid restart point, give full filename: " + args[0]);
       }
       String folder = getPath(config);
       while (folder != null) {
