@@ -20,7 +20,7 @@ import java.util.List;
         @Index(columnList = "containerId"),
         @Index(columnList = "id, containerId")})
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class PutAway extends AbstractEntity implements Serializable {
+public class  PutAway extends AbstractEntity implements Serializable {
 
   private Long id;
   private String containerId; //0

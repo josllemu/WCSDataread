@@ -30,7 +30,7 @@ public class CustomerLabelHistDAO extends GenericDAOImplementation<CustomerLabel
   }
 
   public CustomerLabelHist findByShippingCode(String shippingCode) {
-    Query query = currentSession().getNamedQuery("CustomerLabel.findByShippingCode");
+    Query query = currentSession().getNamedQuery("CustomerLabelHist.findByShippingCode");
     query.setParameter("shipping_Code", shippingCode);
     return (CustomerLabelHist) query.uniqueResult();
   }

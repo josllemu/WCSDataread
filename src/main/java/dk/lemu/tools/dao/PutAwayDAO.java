@@ -40,11 +40,4 @@ public class PutAwayDAO extends GenericDAOImplementation<PutAway, Long> {
     return (PutAway) query.uniqueResult();
   }
 
-  public int deleteOldPost() throws Exception {
-    Query query = currentSession().createQuery("delete from PutAway where dbDate < :ninetyDays");
-    query.setParameter("ninetyDays", ninetyDaysAgo); //90 dage
-    int numpost = query.executeUpdate();
-    commit();
-    return numpost;
-  }
 }
