@@ -5,11 +5,8 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.url">jdbc:mysql://localhost:3306/jostest_ny?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Copenhagen</property>
-        <!--<property name="connection.url">jdbc:mysql://localhost:3306/josDB?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Copenhagen</property>-->
-
-        <!--<property name="connection.url">jdbc:mysql://localhost:3306/josttest_norelation?useSSL=false&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=Europe/Copenhagen</property>-->
         <property name="connection.username">root</property>
-        <property name="connection.password">jms7321</property>
+        <property name="connection.password">PASSWORD</property>
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQL55Dialect</property>
 
